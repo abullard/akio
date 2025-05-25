@@ -5,6 +5,11 @@
 When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
 Akio helps you keep track of your scripts and their descriptions, right from the terminal.
 
+## Zero Config. No Magic.
+
+Akio doesn’t try to run your project or guess what you mean.
+It just reads what’s already there and helps you navigate it faster.
+
 ## Why Akio?
 
 Sometimes you just want to know:
@@ -39,10 +44,11 @@ npx akio
 
 You’ll see a list of scripts like this:
 ```
-1. dev        — Starts the dev server with live reload
-2. build      — Builds the project for production
-3. lint       — Runs ESLint on all source files
-4. test       — Runs unit tests with coverage
+pnpm accio
+        -----
+1. test       — run vitest unit tests
+2. build      — create production build at ./dist with esbuild
+3. accio      — fetch & run script descriptions
 ```
 
 Pick a number to run it, or just use the list as a reference.
@@ -74,11 +80,6 @@ Akio is great for:
 * Open source repos with minimal docs
 * Personal projects you haven’t touched in months
 * New devs onboarding to an unfamiliar codebase
-
-## Zero Config. No Magic.
-
-Akio doesn’t try to run your project or guess what you mean.
-It just reads what’s already there and helps you navigate it faster.
 
 ## Future Plans (Maybe)
 
