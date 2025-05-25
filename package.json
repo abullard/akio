@@ -1,22 +1,24 @@
 {
-  "name": "@abullard/accio",
+  "name": "@abullard/akio",
   "version": "1.0.0",
-  "bin": "./src/index.js",
+  "bin": "./dist/index.cjs",
+  "type": "module",
   "description": "Quickly retrieve forgotten package.json script commands",
-  "main": "./src/index.js",
+  "main": "./src/index.ts",
   "scripts": {
-    "test": "vitest",
-    "build": "node ./src/build.js",
-    "accio": "npx accio"
+    "test": "vitest run",
+    "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
+    "akio": "npx akio"
   },
   "scriptDescriptions": {
     "test": "run vitest unit tests",
     "build": "create production build at ./dist with esbuild",
-    "accio": "fetch & run script descriptions"
+    "akio": "fetch & run script descriptions"
   },
   "author": "abullard",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^22.15.21",
     "esbuild": "^0.25.4",
     "vitest": "^3.1.4"
   }
