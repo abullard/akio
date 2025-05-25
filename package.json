@@ -1,0 +1,23 @@
+{
+  "name": "@abullard/accio",
+  "version": "1.0.0",
+  "bin": "./src/index.js",
+  "description": "Quickly retrieve forgotten package.json script commands",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "vitest",
+    "build": "node ./src/build.js",
+    "accio": "npx accio"
+  },
+  "scriptDescriptions": {
+    "test": "run vitest unit tests",
+    "build": "create production build at ./dist with esbuild",
+    "accio": "fetch & run script descriptions"
+  },
+  "author": "abullard",
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.25.4",
+    "vitest": "^3.1.4"
+  }
+}
