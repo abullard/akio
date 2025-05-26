@@ -23,7 +23,8 @@ const processCommand = (commandMap: CommandMap) => {
     });
 }
 
-const mapAndOutputCommands = (runner: string) => {
+const mapAndOutputCommands = (runner: string, searchValue: string | undefined) => {
+    // TODO AJB 05/25/2025: implement searchValue here
     let count = 0;
     const commandMap: CommandMap = {};
     const pkgPath = path.resolve(process.cwd(), 'package.json');
@@ -58,7 +59,6 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
         formatError(`Unknown command number: ${input}`);
     }
 
-    // TODO AJB 05/25/2025: need to test npm again
     const pkgManager = getPkgManager();
     const isNpm = pkgManager === 'npm' ? 'run' : '';
     const args = [isNpm, commandMap[input]];
@@ -81,12 +81,12 @@ const getPkgManager = () => {
 };
 
 const main = () => {
-    const { showInput, showFormatting } = processCliOpts();
+    const { showInput, showFormatting, searchValue } = processCliOpts();
     const pkgManager = getPkgManager();
 
     if (!showFormatting) disableColors();
 
-    const commandMap = mapAndOutputCommands(pkgManager);
+    const commandMap = mapAndOutputCommands(pkgManager, searchValue);
 
     if (showInput) processCommand(commandMap);
 };

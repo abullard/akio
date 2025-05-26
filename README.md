@@ -57,13 +57,13 @@ Pick a number to run it, or just use the list as a reference.
 
 ## CLI Options
 Two command line interace options exist:
-1. `--input` _or_ `-i` akio will prompt you for a command to run
+1. `--no-input` _or_ `-i` akio will turn off prompting you for a command to run
 2. `--no-formatting` _or_ `-f` turns off colors (& emojis soon)
 
 The easiest way to consume these is via `package.json`:
 ```json
 "scripts": {
-    "akio": "npx akio -f",
+    "akio": "npx akio -f -i",
 },
 ```
 
