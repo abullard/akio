@@ -24,7 +24,6 @@ const processCommand = (commandMap: CommandMap) => {
 }
 
 const mapAndOutputCommands = (runner: string, searchValue: string | undefined) => {
-    // TODO AJB 05/25/2025: implement searchValue here
     let count = 0;
     const commandMap: CommandMap = {};
     const pkgPath = path.resolve(process.cwd(), 'package.json');
@@ -41,7 +40,8 @@ const mapAndOutputCommands = (runner: string, searchValue: string | undefined) =
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
         if (name === 'akio') continue;  // not a valid option
-
+        if(searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
+        
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
