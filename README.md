@@ -5,7 +5,7 @@
 When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
 Akio helps you keep track of your scripts and their descriptions, right from the terminal.
 
-## Zero Config. No Magic.
+## Optional Config. No Magic.
 
 Akio doesn’t try to run your project or guess what you mean.
 It just reads what’s already there and helps you navigate it faster.
@@ -37,21 +37,36 @@ npx akio
 Inside any Node.js project with a `package.json`:
 
 ```bash
-pnpm akio
+[npm|yarn|pnpm] akio
 # or
 npx akio
 ```
 
 You’ll see a list of scripts like this:
 ```
-pnpm accio
+pnpm akio
         -----
 1. test       — run vitest unit tests
 2. build      — create production build at ./dist with esbuild
 3. accio      — fetch & run script descriptions
+
+Run command number? 
 ```
 
 Pick a number to run it, or just use the list as a reference.
+
+## CLI Options
+Two command line interace options exist:
+1. `--no-input` _or_ `-i` turns off prompting you for a command
+2. `--no-formatting` _or_ `-f` turns off colors (emojis soon)
+
+The easiest way to consume these is via `package.json`:
+```json
+"scripts": {
+    "akio": "npx akio --no-input --no-formatting",
+    ...
+},
+```
 
 ## How to Document Scripts
 
@@ -85,9 +100,8 @@ Akio is great for:
 
 * Support for `jsonc` comments next to scripts
 * Search by script key, or value
-* auto-generation of descriptions for established packages?
-* Terminal colors shut off
-* Execute by number shut off
+* Auto-generation of descriptions for established packages?
+* Turn off emojis when `--no-formatting` CLI opt supplied
 
 ## License
 
