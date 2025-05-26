@@ -39,6 +39,8 @@ const mapAndOutputCommands = (runner: string) => {
     console.log('\t-----');
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
+        if(name === 'akio') continue;
+        
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
@@ -56,7 +58,7 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
         formatError(`Unknown command number: ${input}`);
     }
 
-    const pkgManager = getRunner();
+    const pkgManager = getPkgManager();
 
     const cmd = `${pkgManager} ${commandMap[input]}`;
     const execCallback = (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => {
@@ -77,7 +79,7 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
     exec(cmd, emptyOpts, execCallback);
 };
 
-const getRunner = () => {
+const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
     if (fs.existsSync('yarn.lock')) return 'yarn';
 
@@ -86,11 +88,11 @@ const getRunner = () => {
 
 const main = () => {
     const { showInput, showFormatting } = processCliOpts();
-    const runner = getRunner();
+    const pkgManager = getPkgManager();
 
     if(!showFormatting) disableColors();
 
-    const commandMap = mapAndOutputCommands(runner);
+    const commandMap = mapAndOutputCommands(pkgManager);
 
     if (showInput) processCommand(commandMap);
 };
