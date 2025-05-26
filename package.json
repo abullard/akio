@@ -12,8 +12,7 @@
   },
   "scriptDescriptions": {
     "test": "run vitest unit tests",
-    "build": "create production build at ./dist with esbuild",
-    "akio": "fetch & run script descriptions"
+    "build": "create production build at ./dist with esbuild"
   },
   "author": "abullard",
   "license": "MIT",

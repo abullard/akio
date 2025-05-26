@@ -39,12 +39,11 @@ const mapAndOutputCommands = (runner: string) => {
     console.log('\t-----');
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
-        if (name === 'akio') continue;
+        if (name === 'akio') continue;  // not a valid option
 
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
-        // TODO (ajb): pad end by Math.max(maxLength, name.length); you're already looping, just calc max
         const formattedOutput = `${count}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
         commandMap[count] = name;
 
@@ -89,7 +88,6 @@ const main = () => {
 
     const commandMap = mapAndOutputCommands(pkgManager);
 
-    // TODO AJB 05/25/2025: make these do the opposite, show input should be off by default to not piss people off
     if (showInput) processCommand(commandMap);
 };
 
