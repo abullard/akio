@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
-import { Colors } from "./colors";
-
-import { exec } from 'child_process';
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+import { disableColors, Colors } from "./colors";
+import { exec, ExecException } from 'child_process';
+import { processCliOpts } from "./cli-opts";
+import { formatError } from './format-output';
 
 type CommandMap = Record<string, string>;
 
@@ -22,7 +23,7 @@ const processCommand = (commandMap: CommandMap) => {
     });
 }
 
-const mapAndOutputCommands = () => {
+const mapAndOutputCommands = (runner: string) => {
     let count = 0;
     const commandMap: CommandMap = {};
     const pkgPath = path.resolve(process.cwd(), 'package.json');
@@ -31,14 +32,15 @@ const mapAndOutputCommands = () => {
     const descriptions = pkg.scriptDescriptions || {};
 
     if (!Object.entries(descriptions).length) {
-        console.error(`${Colors.red}❌ No scriptDescriptions in your package.json.${Colors.reset}\n`);
-        process.exit(1);
+        formatError('No scriptDescriptions in your package.json.');
     }
 
-    console.log(`${Colors.yellow}pnpm akio${Colors.reset}`);
+    console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
     console.log('\t-----');
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
+        if(name === 'akio') continue;
+        
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
@@ -53,15 +55,13 @@ const mapAndOutputCommands = () => {
 
 const executeCommand = (commandMap: CommandMap, input: string) => {
     if (!commandMap[input]) {
-        console.error(`❌ Unknown command number: ${input}`);
-        return;
+        formatError(`Unknown command number: ${input}`);
     }
 
-    const pkgManager = getRunner();
+    const pkgManager = getPkgManager();
 
     const cmd = `${pkgManager} ${commandMap[input]}`;
-
-    exec(cmd, (error: Error, stdout: string, stderr: string) => {
+    const execCallback = (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => {
         if (error) {
             console.error(error);
             return;
@@ -73,10 +73,13 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
         }
 
         console.log(stdout);
-    });
+    };
+    const emptyOpts = {};
+
+    exec(cmd, emptyOpts, execCallback);
 };
 
-const getRunner = () => {
+const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
     if (fs.existsSync('yarn.lock')) return 'yarn';
 
@@ -84,8 +87,14 @@ const getRunner = () => {
 };
 
 const main = () => {
-    const commandMap = mapAndOutputCommands();
-    processCommand(commandMap);
+    const { showInput, showFormatting } = processCliOpts();
+    const pkgManager = getPkgManager();
+
+    if(!showFormatting) disableColors();
+
+    const commandMap = mapAndOutputCommands(pkgManager);
+
+    if (showInput) processCommand(commandMap);
 };
 
 main();
