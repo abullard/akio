@@ -48,7 +48,7 @@ pnpm akio
         -----
 1. test       — run vitest unit tests
 2. build      — create production build at ./dist with esbuild
-3. accio      — fetch & run script descriptions
+3. lint:fix   — run eslint and auto-resolve
 
 Run command number? 
 ```
@@ -57,14 +57,13 @@ Pick a number to run it, or just use the list as a reference.
 
 ## CLI Options
 Two command line interace options exist:
-1. `--no-input` _or_ `-i` turns off prompting you for a command
-2. `--no-formatting` _or_ `-f` turns off colors (emojis soon)
+1. `--input` _or_ `-i` akio will prompt you for a command to run
+2. `--no-formatting` _or_ `-f` turns off colors (& emojis soon)
 
 The easiest way to consume these is via `package.json`:
 ```json
 "scripts": {
-    "akio": "npx akio --no-input --no-formatting",
-    ...
+    "akio": "npx akio -f",
 },
 ```
 
@@ -76,7 +75,8 @@ In your `package.json`, add a new section called `scriptDescriptions`:
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "akio": "npx akio"
   },
   "scriptDescriptions": {
     "dev": "Starts the dev server with live reload",

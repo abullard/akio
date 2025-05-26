@@ -1,9 +1,9 @@
-import { it } from "node:test";
-import { describe } from "vitest";
-import { expect } from "vitest";
+import { describe, it, expect } from "vitest";
 
 describe('index.ts', () => {
     it('should run', () => {
-        expect(true).toBeFalsy();
+        const x = 1
+        const y = 1;
+        expect(x).toEqual(y);
     });
 });

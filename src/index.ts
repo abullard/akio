@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import readline from 'readline';
 import { disableColors, Colors } from "./colors";
-import { exec, ExecException } from 'child_process';
+import { spawn } from 'child_process';
 import { processCliOpts } from "./cli-opts";
 import { formatError } from './format-output';
 
@@ -16,7 +16,7 @@ const processCommand = (commandMap: CommandMap) => {
         output: process.stdout
     });
 
-    rl.question('\nRun command number? ', (input: string) => {
+    rl.question(`\n${Colors.green}Run command number?${Colors.reset} `, (input: string) => {
         console.log('\n');
         rl.close();
         executeCommand(commandMap, input);
@@ -39,11 +39,12 @@ const mapAndOutputCommands = (runner: string) => {
     console.log('\t-----');
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
-        if(name === 'akio') continue;
-        
+        if (name === 'akio') continue;
+
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
+        // TODO (ajb): pad end by Math.max(maxLength, name.length); you're already looping, just calc max
         const formattedOutput = `${count}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
         commandMap[count] = name;
 
@@ -58,42 +59,37 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
         formatError(`Unknown command number: ${input}`);
     }
 
+    // TODO AJB 05/25/2025: need to test npm again
     const pkgManager = getPkgManager();
+    const isNpm = pkgManager === 'npm' ? 'run' : '';
+    const args = [isNpm, commandMap[input]];
 
-    const cmd = `${pkgManager} ${commandMap[input]}`;
-    const execCallback = (error: ExecException | null, stdout: string | Buffer, stderr: string | Buffer) => {
-        if (error) {
-            console.error(error);
-            return;
-        }
+    const child = spawn(pkgManager, args, {
+        stdio: 'inherit',
+        shell: true
+    });
 
-        if (stderr) {
-            console.error(stderr);
-            return;
-        }
-
-        console.log(stdout);
-    };
-    const emptyOpts = {};
-
-    exec(cmd, emptyOpts, execCallback);
+    child.on('exit', (code: number) => {
+        process.exit(code); 
+    });
 };
 
 const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
     if (fs.existsSync('yarn.lock')) return 'yarn';
 
-    return 'npm run';
+    return 'npm';
 };
 
 const main = () => {
     const { showInput, showFormatting } = processCliOpts();
     const pkgManager = getPkgManager();
 
-    if(!showFormatting) disableColors();
+    if (!showFormatting) disableColors();
 
     const commandMap = mapAndOutputCommands(pkgManager);
 
+    // TODO AJB 05/25/2025: make these do the opposite, show input should be off by default to not piss people off
     if (showInput) processCommand(commandMap);
 };
 
