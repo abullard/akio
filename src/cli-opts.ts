@@ -3,23 +3,50 @@ import { formatError } from "./format-output";
 type CliOptions = {
     showInput: boolean;
     showFormatting: boolean;
+    searchValue?: string
+};
+
+const InputOpts: Record<string, string[]> = {
+    showInputOpts: ['-i', '--no-input'],
+    showFormattingOpts: ['-f', '--no-formatting'],
+    searchOpts: ['-s', '--search'],
 };
 
 export function processCliOpts(args = process.argv.slice(2)): CliOptions {
     let showInput = true;
     let showFormatting = true;
+    let searchValue = undefined;
+    const allOpts = buildAllOptsList();
 
-    const showInputOpts = ['-i', '--no-input'];
-    const showFormattingOpts = ['-f', '--no-formatting'];
+    for (let i = 0; i < args.length; i++) {
+        const arg = args[i];
 
-    for (const arg of args) {
-        if (!showInputOpts.concat(showFormattingOpts).includes(arg)) {
-            formatError(`Invalid command line option: ${arg}`);
+        if (InputOpts.searchOpts.includes(arg)) {
+            searchValue = args[++i];
         }
 
-        if (showInputOpts.includes(arg)) showInput = false;
-        if (showFormattingOpts.includes(arg)) showFormatting = false;
+        if (InputOpts.showInputOpts.includes(arg)) showInput = false;
+        if (InputOpts.showFormattingOpts.includes(arg)) showFormatting = false;
+
+        // treat first unknown (non-flag) value as an implicit search
+        const isFlag = arg.startsWith('-');
+        if (!isFlag && searchValue === undefined) {
+            searchValue = arg;
+        } else if (!allOpts.includes(arg)) {
+            formatError(`Invalid command line option: ${arg}`);
+        }
     }
 
-    return { showInput, showFormatting };
+    return { showInput, showFormatting, searchValue };
+}
+
+const buildAllOptsList = () => {
+    const allOpts: string[] = [];
+
+    for (const [_, value] of Object.entries(InputOpts)) {
+
+        allOpts.push(...value);
+    }
+
+    return allOpts;
 }
