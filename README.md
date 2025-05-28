@@ -1,5 +1,7 @@
 # Akio
 
+![CI](https://github.com/okizame/akio/actions/workflows/ci.yml/badge.svg)
+
 **Your project scripts, made searchable.**
 
 When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
