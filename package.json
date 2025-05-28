@@ -1,5 +1,5 @@
 {
-  "name": "akio",
+  "name": "@abullard/akio",
   "version": "1.0.0",
   "bin": "./dist/index.cjs",
   "type": "module",
@@ -36,6 +36,13 @@
   },
   "author": "abullard",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abullard/akio.git"
+  },
   "devDependencies": {
     "@types/node": "^22.15.21",
     "esbuild": "^0.25.4",
