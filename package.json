@@ -1,5 +1,5 @@
 {
-  "name": "@abullard/akio",
+  "name": "akio",
   "version": "1.0.0",
   "bin": "./dist/index.cjs",
   "type": "module",

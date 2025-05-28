@@ -1,10 +1,8 @@
 import { Colors } from "./colors";
-import readline from 'readline';
-import path from 'path';
-import fs from 'fs';
 import { formatError } from "./format-output";
 import { spawn } from 'child_process';
-import { getPkgManager } from "./utils";
+import { getPkgManager, readPackageJson } from "./utils";
+import readline from 'readline';
 
 type CommandMap = Record<string, string>;
 
@@ -25,8 +23,8 @@ export const processInput = (commandMap: CommandMap) => {
 export const mapAndOutputCommands = (runner: string, searchValue: string | undefined): CommandMap | undefined => {
     let count = 0;
     const commandMap: CommandMap = {};
-    const pkgPath = path.resolve(process.cwd(), 'package.json');
-    const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+    // TODO AJB 05/28/2025: can't I just remove the packagejson reading and import now that TS is used?
+    const pkg = readPackageJson();
 
     const descriptions = pkg.scriptDescriptions || {};
 

@@ -2,6 +2,8 @@
 
 exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
 "
+> npx akio -i
+
 [33mpnpm akio[0m
 	-----
 1. [35mtest      [0m — run vitest unit tests

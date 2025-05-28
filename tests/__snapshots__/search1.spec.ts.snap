@@ -2,6 +2,8 @@
 
 exports[`search1.spec.ts > should run search for start npm scripts, skip input 1`] = `
 "
+> npx akio start -i
+
 [33mpnpm akio[0m
 	-----
 Found scripts matching: "[32mstart[0m"

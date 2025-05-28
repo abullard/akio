@@ -2,6 +2,8 @@
 
 exports[`no-format2.spec.ts > should turn formatting off, --no-format 1`] = `
 "
+> npx akio --no-format -i test\\:stub
+
 pnpm akio
 	-----
 Found scripts matching: "test:stub"
