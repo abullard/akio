@@ -14,7 +14,7 @@ export const processInput = (commandMap: CommandMap) => {
         output: process.stdout
     });
 
-    rl.question(`\n${Colors.blue}Run command number?${Colors.reset} `, (input: string) => {
+    rl.question(`\n${Colors.blue}Run command number? >${Colors.reset} `, (input: string) => {
         console.log('\n');
         rl.close();
         executeCommand(commandMap, input);

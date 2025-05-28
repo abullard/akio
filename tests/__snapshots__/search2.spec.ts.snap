@@ -8,7 +8,7 @@ Found scripts matching: "[32mtest:stub[0m"
 
 1. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
 
-[34mRun command number?[0m 
+[34mRun command number? >[0m 
 
 
 > @abullard/akio@1.0.0 test:stub /root/Developer/git/abullard/akio
