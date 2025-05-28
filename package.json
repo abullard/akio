@@ -1,6 +1,6 @@
 {
   "name": "@abullard/akio",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "bin": "./dist/index.cjs",
   "type": "module",
   "description": "Quickly retrieve forgotten package.json script commands",
