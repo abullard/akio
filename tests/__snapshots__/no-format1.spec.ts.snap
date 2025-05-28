@@ -9,5 +9,5 @@ pnpm akio
 	-----
 Found scripts matching: "test:stub"
 
-1. test:stub  — DO NOT USE - stubbed npm script for snapshot tests"
+1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests"
 `;

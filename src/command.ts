@@ -14,14 +14,15 @@ export const processInput = (commandMap: CommandMap) => {
         output: process.stdout
     });
 
-    rl.question(`\n${Colors.green}Run command number?${Colors.reset} `, (input: string) => {
+    rl.question(`\n${Colors.blue}Run command number?${Colors.reset} `, (input: string) => {
         console.log('\n');
         rl.close();
         executeCommand(commandMap, input);
     });
 }
 
-export const mapAndOutputCommands = (runner: string, searchValue: string | undefined) => {
+// TODO AJB 05/27/2025: refactor this, way too many things going on
+export const mapAndOutputCommands = (runner: string, searchValue: string | undefined): CommandMap | undefined => {
     let count = 0;
     const commandMap: CommandMap = {};
     const pkgPath = path.resolve(process.cwd(), 'package.json');
@@ -38,10 +39,10 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
 
     for (const [name, _] of Object.entries(pkg.scripts)) {
         if (name === 'akio') continue;  // not a valid option
-        if(searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
-        
-        if(searchValue && count === 0) {
-            console.log(`Found scripts matching: "${searchValue}"\n`);
+        if (searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
+
+        if (searchValue && count === 0) {
+            console.log(`Found scripts matching: "${Colors.green}${searchValue}${Colors.reset}"\n`);
         }
 
         count++;
@@ -51,6 +52,11 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
         commandMap[count] = name;
 
         console.log(formattedOutput);
+    }
+
+    if (Object.entries(commandMap).length === 0) {
+        console.log(`❌ Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
+        return undefined;
     }
 
     return commandMap;
@@ -71,6 +77,6 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
     });
 
     child.on('exit', (code: number) => {
-        process.exit(code); 
+        process.exit(code);
     });
 };

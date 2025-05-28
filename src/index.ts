@@ -21,7 +21,7 @@ const main = () => {
 
     const commandMap = mapAndOutputCommands(pkgManager, searchValue);
 
-    if (showInput) processInput(commandMap);
+    if (commandMap && showInput) processInput(commandMap);
 };
 
 main();

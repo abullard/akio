@@ -12,7 +12,7 @@ exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
 3. [35mtest:int  [0m — run integration tests
 4. [35mtest:contract[0m — run API contract tests
 5. [35mtest:watch[0m — watch tests and re-run on save
-6. [35mtest:stub [0m — DO NOT USE - stubbed npm script for snapshot tests
+6. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
 7. [35mbuild     [0m — 
 8. [35mbuild:dev [0m — local dev build
 9. [35mbuild:prod[0m —  build production fake

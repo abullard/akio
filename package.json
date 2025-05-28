@@ -26,7 +26,7 @@
     "test:contract": "run API contract tests",
     "test:watch": "watch tests and re-run on save",
     "test:unit": "run unit tests",
-    "test:stub": "DO NOT USE - stubbed npm script for snapshot tests",
+    "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
     "build:real": "create production build at ./dist with esbuild",
     "build:dev": "local dev build",
     "build:prod": " build production fake",

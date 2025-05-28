@@ -1,5 +1,6 @@
 export const Colors: Record<string, string> = {
     purple: '\x1b[35m',
+    blue: '\x1b[34m',
     yellow: '\x1b[33m',
     green: '\x1b[32m',
     red: '\x1b[31m',
