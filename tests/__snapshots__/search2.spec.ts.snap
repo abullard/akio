@@ -2,9 +2,6 @@
 
 exports[`search2.spec.ts > should run search for test:sub npm scripts, run test:stub 1`] = `
 "
-> @abullard/akio@1.0.0 akio /root/Developer/git/abullard/akio
-> npx akio test\\:stub
-
 [33mpnpm akio[0m
 	-----
 Found scripts matching: "[32mtest:stub[0m"

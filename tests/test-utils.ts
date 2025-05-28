@@ -17,7 +17,7 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
     }
 
     const response = await subprocess;
-    
+
     return {
         ...response,
         stdout: removeHeaderText(response)
@@ -29,10 +29,8 @@ const removeHeaderText = (response: any) => {
 
     let result = undefined;
     if (stdout) {
-        // TODO AJB 05/27/2025: figure out how to remove the top two lines of output from stdout
-        // result = stdout.replace??;
+        result = stdout.split(/\r?\n/).slice(3).join('\n');
     }
-    console.log(result);
 
     return result;
 }
