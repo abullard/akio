@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
+"
+> @abullard/akio@1.0.0 akio /root/Developer/git/abullard/akio
+> npx akio -i
+
+[33mpnpm akio[0m
+	-----
+1. [35mtest      [0m — run vitest unit tests
+2. [35mtest:unit [0m — run unit tests
+3. [35mtest:int  [0m — run integration tests
+4. [35mtest:contract[0m — run API contract tests
+5. [35mtest:watch[0m — watch tests and re-run on save
+6. [35mtest:stub [0m — DO NOT USE - stubbed npm script for snapshot tests
+7. [35mbuild     [0m — 
+8. [35mbuild:dev [0m — local dev build
+9. [35mbuild:prod[0m —  build production fake
+10. [35mstart     [0m — start the http server
+11. [35mstart:dev [0m — start dev server
+12. [35mstart:prod[0m — start prod server"
+`;

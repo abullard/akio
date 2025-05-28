@@ -40,6 +40,10 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
         if (name === 'akio') continue;  // not a valid option
         if(searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
         
+        if(searchValue && count === 0) {
+            console.log(`Found scripts matching: "${searchValue}"`);
+        }
+
         count++;
 
         const description = pkg.scriptDescriptions[name] ?? '';
