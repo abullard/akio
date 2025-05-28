@@ -1,5 +1,7 @@
 # Akio
 
+![CI](https://github.com/okizame/akio/actions/workflows/ci.yml/badge.svg)
+
 **Your project scripts, made searchable.**
 
 When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
@@ -46,16 +48,27 @@ You’ll see a list of scripts like this:
 ```
 pnpm akio
         -----
-1. test       — run vitest unit tests
-2. build      — create production build at ./dist with esbuild
-3. lint:fix   — run eslint and auto-resolve
+Found scripts matching: "test"
 
-Run command number? 
+1. test       — run vitest unit tests
+2. test:unit  — run unit tests
+3. test:int   — run integration tests
+4. test:contract — run API contract tests
+5. test:watch — watch tests and re-run on save
+
+Run command number? >
 ```
 
 Pick a number to run it, or just use the list as a reference.
 
 ## Search Functionality
+Search is accomplished via the first unnamed CLI opt. i.e. 
+```bash
+npx akio build -i -f 
+# OR
+npx akio -i test -f
+```
+
 ## CLI Options
 Two command line interace options exist:
 1. `--no-input` _or_ `-i` akio will turn off prompting you for a command to run
@@ -100,9 +113,8 @@ Akio is great for:
 ## Future Plans (Maybe)
 
 * Support for `jsonc` comments next to scripts
-* Search by script key, or value
 * Auto-generation of descriptions for established packages?
-* Turn off emojis when `--no-formatting` CLI opt supplied
+* Turn off emojis when `--no-format` CLI opt supplied
 
 ## License
 

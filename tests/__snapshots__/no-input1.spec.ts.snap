@@ -2,7 +2,6 @@
 
 exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
 "
-> @abullard/akio@1.0.0 akio /root/Developer/git/abullard/akio
 > npx akio -i
 
 [33mpnpm akio[0m
