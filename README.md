@@ -113,7 +113,12 @@ Akio is great for:
 ## Future Plans (Maybe)
 
 * Support for `jsonc` comments next to scripts
+* Should still surface commands even if no "scriptDescriptions" just with blank descriptions
+* Should support mono-repos, bucket commands by package
+* Code scanning to pipeline and QoL badges added to README
+* Maybe auto publish to NPM on merge to `main`?
 * Auto-generation of descriptions for established packages?
+  * Don't really wanna muck with changing people's repos tho 
 * Turn off emojis when `--no-format` CLI opt supplied
 
 ## License
