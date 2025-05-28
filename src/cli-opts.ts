@@ -8,8 +8,7 @@ type CliOptions = {
 
 const InputOpts: Record<string, string[]> = {
     showInputOpts: ['-i', '--no-input'],
-    showFormattingOpts: ['-f', '--no-formatting'],
-    searchOpts: ['-s', '--search'],
+    showFormattingOpts: ['-f', '--no-format'],
 };
 
 export function processCliOpts(args = process.argv.slice(2)): CliOptions {
@@ -20,10 +19,6 @@ export function processCliOpts(args = process.argv.slice(2)): CliOptions {
 
     for (let i = 0; i < args.length; i++) {
         const arg = args[i];
-
-        if (InputOpts.searchOpts.includes(arg)) {
-            searchValue = args[++i];
-        }
 
         if (InputOpts.showInputOpts.includes(arg)) showInput = false;
         if (InputOpts.showFormattingOpts.includes(arg)) showFormatting = false;

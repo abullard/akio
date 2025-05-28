@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`no-format1.spec.ts > should turn formatting off, -f 1`] = `
+"
+> @abullard/akio@1.0.0 akio /root/Developer/git/abullard/akio
+> npx akio -f -i test\\:stub
+
+pnpm akio
+	-----
+Found scripts matching: "test:stub"
+
+1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests"
+`;
