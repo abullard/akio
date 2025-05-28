@@ -8,6 +8,7 @@ exports[`search2.spec.ts > should run search for test:sub npm scripts, run test:
 [33mpnpm akio[0m
 	-----
 Found scripts matching: "test:stub"
+
 1. [35mtest:stub [0m — DO NOT USE - stubbed npm script for snapshot tests
 
 [32mRun command number?[0m 

@@ -8,5 +8,6 @@ exports[`no-format1.spec.ts > should turn formatting off, -f 1`] = `
 pnpm akio
 	-----
 Found scripts matching: "test:stub"
+
 1. test:stub  — DO NOT USE - stubbed npm script for snapshot tests"
 `;

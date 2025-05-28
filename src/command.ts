@@ -41,7 +41,7 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
         if(searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
         
         if(searchValue && count === 0) {
-            console.log(`Found scripts matching: "${searchValue}"`);
+            console.log(`Found scripts matching: "${searchValue}"\n`);
         }
 
         count++;
