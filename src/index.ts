@@ -8,15 +8,14 @@ import { getPkgManager } from "./utils";
 // TODO AJB 05/26/2025: 
 /*
     1. remove emoji when -f passed
-    2. publish this to npm
 */
 const main = () => {
-    const { showInput, showFormatting, searchValue } = processCliOpts();
+    const { showInput, showFormatting, searchValue, skipDescriptions } = processCliOpts();
     const pkgManager = getPkgManager();
 
     if (!showFormatting) disableColors();
 
-    const commandMap = mapAndOutputCommands(pkgManager, searchValue);
+    const commandMap = mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
 
     if (commandMap && showInput) processInput(commandMap);
 };
