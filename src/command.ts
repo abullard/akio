@@ -20,7 +20,7 @@ export const processInput = (commandMap: CommandMap) => {
 }
 
 // TODO AJB 05/27/2025: refactor this, way too many things going on
-export const mapAndOutputCommands = (runner: string, searchValue: string | undefined): CommandMap | undefined => {
+export const mapAndOutputCommands = (runner: string, searchValue: string | undefined, skipDescriptions: boolean): CommandMap | undefined => {
     let count = 0;
     const commandMap: CommandMap = {};
     // TODO AJB 05/28/2025: can't I just remove the packagejson reading and import now that TS is used?
@@ -29,7 +29,12 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
     const descriptions = pkg.scriptDescriptions || {};
 
     if (!Object.entries(descriptions).length) {
-        formatError('No scriptDescriptions in your package.json.');
+        if(!skipDescriptions) {
+            const noDescriptionsFound = "No descriptions found for your commands, you can add them via \"scriptDescriptions\", in your package.json";
+            const suppressMessage = "You can suppress this message with -d\n"
+            console.log(noDescriptionsFound);
+            console.log(suppressMessage);
+        }
     }
 
     console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
@@ -45,7 +50,7 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
 
         count++;
 
-        const description = pkg.scriptDescriptions[name] ?? '';
+        const description = pkg.scriptDescriptions?.[name] ?? '';
         const formattedOutput = `${count}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
         commandMap[count] = name;
 

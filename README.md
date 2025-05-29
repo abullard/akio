@@ -1,7 +1,5 @@
 # Akio
 
-![CI](https://github.com/okizame/akio/actions/workflows/ci.yml/badge.svg)
-
 **Your project scripts, made searchable.**
 
 When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
@@ -61,23 +59,26 @@ Run command number? >
 
 Pick a number to run it, or just use the list as a reference.
 
-## Search Functionality
+## General Use Search Functionality
 Search is accomplished via the first unnamed CLI opt. i.e. 
 ```bash
 npx akio build -i -f 
 # OR
 npx akio -i test -f
 ```
+For an explicit search, view CLI Options below
 
 ## CLI Options
-Two command line interace options exist:
+Four command line interace options exist:
 1. `--no-input` _or_ `-i` akio will turn off prompting you for a command to run
 2. `--no-format` _or_ `-f` turns off colors (& emojis soon)
+3. `--search` _or_ `-s` followed by a _string_ of text to search will execute an explicit search (kinda redundant)
+4. `--no-descriptions` _or_ `-d` will suppress the no descriptions warning
 
 The easiest way to consume these is via `package.json`:
 ```json
 "scripts": {
-    "akio": "npx akio -f -i",
+    "akio": "npx akio -f -i -d -s dev",
 },
 ```
 
@@ -113,7 +114,6 @@ Akio is great for:
 ## Future Plans (Maybe)
 
 * Support for `jsonc` comments next to scripts
-* Should still surface commands even if no "scriptDescriptions" just with blank descriptions
 * Should support mono-repos, bucket commands by package
 * Code scanning to pipeline and QoL badges added to README
 * Maybe auto publish to NPM on merge to `main`?
