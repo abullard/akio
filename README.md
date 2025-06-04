@@ -1,126 +1,128 @@
 # Akio
 
-**Your project scripts, made searchable.**
+**Search, understand, and run your project scripts — fast.**
 
-When your `package.json` grows, it’s easy to forget what `dev:db:reset` or `build:analyze` actually do.
-Akio helps you keep track of your scripts and their descriptions, right from the terminal.
+Your `package.json` is full of mystery meat scripts. `dev:db:reset`? `build:analyze`? Larger teams often have newer devs that don't know what they do.
 
-## Optional Config. No Magic.
+Akio surfaces your scripts and their descriptions in a clean, numbered list — right in your terminal.
 
-Akio doesn’t try to run your project or guess what you mean.
-It just reads what’s already there and helps you navigate it faster.
+![Example](./docs/cli_screenshot.png "Example CLI screenshot")
 
-## Why Akio?
+## 🧭 Why Akio?
 
-Sometimes you just want to know:
+You’ve asked:
 
-* What does this script do?
-* Is this safe to run?
-* What options are there?
-* Did I write this or inherit it?
+* *What does this script actually do?*
+* *Is it safe to run?*
+* *Did I write this or inherit it?*
 
-Akio is a dead-simple CLI tool that reads your project’s scripts and surfaces them in a friendly, numbered list—along with short descriptions you write yourself.
+Akio gives you answers — without running anything, guessing, or being clever.
+Just a fast, helpful index of your scripts.
 
-## Install
+## 🚀 Install
 
 ```bash
 npm install -g akio
+# or use it directly
+npx akio
 ```
 
-Or use it directly:
+## 📖 Usage
+
+In any Node.js project with a `package.json`:
 
 ```bash
 npx akio
 ```
 
-## Usage
-Inside any Node.js project with a `package.json`:
+You’ll see:
 
-```bash
-[npm|yarn|pnpm] akio
-# or
-npx akio
-```
-
-You’ll see a list of scripts like this:
 ```
 pnpm akio
-        -----
+  -----
 Found scripts matching: "test"
 
-1. test       — run vitest unit tests
-2. test:unit  — run unit tests
-3. test:int   — run integration tests
-4. test:contract — run API contract tests
-5. test:watch — watch tests and re-run on save
+1. test          — run vitest unit tests  
+2. test:unit     — run unit tests  
+3. test:int      — run integration tests  
+4. test:contract — run API contract tests  
+5. test:watch    — re-run tests on save
 
 Run command number? >
 ```
 
-Pick a number to run it, or just use the list as a reference.
+Hit a number to run that script. Or just use it as a reference.
 
-## General Use Search Functionality
-Search is accomplished via the first unnamed CLI opt. i.e. 
+## 🔍 Search Without Flags
+
+Akio treats the first unnamed CLI argument as a search term:
+
 ```bash
-npx akio build -i -f 
-# OR
-npx akio -i test -f
+npx akio build
 ```
-For an explicit search, view CLI Options below
 
-## CLI Options
-Four command line interace options exist:
-1. `--no-input` _or_ `-i` akio will turn off prompting you for a command to run
-2. `--no-format` _or_ `-f` turns off colors (& emojis soon)
-3. `--search` _or_ `-s` followed by a _string_ of text to search will execute an explicit search (kinda redundant)
-4. `--no-descriptions` _or_ `-d` will suppress the no descriptions warning
+No need to pass `--search`. You can, though:
 
-The easiest way to consume these is via `package.json`:
+```bash
+npx akio --search build
+```
+
+## ⚙️ CLI Options
+
+* `-i`, `--no-input`: Don’t prompt — just show results
+* `-f`, `--no-formatting`: Strip colors (and soon, emojis)
+* `-s`, `--search`: Explicit search
+* `-d`, `--no-descriptions`: Don’t warn about missing script docs
+
+Example in `package.json`:
+
 ```json
 "scripts": {
-    "akio": "npx akio -f -i -d -s dev",
-},
+  "akio": "npx akio -f -i -d -s dev"
+}
 ```
 
-## How to Document Scripts
+I recommend an alias with opts if you need them. Example in a `.zshrc` or a `.bashrc`:
+```bash
+alias akio="npx @abullard/akio -i" # never prompt for input
+alias akio="npx @abullard/akio -d" # never warn about missing scriptDescriptions
+alias akio="npx @abullard/akio -f" # never show colors (soon emojis)
+```
 
-In your `package.json`, add a new section called `scriptDescriptions`:
+## 📝 Documenting Scripts
+
+Add a `scriptDescriptions` section to your `package.json`:
 
 ```jsonc
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "akio": "npx akio"
+    "build": "vite build"
   },
   "scriptDescriptions": {
-    "dev": "Starts the dev server with live reload",
+    "dev": "Starts the dev server",
     "build": "Builds the project for production"
   }
 }
 ```
 
-That’s it. No more digging through your history or guessing what `start:proxy` does.
+No more guessing what `start:proxy` does.
 
-## What It’s For
+## 🧠 Best Used For
 
-Akio is great for:
+* Dev teams with lots of internal scripts
+* Open source projects that skimp on docs
+* Onboarding new teammates
+* Old projects you forgot how to run
 
-* Teams with lots of internal scripts
-* Open source repos with minimal docs
-* Personal projects you haven’t touched in months
-* New devs onboarding to an unfamiliar codebase
+## 🛣️ On the Roadmap
 
-## Future Plans (Maybe)
+* Monorepo support (grouped by package)
+* CI/CD and README badges
+* Optional auto-publish to NPM
+* JSONC-style inline comments
+* Color + emoji toggle with `--no-formatting`
 
-* Support for `jsonc` comments next to scripts
-* Should support mono-repos, bucket commands by package
-* Code scanning to pipeline and QoL badges added to README
-* Maybe auto publish to NPM on merge to `main`?
-* Auto-generation of descriptions for established packages?
-  * Don't really wanna muck with changing people's repos tho 
-* Turn off emojis when `--no-format` CLI opt supplied
+## 🪪 License
 
-## License
-
-MIT.
+MIT
