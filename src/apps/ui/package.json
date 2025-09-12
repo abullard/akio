@@ -1,0 +1,30 @@
+{
+    "name": "@abullard/akio-fake-ui",
+    "version": "0.0.1",
+    "bin": "./dist/index.cjs",
+    "type": "module",
+    "description": "Fake UI app to surface another package.json",
+    "main": "./src/apps/ui",
+    "scripts": {
+        "ui:test:stubOne": "node -e \"console.log('ui one')\"",
+        "ui:test:stubTwo": "node -e \"console.log('ui two')\"",
+        "ui:test:stubThree": "node -e \"console.log('ui three')\"",
+        "ui:test:stubFour": "node -e \"console.log('ui four')\"",
+        "ui:test:stubFive": "node -e \"console.log('ui five')\"",
+        "ui:test:stubSix": "node -e \"console.log('ui six')\"",
+        "ui:test:stubSeven": "node -e \"console.log('ui seven')\"",
+        "ui:test:stubEight": "node -e \"console.log('ui eight')\""
+    },
+    "scriptDescriptions": {
+        "ui:test:stubOne": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubTwo": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubThree": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubFour": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubFive": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubSix": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubSeven": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubEight": "DO NOT REMOVE - stubbed npm script for monorepo testing"
+    },
+    "author": "abullard",
+    "license": "MIT"
+}

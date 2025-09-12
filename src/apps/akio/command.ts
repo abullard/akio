@@ -1,7 +1,7 @@
 import { Colors } from "./colors";
 import { formatError } from "./format-output";
 import { spawn } from 'child_process';
-import { getPkgManager, readPackageJson } from "./utils";
+import { getPkgManager, readAllPkgJsons } from "./utils";
 import readline from 'readline';
 
 type CommandMap = Record<string, string>;
@@ -20,11 +20,10 @@ export const processInput = (commandMap: CommandMap) => {
 }
 
 // TODO AJB 05/27/2025: refactor this, way too many things going on
-export const mapAndOutputCommands = (runner: string, searchValue: string | undefined, skipDescriptions: boolean): CommandMap | undefined => {
+export const mapAndOutputCommands = async (runner: string, searchValue: string | undefined, skipDescriptions: boolean): CommandMap | undefined => {
     let count = 0;
     const commandMap: CommandMap = {};
-    // TODO AJB 05/28/2025: can't I just remove the packagejson reading and import now that TS is used?
-    const pkg = readPackageJson();
+    const pkg = await readAllPkgJsons();
 
     const descriptions = pkg.scriptDescriptions || {};
 

@@ -9,13 +9,13 @@ import { getPkgManager } from "./utils";
 /*
     1. remove emoji when -f passed
 */
-const main = () => {
+const main = async () => {
     const { showInput, showFormatting, searchValue, skipDescriptions } = processCliOpts();
     const pkgManager = getPkgManager();
 
     if (!showFormatting) disableColors();
 
-    const commandMap = mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
+    const commandMap = await mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
 
     if (commandMap && showInput) processInput(commandMap);
 };
