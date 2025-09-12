@@ -1,10 +1,10 @@
 {
-    "name": "@abullard/akio-fake-api",
+    "name": "api",
     "version": "0.0.1",
     "bin": "./dist/index.cjs",
     "type": "module",
     "description": "Fake API app to surface another package.json",
-    "main": "./src/apps/API",
+    "main": "./packages/api",
     "scripts": {
         "api:test:stubOne": "node -e \"console.log('api one')\"",
         "api:test:stubTwo": "node -e \"console.log('api two')\"",

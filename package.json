@@ -4,7 +4,7 @@
   "bin": "./dist/index.cjs",
   "type": "module",
   "description": "Quickly retrieve forgotten package.json script commands",
-  "main": "./src/apps/akio/index.ts",
+  "main": "./src/index.ts",
   "scripts": {
     "test": "vitest run",
     "test:unit": "",
@@ -12,13 +12,14 @@
     "test:contract": "",
     "test:watch": "",
     "test:stub": "node -e \"console.log('text')\"",
-    "build:real": "npx esbuild ./src/apps/akio/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
+    "build:real": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
     "build:dev": "",
     "build:prod": "",
     "start": "",
     "start:dev": "",
     "start:prod": "",
-    "akio": "npx akio"
+    "ui": "pnpm --filter ui",
+    "api": "pnpm --filter api"
   },
   "scriptDescriptions": {
     "test": "run vitest unit tests",
@@ -32,7 +33,9 @@
     "build:prod": "empty command",
     "start": "empty command",
     "start:dev": "empty command",
-    "start:prod": "empty command"
+    "start:prod": "empty command",
+    "ui": "pnpm ui package script passthrough",
+    "api": "pnpm api package script passthrough"
   },
   "author": "abullard",
   "license": "MIT",
@@ -46,7 +49,6 @@
   "devDependencies": {
     "@types/node": "^22.15.21",
     "esbuild": "^0.25.4",
-    "execa": "^9.6.0",
     "vitest": "^3.1.4"
   },
   "dependencies": {

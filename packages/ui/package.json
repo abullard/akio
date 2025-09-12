@@ -1,10 +1,10 @@
 {
-    "name": "@abullard/akio-fake-ui",
+    "name": "ui",
     "version": "0.0.1",
     "bin": "./dist/index.cjs",
     "type": "module",
     "description": "Fake UI app to surface another package.json",
-    "main": "./src/apps/ui",
+    "main": "./packages/ui",
     "scripts": {
         "ui:test:stubOne": "node -e \"console.log('ui one')\"",
         "ui:test:stubTwo": "node -e \"console.log('ui two')\"",
