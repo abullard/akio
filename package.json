@@ -6,7 +6,7 @@
   "description": "Quickly retrieve forgotten package.json script commands",
   "main": "./src/index.ts",
   "scripts": {
-    "run:local": "node ./dist/index.cjs",
+    "akio": "node ./dist/index.cjs",
     "test": "vitest run",
     "test:stub": "node -e \"console.log('text')\"",
     "build:real": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
@@ -14,6 +14,7 @@
     "api": "pnpm --filter api"
   },
   "scriptDescriptions": {
+    "akio": "DO NOT REMOVE - used for snapshot tests to run local build",
     "run:local": "runs a local build of akio",
     "test": "run vitest unit tests",
     "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@types/node": "^22.15.21",
     "esbuild": "^0.25.4",
+    "execa": "^9.6.0",
     "vitest": "^3.1.4"
   },
   "dependencies": {

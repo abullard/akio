@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { readPackageJson } from '../src/utils';
+import { readAllPkgJsons } from '../src/utils';
 
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
@@ -21,23 +21,24 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
 
     return {
         ...response,
-        stdout: removeHeaderText(response)
+        stdout: await removeHeaderText(response)
     };
 }
 
-const removeHeaderText = (response: any) => {
+const removeHeaderText = async (response: any) => {
     const { stdout } = response;
-    const pkg = readPackageJson();
-    const targetLineIdentifier = `${pkg.name}@${pkg.version}`;
 
-    let result = undefined;
-    if (stdout) {
-        result = stdout.split(/\r?\n/).slice(3).join('\n');
-        const lines = stdout.split(/\r?\n/);
-        const culledLines = lines.filter(l => !l.includes(targetLineIdentifier));
+    if (!stdout) return;
 
-        result = culledLines.join('\n');
+    const pkgs = await readAllPkgJsons();
+    let lines = stdout.split(/\r?\n/);
+
+    for (const pkg of pkgs) {
+        const { name, version } = pkg;
+        const targetLineIdentifier = `${name}@${version}`;
+
+        lines = lines.filter((l: string) => !l.includes(targetLineIdentifier));
     }
 
-    return result;
+    return lines.join('\n');
 }

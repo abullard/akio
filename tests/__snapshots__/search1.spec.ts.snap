@@ -1,14 +1,16 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`search1.spec.ts > should run search for start npm scripts, skip input 1`] = `
+exports[`search1.spec.ts > should run search for test npm scripts, skip input 1`] = `
 "
-> npx akio start -i
+> node ./dist/index.cjs build -i
 
 [33mpnpm akio[0m
 	-----
-Found scripts matching: "[32mstart[0m"
+📦 [34m@abullard/akio[0m
+1. [35mbuild:real[0m — This command builds Akio
 
-1. [35mstart     [0m — start the http server
-2. [35mstart:dev [0m — start dev server
-3. [35mstart:prod[0m — start prod server"
+📦 [34mapi[0m
+
+📦 [34mui[0m
+"
 `;

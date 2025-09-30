@@ -4,6 +4,7 @@ import { glob } from 'glob';
 
 export interface ScriptsDescribed {
     name: string;
+    version: string;
     scripts: Record<string, string>;
     scriptDescriptions: Record<string, string>;
     isRoot: boolean;
@@ -33,7 +34,9 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         }))
     );
 
-    return pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
+    const scripts = pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
+    
+    return scripts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
 const pkgJsonDataDTO = (
@@ -56,9 +59,10 @@ const pkgJsonDataDTO = (
 
         npmScriptsAndDescriptionsByPkg.push({
             name: contents.default.name,
+            version: contents.default.version,
             scripts: cmdMap,
             scriptDescriptions: descriptionsMap,
-            isRoot: pkgPath === rootPkgPath,
+            isRoot: pkgPath === rootPkgPath
         });
 
     }

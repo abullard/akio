@@ -2,11 +2,31 @@
 
 exports[`no-format2.spec.ts > should turn formatting off, --no-format 1`] = `
 "
-> npx akio --no-format -i test\\:stub
+> node ./dist/index.cjs --no-format -i test:stub
 
 pnpm akio
 	-----
-Found scripts matching: "test:stub"
+📦 @abullard/akio
+1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests
 
-1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests"
+📦 api
+2. api:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
+3. api:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
+4. api:test:stubThree — DO NOT REMOVE - stubbed npm script for monorepo testing
+5. api:test:stubFour — DO NOT REMOVE - stubbed npm script for monorepo testing
+6. api:test:stubFive — DO NOT REMOVE - stubbed npm script for monorepo testing
+7. api:test:stubSix — DO NOT REMOVE - stubbed npm script for monorepo testing
+8. api:test:stubSeven — DO NOT REMOVE - stubbed npm script for monorepo testing
+9. api:test:stubEight — DO NOT REMOVE - stubbed npm script for monorepo testing
+
+📦 ui
+10. ui:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
+11. ui:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
+12. ui:test:stubThree — DO NOT REMOVE - stubbed npm script for monorepo testing
+13. ui:test:stubFour — DO NOT REMOVE - stubbed npm script for monorepo testing
+14. ui:test:stubFive — DO NOT REMOVE - stubbed npm script for monorepo testing
+15. ui:test:stubSix — DO NOT REMOVE - stubbed npm script for monorepo testing
+16. ui:test:stubSeven — DO NOT REMOVE - stubbed npm script for monorepo testing
+17. ui:test:stubEight — DO NOT REMOVE - stubbed npm script for monorepo testing
+"
 `;

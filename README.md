@@ -61,24 +61,17 @@ Akio treats the first unnamed CLI argument as a search term:
 npx akio build
 ```
 
-No need to pass `--search`. You can, though:
-
-```bash
-npx akio --search build
-```
-
 ## ⚙️ CLI Options
 
 * `-i`, `--no-input`: Don’t prompt — just show results
 * `-f`, `--no-formatting`: Strip colors (and soon, emojis)
-* `-s`, `--search`: Explicit search
 * `-d`, `--no-descriptions`: Don’t warn about missing script docs
 
 Example in `package.json`:
 
 ```json
 "scripts": {
-  "akio": "npx akio -f -i -d -s dev"
+  "akio": "npx akio -f -i -d dev"
 }
 ```
 

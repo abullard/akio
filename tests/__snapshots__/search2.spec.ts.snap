@@ -1,19 +1,42 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`search2.spec.ts > should run search for test:sub npm scripts, run test:stub 1`] = `
+exports[`search2.spec.ts > should support monorepo archeology and script execution 1`] = `
 "
-> npx akio test\\:stub
+> node ./dist/index.cjs test:stub
 
 [33mpnpm akio[0m
 	-----
-Found scripts matching: "[32mtest:stub[0m"
-
+📦 [34m@abullard/akio[0m
 1. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
+
+📦 [34mapi[0m
+2. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+3. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+4. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+5. [35mapi:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+6. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+7. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+8. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+9. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+
+📦 [34mui[0m
+10. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+11. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+12. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+13. [35mui:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+14. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+15. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+16. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+17. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+
 
 [34mRun command number? >[0m 
 
 
-> node -e "console.log('text')"
+> pnpm --filter api api:test:stubFour
 
-text"
+
+> node -e "console.log('api four')"
+
+api four"
 `;
