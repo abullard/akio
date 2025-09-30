@@ -7,7 +7,7 @@ exports[`search1.spec.ts > should run search for test npm scripts, skip input 1`
 [33mpnpm akio[0m
 	-----
 📦 [34m@abullard/akio[0m
-1. [35mbuild:real[0m — This command builds Akio
+1. [35mbuild     [0m — This command builds Akio
 
 📦 [34mapi[0m
 

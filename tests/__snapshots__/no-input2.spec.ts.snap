@@ -9,7 +9,7 @@ exports[`no-input2.spec.ts > should skip prompting user for input, --no-input 1`
 📦 [34m@abullard/akio[0m
 1. [35mtest      [0m — run vitest unit tests
 2. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
-3. [35mbuild:real[0m — This command builds Akio
+3. [35mbuild     [0m — This command builds Akio
 4. [35mui        [0m — pnpm ui package script passthrough
 5. [35mapi       [0m — pnpm api package script passthrough
 
