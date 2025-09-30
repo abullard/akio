@@ -22,7 +22,7 @@ const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type
 
 export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> => {
     const paths = await glob('**/package.json', {
-        signal: AbortSignal.timeout(1000),
+        signal: AbortSignal.timeout(5000),
         ignore: 'node_modules/**',
         absolute: true
     });
