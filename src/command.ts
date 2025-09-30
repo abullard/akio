@@ -1,7 +1,7 @@
 import { Colors } from "./colors";
 import { formatError } from "./format-output";
 import { spawn } from 'child_process';
-import { getPkgManager, readPackageJson } from "./utils";
+import { getPkgManager, readAllPkgJsons, ScriptsDescribed } from "./utils";
 import readline from 'readline';
 
 type CommandMap = Record<string, string>;
@@ -19,17 +19,46 @@ export const processInput = (commandMap: CommandMap) => {
     });
 }
 
-// TODO AJB 05/27/2025: refactor this, way too many things going on
-export const mapAndOutputCommands = (runner: string, searchValue: string | undefined, skipDescriptions: boolean): CommandMap | undefined => {
-    let count = 0;
+export const mapAndOutputCommands = async (
+    runner: string,
+    searchValue: string | undefined,
+    skipDescriptions: boolean
+): Promise<CommandMap | undefined> => {
+    let commandMap = {};
+    let counter = { value: 0 };
+    const scriptsAndDescriptionsByPkg = await readAllPkgJsons();
+
+    console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
+    console.log('\t-----');
+
+    for (const pkg of scriptsAndDescriptionsByPkg) {
+        commandMap = {
+            ...commandMap,
+            ...buildScriptMap(pkg, searchValue, skipDescriptions, counter),
+        } 
+    }
+    
+    if (Object.entries(commandMap).length === 0) {
+        console.log(`❌ Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
+        return undefined;
+    }
+
+    return commandMap;
+};
+
+const buildScriptMap = (
+    packageScriptsAndDescriptions: ScriptsDescribed,
+    searchValue: string | undefined,
+    skipDescriptions: boolean,
+    counter: { value: number }
+): CommandMap | undefined => {
     const commandMap: CommandMap = {};
-    // TODO AJB 05/28/2025: can't I just remove the packagejson reading and import now that TS is used?
-    const pkg = readPackageJson();
+    const { name: monorepoPkgName, scriptDescriptions, isRoot } = packageScriptsAndDescriptions;
 
-    const descriptions = pkg.scriptDescriptions || {};
+    console.log(`📦 ${Colors.blue}${monorepoPkgName}${Colors.reset}`);
 
-    if (!Object.entries(descriptions).length) {
-        if(!skipDescriptions) {
+    if (!Object.entries(scriptDescriptions).length) {
+        if (!skipDescriptions) {
             const noDescriptionsFound = "No descriptions found for your commands, you can add them via \"scriptDescriptions\", in your package.json";
             const suppressMessage = "You can suppress this message with -d\n"
             console.log(noDescriptionsFound);
@@ -37,30 +66,27 @@ export const mapAndOutputCommands = (runner: string, searchValue: string | undef
         }
     }
 
-    console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
-    console.log('\t-----');
-
-    for (const [name, _] of Object.entries(pkg.scripts)) {
+    for (const [name, _] of Object.entries(packageScriptsAndDescriptions.scripts)) {
         if (name === 'akio') continue;  // not a valid option
         if (searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
 
-        if (searchValue && count === 0) {
-            console.log(`Found scripts matching: "${Colors.green}${searchValue}${Colors.reset}"\n`);
-        }
+        counter.value++;
 
-        count++;
-
-        const description = pkg.scriptDescriptions?.[name] ?? '';
-        const formattedOutput = `${count}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
-        commandMap[count] = name;
+        const description = scriptDescriptions?.[name] ?? '';
+        const formattedOutput = `${counter.value}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
+        
+        // TODO AJB 09/12/2025: you need to document how to setup pnpm workspaces, and include npm restrictions in the readme
+        // TODO AJB 09/12/2025: ignore commands that are just pnpm package command passthroughs?
+        // TODO AJB 09/12/2025: create the package selector flow
+        // TODO AJB 09/12/2025: rework cli options once all of this is done
+        // Root package scripts skip the workspace prefix so pnpm run:local behaves normally.
+        const command = isRoot ? name : `${monorepoPkgName} ${name}`;
+        commandMap[counter.value] = command;
 
         console.log(formattedOutput);
     }
 
-    if (Object.entries(commandMap).length === 0) {
-        console.log(`❌ Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
-        return undefined;
-    }
+    console.log();
 
     return commandMap;
 };

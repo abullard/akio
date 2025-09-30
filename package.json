@@ -1,38 +1,26 @@
 {
   "name": "@abullard/akio",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "bin": "./dist/index.cjs",
   "type": "module",
   "description": "Quickly retrieve forgotten package.json script commands",
   "main": "./src/index.ts",
   "scripts": {
+    "akio": "node ./dist/index.cjs",
     "test": "vitest run",
-    "test:unit": "",
-    "test:int": "",
-    "test:contract": "",
-    "test:watch": "",
     "test:stub": "node -e \"console.log('text')\"",
     "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
-    "build:dev": "",
-    "build:prod": "",
-    "start": "",
-    "start:dev": "",
-    "start:prod": "",
-    "akio": "npx akio"
+    "ui": "pnpm --filter ui",
+    "api": "pnpm --filter api"
   },
   "scriptDescriptions": {
+    "akio": "DO NOT REMOVE - used for snapshot tests to run local build",
+    "run:local": "runs a local build of akio",
     "test": "run vitest unit tests",
-    "test:int": "run integration tests",
-    "test:contract": "run API contract tests",
-    "test:watch": "watch tests and re-run on save",
-    "test:unit": "run unit tests",
     "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
-    "build:real": "create production build at ./dist with esbuild",
-    "build:dev": "local dev build",
-    "build:prod": " build production fake",
-    "start": "start the http server",
-    "start:dev": "start dev server",
-    "start:prod": "start prod server"
+    "build": "This command builds Akio",
+    "ui": "pnpm ui package script passthrough",
+    "api": "pnpm api package script passthrough"
   },
   "author": "abullard",
   "license": "MIT",
@@ -48,5 +36,8 @@
     "esbuild": "^0.25.4",
     "execa": "^9.6.0",
     "vitest": "^3.1.4"
+  },
+  "dependencies": {
+    "glob": "^11.0.3"
   }
 }

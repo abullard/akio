@@ -1,0 +1,30 @@
+{
+    "name": "api",
+    "version": "0.0.1",
+    "bin": "./dist/index.cjs",
+    "type": "module",
+    "description": "Fake API app to surface another package.json",
+    "main": "./packages/api",
+    "scripts": {
+        "api:test:stubOne": "node -e \"console.log('api one')\"",
+        "api:test:stubTwo": "node -e \"console.log('api two')\"",
+        "api:test:stubThree": "node -e \"console.log('api three')\"",
+        "api:test:stubFour": "node -e \"console.log('api four')\"",
+        "api:test:stubFive": "node -e \"console.log('api five')\"",
+        "api:test:stubSix": "node -e \"console.log('api six')\"",
+        "api:test:stubSeven": "node -e \"console.log('api seven')\"",
+        "api:test:stubEight": "node -e \"console.log('api eight')\""
+    },
+    "scriptDescriptions": {
+        "api:test:stubOne": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubTwo": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubThree": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubFour": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubFive": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubSix": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubSeven": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "api:test:stubEight": "DO NOT REMOVE - stubbed npm script for monorepo testing"
+    },
+    "author": "abullard",
+    "license": "MIT"
+}
