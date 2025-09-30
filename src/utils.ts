@@ -1,10 +1,12 @@
 import fs from 'fs';
+import path from 'path';
 import { glob } from 'glob';
 
 export interface ScriptsDescribed {
     name: string;
     scripts: Record<string, string>;
     scriptDescriptions: Record<string, string>;
+    isRoot: boolean;
 };
 export type PackageScriptsAndDescriptions = ScriptsDescribed[];
 
@@ -15,7 +17,7 @@ export const getPkgManager = () => {
     return 'npm';
 };
 
-const loadJson = async (path: string) => await import(path, { with: { type: 'json' } });
+const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type: 'json' } });
 
 export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> => {
     const paths = await glob('**/package.json', {
@@ -23,15 +25,24 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         ignore: 'node_modules/**',
         absolute: true
     });
-    const allPkgJsonContents = await Promise.all(paths.map(loadJson));
+    const rootPkgPath = path.resolve('package.json');
+    const allPkgJsonContents = await Promise.all(
+        paths.map(async (pkgPath) => ({
+            pkgPath,
+            contents: await loadJson(pkgPath)
+        }))
+    );
 
-    return pkgJsonDataDTO(allPkgJsonContents);
+    return pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
 }
 
-const pkgJsonDataDTO = (allPkgJsonContents: any): PackageScriptsAndDescriptions => {
+const pkgJsonDataDTO = (
+    allPkgJsonContents: Array<{ pkgPath: string; contents: any }>,
+    rootPkgPath: string
+): PackageScriptsAndDescriptions => {
     const npmScriptsAndDescriptionsByPkg: PackageScriptsAndDescriptions = [];
 
-    for (const contents of allPkgJsonContents) {
+    for (const { pkgPath, contents } of allPkgJsonContents) {
         const cmdMap: Record<string, string> = {};
         const descriptionsMap: Record<string, string> = {};
         
@@ -47,8 +58,10 @@ const pkgJsonDataDTO = (allPkgJsonContents: any): PackageScriptsAndDescriptions 
             name: contents.default.name,
             scripts: cmdMap,
             scriptDescriptions: descriptionsMap,
+            isRoot: pkgPath === rootPkgPath,
         });
 
     }
+    
     return npmScriptsAndDescriptionsByPkg;
 };
