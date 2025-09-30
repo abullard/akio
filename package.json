@@ -9,7 +9,7 @@
     "akio": "node ./dist/index.cjs",
     "test": "vitest run",
     "test:stub": "node -e \"console.log('text')\"",
-    "build:real": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
+    "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
     "ui": "pnpm --filter ui",
     "api": "pnpm --filter api"
   },
@@ -18,7 +18,7 @@
     "run:local": "runs a local build of akio",
     "test": "run vitest unit tests",
     "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
-    "build:real": "This command builds Akio",
+    "build": "This command builds Akio",
     "ui": "pnpm ui package script passthrough",
     "api": "pnpm api package script passthrough"
   },
