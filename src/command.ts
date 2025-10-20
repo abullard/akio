@@ -75,11 +75,6 @@ const buildScriptMap = (
         const description = scriptDescriptions?.[name] ?? '';
         const formattedOutput = `${counter.value}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
         
-        // TODO AJB 09/12/2025: you need to document how to setup pnpm workspaces, and include npm restrictions in the readme
-        // TODO AJB 09/12/2025: ignore commands that are just pnpm package command passthroughs?
-        // TODO AJB 09/12/2025: create the package selector flow
-        // TODO AJB 09/12/2025: rework cli options once all of this is done
-        // Root package scripts skip the workspace prefix so pnpm run:local behaves normally.
         const command = isRoot ? name : `${monorepoPkgName} ${name}`;
         commandMap[counter.value] = command;
 
