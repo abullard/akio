@@ -4,8 +4,9 @@ import { disableColors } from "./colors";
 import { processCliOpts } from "./cli-opts";
 import { mapAndOutputCommands, processInput } from "./command";
 import { getPkgManager } from "./utils";
+import { disableEmoji } from "./emoji";
 
-// TODO AJB 05/26/2025: 
+// TODO AJB 05/26/2025:
 /*
     1. remove emoji when -f passed
     2. you need to document how to setup pnpm workspaces, and include npm restrictions in the readme
@@ -17,7 +18,10 @@ const main = async () => {
     const { showInput, showFormatting, searchValue, skipDescriptions } = processCliOpts();
     const pkgManager = getPkgManager();
 
-    if (!showFormatting) disableColors();
+    if (!showFormatting) {
+      disableColors();
+      disableEmoji();
+    }
 
     const commandMap = await mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
 
