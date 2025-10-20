@@ -1,7 +1,7 @@
 {
   "name": "@abullard/akio",
   "description": "Quickly retrieve forgotten package.json script commands",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "files": [
     "dist",
     "LICENSE",
