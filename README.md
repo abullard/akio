@@ -6,7 +6,7 @@ Your `package.json` is full of mystery meat scripts. `dev:db:reset`? `build:anal
 
 Akio surfaces your scripts and their descriptions in a clean, numbered list — right in your terminal.
 
-![Example](./docs/cli_screenshot.png "Example CLI screenshot")
+![Example](./docs/screenshots/cli_screenshot.png "Example CLI screenshot")
 
 ## 🧭 Why Akio?
 
@@ -32,21 +32,27 @@ npx akio
 In any Node.js project with a `package.json`:
 
 ```bash
-npx akio
+# turn formatting off with -f to make this look like the below output
+npx akio -f
 ```
 
 You’ll see:
 
 ```
 pnpm akio
-  -----
-Found scripts matching: "test"
+	-----
+@abullard/akio
+1. test       — run vitest unit tests
+2. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests
+3. build      — This command builds Akio
 
-1. test          — run vitest unit tests  
-2. test:unit     — run unit tests  
-3. test:int      — run integration tests  
-4. test:contract — run API contract tests  
-5. test:watch    — re-run tests on save
+api
+4. api:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
+5. api:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
+
+ui
+6. ui:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
+7. ui:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
 
 Run command number? >
 ```
@@ -110,11 +116,11 @@ No more guessing what `start:proxy` does.
 
 ## 🛣️ On the Roadmap
 
-* Monorepo support (grouped by package)
+* Paginate Monorepo output
 * CI/CD and README badges
 * Optional auto-publish to NPM
 * JSONC-style inline comments
-* Color + emoji toggle with `--no-formatting`
+* Emoji toggle with `--no-formatting`
 
 ## 🪪 License
 

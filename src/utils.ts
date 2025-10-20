@@ -35,7 +35,7 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
     );
 
     const scripts = pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
-    
+
     return scripts.sort((a, b) => a.name.localeCompare(b.name));
 }
 
@@ -48,13 +48,19 @@ const pkgJsonDataDTO = (
     for (const { pkgPath, contents } of allPkgJsonContents) {
         const cmdMap: Record<string, string> = {};
         const descriptionsMap: Record<string, string> = {};
-        
-        for (const [name, cmd] of Object.entries(contents.default.scripts)) {
-            cmdMap[name] = cmd as string;
-        }
-        
-        for (const [name, description] of Object.entries(contents.default.scriptDescriptions)) {            
-            descriptionsMap[name] = description as string;
+        const packageScripts = contents.default.scripts;
+        const packageScriptDescriptions = contents.default.scriptDescriptions;
+
+       if(packageScripts) {
+          for (const [name, cmd] of Object.entries(packageScripts)) {
+              cmdMap[name] = cmd as string;
+          }
+       }
+
+        if(packageScriptDescriptions) {
+          for (const [name, description] of Object.entries(packageScriptDescriptions)) {
+              descriptionsMap[name] = description as string;
+          }
         }
 
         npmScriptsAndDescriptionsByPkg.push({
@@ -64,8 +70,7 @@ const pkgJsonDataDTO = (
             scriptDescriptions: descriptionsMap,
             isRoot: pkgPath === rootPkgPath
         });
-
     }
-    
+
     return npmScriptsAndDescriptionsByPkg;
 };
