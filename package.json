@@ -1,11 +1,30 @@
 {
   "name": "@abullard/akio",
   "description": "Quickly retrieve forgotten package.json script commands",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "files": [
     "dist",
     "LICENSE",
     "README.md"
+  ],
+  "keywords": [
+    "cli",
+    "command-line",
+    "productivity",
+    "developer-tools",
+    "javascript",
+    "typescript",
+    "package-json",
+    "script-runner",
+    "terminal",
+    "monorepo",
+    "pnpm",
+    "workspace-tools",
+    "command-discovery",
+    "akio",
+    "dx",
+    "npm-workspaces",
+    "yarn-workspaces"
   ],
   "main": "./src/index.ts",
   "type": "module",
