@@ -1,9 +1,10 @@
-const Emoji: Record<string, string> = {
+export const Emoji: Record<string, string> = {
     PACKAGE: '📦',
     ERROR: '❌',
     WARN: '⚠️',
     MAINTENANCE: '🔧',
 };
+
 export type EmojiKeys = keyof typeof Emoji;
 
 export const disableEmoji = () => {
@@ -13,5 +14,7 @@ export const disableEmoji = () => {
 }
 
 export const emojiWithSpace = (key: EmojiKeys): string => {
-  return `${Emoji[key]} `;
+  const emoji = Emoji[key];
+
+  return emoji === '' ? '' : `${emoji} `;
 }

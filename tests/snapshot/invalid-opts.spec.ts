@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { spawnWrapper } from "./test-utils";
+import { spawnWrapper } from "../utils/test-utils";
 
 describe('invalid-opts.spec.ts', () => {
     it('should error with wrong cli opts', async () => {
