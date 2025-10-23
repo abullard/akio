@@ -120,7 +120,6 @@ No more guessing what `start:proxy` does.
 * CI/CD and README badges
 * Optional auto-publish to NPM
 * JSONC-style inline comments
-* Emoji toggle with `--no-formatting`
 
 ## 🪪 License
 
