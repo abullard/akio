@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { spawnWrapper } from "./test-utils";
+import { spawnWrapper } from "../utils/test-utils";
 
 describe('search2.spec.ts', () => {
     it('should support monorepo archeology and script execution', async () => {

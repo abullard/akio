@@ -3,6 +3,7 @@ import { formatError } from "./format-output";
 import { spawn } from 'child_process';
 import { getPkgManager, readAllPkgJsons, ScriptsDescribed } from "./utils";
 import readline from 'readline';
+import { emojiWithSpace } from "./emoji";
 
 type CommandMap = Record<string, string>;
 
@@ -35,11 +36,11 @@ export const mapAndOutputCommands = async (
         commandMap = {
             ...commandMap,
             ...buildScriptMap(pkg, searchValue, skipDescriptions, counter),
-        } 
+        }
     }
-    
+
     if (Object.entries(commandMap).length === 0) {
-        console.log(`❌ Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
+        console.log(`${emojiWithSpace('ERROR')}Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
         return undefined;
     }
 
@@ -55,12 +56,12 @@ const buildScriptMap = (
     const commandMap: CommandMap = {};
     const { name: monorepoPkgName, scriptDescriptions, isRoot } = packageScriptsAndDescriptions;
 
-    console.log(`📦 ${Colors.blue}${monorepoPkgName}${Colors.reset}`);
+    console.log(`${emojiWithSpace('PACKAGE')}${Colors.blue}${monorepoPkgName}${Colors.reset}`);
 
     if (!Object.entries(scriptDescriptions).length) {
         if (!skipDescriptions) {
-            const noDescriptionsFound = "No descriptions found for your commands, you can add them via \"scriptDescriptions\", in your package.json";
-            const suppressMessage = "You can suppress this message with -d\n"
+            const noDescriptionsFound = `${emojiWithSpace('WARN')}No descriptions found for your commands, you can add them via \"scriptDescriptions\", in your package.json`;
+            const suppressMessage = `${emojiWithSpace('MAINTANENCE')}You can suppress this message with -d\n`;
             console.log(noDescriptionsFound);
             console.log(suppressMessage);
         }
@@ -74,7 +75,7 @@ const buildScriptMap = (
 
         const description = scriptDescriptions?.[name] ?? '';
         const formattedOutput = `${counter.value}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
-        
+
         const command = isRoot ? name : `${monorepoPkgName} ${name}`;
         commandMap[counter.value] = command;
 

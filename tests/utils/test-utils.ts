@@ -1,5 +1,5 @@
 import { execa } from "execa";
-import { readAllPkgJsons } from '../src/utils';
+import { readAllPkgJsons } from '../../src/utils';
 
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {

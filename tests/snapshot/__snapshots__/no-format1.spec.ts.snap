@@ -1,15 +1,15 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`no-format2.spec.ts > should turn formatting off, --no-format 1`] = `
+exports[`no-format1.spec.ts > should turn formatting off, -f 1`] = `
 "
-> node ./dist/index.cjs --no-format -i test:stub
+> node ./dist/index.cjs -f -i test:stub
 
 pnpm akio
 	-----
-📦 @abullard/akio
+@abullard/akio
 1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests
 
-📦 api
+api
 2. api:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
 3. api:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
 4. api:test:stubThree — DO NOT REMOVE - stubbed npm script for monorepo testing
@@ -19,7 +19,7 @@ pnpm akio
 8. api:test:stubSeven — DO NOT REMOVE - stubbed npm script for monorepo testing
 9. api:test:stubEight — DO NOT REMOVE - stubbed npm script for monorepo testing
 
-📦 ui
+ui
 10. ui:test:stubOne — DO NOT REMOVE - stubbed npm script for monorepo testing
 11. ui:test:stubTwo — DO NOT REMOVE - stubbed npm script for monorepo testing
 12. ui:test:stubThree — DO NOT REMOVE - stubbed npm script for monorepo testing
