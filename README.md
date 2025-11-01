@@ -53,13 +53,26 @@ npm install -g @abullard/akio
 npx @abullard/akio
 ```
 
-## 📖 Usage
+## 💪 Suggested Usage Methods
 
-In any Node.js project with a `package.json`:
+Example in `package.json`:
+
+```json
+"scripts": {
+  "akio": "npx akio -fid dev"
+}
+```
+
+As an alias in your `.zshrc` so you can fetch with `accio test`:
 
 ```bash
-# formatting turned off for consistency witht he
-npx @abullard/akio -f
+alias accio="npx @abullard/akio -fid"
+```
+
+Or just from the npm registry:
+
+```bash
+npx @abullard/akio test
 ```
 
 ## 🔍 Search Without Flags
@@ -76,22 +89,6 @@ npx akio build
 - `-f`, `--format`: Strip colors & emojis from output
 - `-d`, `--descriptions`: Don’t warn about missing script descriptions
 - `-h`, `--help`: Print a help menu
-
-## 💪 Suggested Usage Methods
-
-Example in `package.json`:
-
-```json
-"scripts": {
-  "akio": "npx akio -fid dev"
-}
-```
-
-or as an alias in your `.zshrc` so you can fetch with `accio test`:
-
-```bash
-alias accio="npx @abullard/akio -fid"
-```
 
 ## 🧠 Best Used For
 
