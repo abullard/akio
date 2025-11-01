@@ -1,4 +1,4 @@
-import { formatError } from "./format-output";
+import commandLineArgs, { OptionDefinition } from 'command-line-args';
 
 type CliOptions = {
     showInput: boolean;
@@ -7,44 +7,40 @@ type CliOptions = {
     searchValue?: string;
 };
 
-const InputOpts: Record<string, string[]> = {
-    showInputOpts: ['-i', '--no-input'],
-    showFormattingOpts: ['-f', '--no-format'],
-    suppressDescriptionOpts: ['-d', '--no-descriptions']
-};
+export function processCliOpts(): CliOptions {
+    const optionDefinitions: OptionDefinition[] = [
+        {
+            name: 'input',
+            alias: 'i',
+            type: Boolean,
+        },
+        {
+            name: 'format',
+            alias: 'f',
+            type: Boolean,
+        },
+        {
+            name: 'descriptions',
+            alias: 'd',
+            type: Boolean,
+        },
+        {
+            name: 'verbose',
+            alias: 'v',
+            type: Boolean,
+        },
+        {
+            name: 'help',
+            alias: 'h',
+            type: Boolean,
+        },
+    ];
 
-export function processCliOpts(args = process.argv.slice(2)): CliOptions {
-    let showInput = true;
-    let showFormatting = true;
-    let skipDescriptions = false;
-    let searchValue = undefined;
-    const allOpts = buildAllOptsList();
-
-    for (let i = 0; i < args.length; i++) {
-        const arg = args[i];
-
-        if (InputOpts.showInputOpts.includes(arg)) showInput = false;
-        if (InputOpts.showFormattingOpts.includes(arg)) showFormatting = false;
-        if (InputOpts.suppressDescriptionOpts.includes(arg)) skipDescriptions = true;
-
-        // treat first unknown (non-flag) value as an implicit search
-        const isFlag = arg.startsWith('-');
-        if (!isFlag && searchValue === undefined) {
-            searchValue = arg;
-        } else if (!allOpts.includes(arg)) {
-            formatError(`Invalid command line option: ${arg}`);
-        }
-    }
+    const options = commandLineArgs(optionDefinitions, { partial: true });
+    const showInput = options.input ? false : true;
+    const showFormatting = options.format ? false : true;
+    const skipDescriptions = options.descriptions ? false : true;
+    const searchValue = options._unknown?.[0];
 
     return { showInput, showFormatting, searchValue, skipDescriptions };
-}
-
-const buildAllOptsList = () => {
-    const allOpts: string[] = [];
-
-    for (const [_, value] of Object.entries(InputOpts)) {
-        allOpts.push(...value);
-    }
-
-    return allOpts;
 }
