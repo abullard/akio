@@ -41,6 +41,7 @@
     },
     "devDependencies": {
         "@types/command-line-args": "^5.2.3",
+        "@types/command-line-usage": "^5.0.4",
         "@types/node": "^22.15.21",
         "esbuild": "^0.25.4",
         "execa": "^9.6.0",
@@ -48,6 +49,7 @@
     },
     "dependencies": {
         "command-line-args": "^6.0.1",
+        "command-line-usage": "^7.0.3",
         "glob": "^11.0.3"
     },
     "scripts": {
