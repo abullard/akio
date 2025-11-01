@@ -1,68 +1,72 @@
 {
-  "name": "@abullard/akio",
-  "description": "Quickly retrieve forgotten package.json script commands",
-  "version": "1.1.2",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README.md"
-  ],
-  "keywords": [
-    "cli",
-    "command-line",
-    "productivity",
-    "developer-tools",
-    "javascript",
-    "typescript",
-    "package-json",
-    "script-runner",
-    "terminal",
-    "monorepo",
-    "pnpm",
-    "workspace-tools",
-    "command-discovery",
-    "akio",
-    "dx",
-    "npm-workspaces",
-    "yarn-workspaces"
-  ],
-  "main": "./src/index.ts",
-  "type": "module",
-  "module": "dist/index.js",
-  "bin": "./dist/index.cjs",
-  "author": "abullard",
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/abullard/akio.git"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.21",
-    "esbuild": "^0.25.4",
-    "execa": "^9.6.0",
-    "vitest": "^3.1.4"
-  },
-  "dependencies": {
-    "glob": "^11.0.3"
-  },
-  "scripts": {
-    "akio": "node ./dist/index.cjs",
-    "test": "vitest run",
-    "test:stub": "node -e \"console.log('text')\"",
-    "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
-    "ui": "pnpm --filter ui",
-    "api": "pnpm --filter api"
-  },
-  "scriptDescriptions": {
-    "akio": "DO NOT REMOVE - used for snapshot tests to run local build",
-    "run:local": "runs a local build of akio",
-    "test": "run vitest unit tests",
-    "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
-    "build": "This command builds Akio",
-    "ui": "pnpm ui package script passthrough",
-    "api": "pnpm api package script passthrough"
-  }
+    "name": "@abullard/akio",
+    "description": "Quickly retrieve forgotten package.json script commands",
+    "version": "1.1.2",
+    "files": [
+        "dist",
+        "LICENSE",
+        "README.md"
+    ],
+    "keywords": [
+        "cli",
+        "command-line",
+        "productivity",
+        "developer-tools",
+        "javascript",
+        "typescript",
+        "package-json",
+        "script-runner",
+        "terminal",
+        "monorepo",
+        "pnpm",
+        "workspace-tools",
+        "command-discovery",
+        "akio",
+        "dx",
+        "npm-workspaces",
+        "yarn-workspaces"
+    ],
+    "main": "./src/index.ts",
+    "type": "module",
+    "module": "dist/index.js",
+    "bin": "./dist/index.cjs",
+    "author": "abullard",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/abullard/akio.git"
+    },
+    "devDependencies": {
+        "@types/command-line-args": "^5.2.3",
+        "@types/command-line-usage": "^5.0.4",
+        "@types/node": "^22.15.21",
+        "esbuild": "^0.25.4",
+        "execa": "^9.6.0",
+        "vitest": "^3.1.4"
+    },
+    "dependencies": {
+        "command-line-args": "^6.0.1",
+        "command-line-usage": "^7.0.3",
+        "glob": "^11.0.3"
+    },
+    "scripts": {
+        "akio": "node ./dist/index.cjs",
+        "test": "vitest run",
+        "test:stub": "node -e \"console.log('text')\"",
+        "build": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
+        "ui": "pnpm --filter ui",
+        "api": "pnpm --filter api"
+    },
+    "scriptDescriptions": {
+        "akio": "DO NOT REMOVE - used for snapshot tests to run local build",
+        "run:local": "runs a local build of akio",
+        "test": "run vitest unit tests",
+        "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
+        "build": "This command builds Akio",
+        "ui": "pnpm ui package script passthrough",
+        "api": "pnpm api package script passthrough"
+    }
 }
