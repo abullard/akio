@@ -42,16 +42,14 @@ export function processCliOpts(): CliOptions {
         // },
     ];
 
-    const options = commandLineArgs(definedOpts, { partial: true });
+    const { help, input, format, descriptions, _unknown } = commandLineArgs(definedOpts, { partial: true });
 
-    if (options.help) {
-        printHelpMenuAndHalt(definedOpts);
-    }
+    if (help) printHelpMenuAndHalt(definedOpts);
 
-    const showInput = options.input ? false : true;
-    const showFormatting = options.format ? false : true;
-    const skipDescriptions = options.descriptions ? false : true;
-    const searchValue = options._unknown?.[0];
-
-    return { showInput, showFormatting, searchValue, skipDescriptions };
+    return {
+        showInput: !input,
+        showFormatting: !format,
+        skipDescriptions: !descriptions,
+        searchValue: _unknown?.[0],
+    };
 }
