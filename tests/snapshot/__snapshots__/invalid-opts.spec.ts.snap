@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`invalid-opts.spec.ts > should swallow invalid cli opts and no-op 1`] = `
+"
+> node ./dist/index.cjs -a
+
+[33mpnpm akio[0m
+	-----
+📦 [34m@abullard/akio[0m
+
+📦 [34mapi[0m
+
+📦 [34mui[0m
+
+❌ Found no scripts matching: "[31m-a[0m"
+"
+`;
