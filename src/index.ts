@@ -5,6 +5,7 @@ import { mapAndOutputCommands, processInput } from './command';
 import { getPkgManager } from './utils';
 import { disableEmoji } from './emoji';
 import { processCliOpts } from './cli-opts/cli-opts';
+import { checkForUpdate } from './update-notif';
 
 // TODO AJB 05/26/2025:
 /*
@@ -22,6 +23,8 @@ const main = async () => {
     }
 
     const commandMap = await mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
+
+    checkForUpdate();
 
     if (commandMap && showInput) processInput(commandMap);
 };
