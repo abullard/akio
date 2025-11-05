@@ -34,38 +34,3 @@ exports[`no-input2.spec.ts > should skip prompting user for input, --input 1`] =
 21. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 "
 `;
-
-exports[`no-input2.spec.ts > should skip prompting user for input, --no-input 1`] = `
-"
-> node ./dist/index.cjs --no-input
-
-[33mpnpm akio[0m
-	-----
-📦 [34m@abullard/akio[0m
-1. [35mtest      [0m — run vitest unit tests
-2. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
-3. [35mbuild     [0m — This command builds Akio
-4. [35mui        [0m — pnpm ui package script passthrough
-5. [35mapi       [0m — pnpm api package script passthrough
-
-📦 [34mapi[0m
-6. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-7. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-8. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-9. [35mapi:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-10. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-11. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-12. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-13. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-
-📦 [34mui[0m
-14. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-15. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-16. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-17. [35mui:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-18. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-19. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-20. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-21. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
-`;

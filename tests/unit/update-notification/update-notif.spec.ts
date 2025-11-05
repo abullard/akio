@@ -2,26 +2,34 @@ import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { checkForUpdate } from '../../../src/update-notification/update-notif';
 import * as fs from 'fs';
 
-const mockFetch = vi.fn();
+vi.mock('fs');
+const fetchMock = vi.fn();
 
 const fakePkgName = 'Yogurt! I hate–YOGURT!';
+const fakePkgVersion = '1.1.4';
 
 vi.spyOn(fs, 'readFileSync').mockImplementation(() => {
-    return `{"name":${fakePkgName},"version":"1.1.3"}`;
+    return JSON.stringify({
+        name: fakePkgName,
+        version: fakePkgVersion,
+    });
 });
 
 describe('update-notif.ts', () => {
     describe('fn(checkForUpdate)', () => {
+        const consoleMock = vi.spyOn(console, 'log').mockImplementation(() => {});
+
         beforeEach(() => {
-            vi.stubGlobal('fetch', mockFetch);
+            vi.stubGlobal('fetch', fetchMock);
         });
 
         afterEach(() => {
             vi.unstubAllGlobals();
-            mockFetch.mockReset();
+            fetchMock.mockReset();
+            consoleMock.mockReset();
         });
 
-        it('should integration test the happy path', () => {
+        it('should integration test the needs update path', async () => {
             const successResponse = {
                 ok: true,
                 json: async () => ({
@@ -29,20 +37,26 @@ describe('update-notif.ts', () => {
                     'dist-tags': { latest: '9.9.9' },
                 }),
             };
+            fetchMock.mockResolvedValueOnce(successResponse as Response);
 
-            mockFetch.mockResolvedValueOnce(successResponse as Response);
+            await checkForUpdate();
 
-            const actual = checkForUpdate();
-
-            const expected = {};
-            expect(actual).toEqual(expected);
+            expect(consoleMock).toHaveBeenCalled();
         });
 
-        it('', async () => {
-            global.fetch = vi.fn(() => Promise.reject('API is down'));
+        it('should integration test versions matching path)', async () => {
+            const successResponse = {
+                ok: true,
+                json: async () => ({
+                    name: '@abullard/akio',
+                    'dist-tags': { latest: fakePkgVersion },
+                }),
+            };
+            fetchMock.mockResolvedValueOnce(successResponse as Response);
 
-            await expect(getData()).rejects.toEqual('API is down');
-            expect(fetch).toHaveBeenCalledTimes(1);
+            await checkForUpdate();
+
+            expect(consoleMock).not.toHaveBeenCalled();
         });
     });
 });
