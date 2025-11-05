@@ -34,6 +34,8 @@ export const checkForUpdate = async () => {
     const pkg = readAkioPkgJson();
     const npmjsdotcomVersion = await fetchLatestVersion(pkg.name);
 
+    if (!pkg || !npmjsdotcomVersion) return;
+
     if (pkg.version !== npmjsdotcomVersion) {
         logUpdateMessage(pkg, npmjsdotcomVersion);
     }
