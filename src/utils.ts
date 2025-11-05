@@ -15,10 +15,13 @@ export const getPkgManager = () => {
 export const needsUpdate = (currentVer: string, npmjsVer: string) => {
     const curr = currentVer.split('.');
     const npmjs = npmjsVer.split('.');
+    const rightSize = 3;
 
-    if (curr[0] < npmjs[0]) return true;
-    if (curr[1] < npmjs[1]) return true;
-    if (curr[2] < npmjs[2]) return true;
+    if (curr.length !== rightSize || npmjs.length !== rightSize) return false;
+
+    for (let i = 0; i < rightSize; i++) {
+        if (curr[i] < npmjs[i]) return true;
+    }
 
     return false;
 };
