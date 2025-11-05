@@ -1,56 +1,59 @@
-import fs from "fs";
-import path from "path";
-import { glob } from "glob";
-
-export interface ScriptsDescribed {
-  name: string;
-  version: string;
-  scripts: Record<string, string>;
-  scriptDescriptions: Record<string, string>;
-  isRoot: boolean;
-}
-export type PackageScriptsAndDescriptions = ScriptsDescribed[];
+import fs from 'fs';
+import path from 'path';
+import { glob } from 'glob';
+import { readFileSync } from 'fs';
+import { dirname, resolve, join } from 'path';
+import { Package, PackageScriptsAndDescriptions } from './types';
 
 export const getPkgManager = () => {
-  if (fs.existsSync("pnpm-lock.yaml")) return "pnpm";
-  if (fs.existsSync("yarn.lock")) return "yarn";
+    if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
+    if (fs.existsSync('yarn.lock')) return 'yarn';
 
-  return "npm";
+    return 'npm';
 };
 
-const loadJson = async (pkgPath: string) =>
-  await import(pkgPath, { with: { type: "json" } });
+export const needsUpdate = (currentVer: string, npmjsVer: string) => {
+    const curr = currentVer.split('.');
+    const npmjs = npmjsVer.split('.');
 
-export const readAllPkgJsons =
-  async (): Promise<PackageScriptsAndDescriptions> => {
+    if (curr[0] < npmjs[0]) return true;
+    if (curr[1] < npmjs[1]) return true;
+    if (curr[2] < npmjs[2]) return true;
+
+    return false;
+};
+
+const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type: 'json' } });
+
+export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> => {
     /*
       Note: this should work for now, but will probably
       need to be moved to something like
       `pnpm list -r --depth -1 --json` or something
      */
     const ignorePaths = [
-      "**/node_modules/**",
-      "**/dist/**",
-      "**/build/**",
-      "**/lib/**",
-      "**/out/**",
-      "**/coverage/**",
-      "**/.turbo/**",
-      "**/.next/**",
-      "**/.cache/**",
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/build/**',
+        '**/lib/**',
+        '**/out/**',
+        '**/coverage/**',
+        '**/.turbo/**',
+        '**/.next/**',
+        '**/.cache/**',
     ];
-    const paths = await glob("**/package.json", {
-      signal: AbortSignal.timeout(5000),
-      ignore: ignorePaths,
-      absolute: true,
+    const paths = await glob('**/package.json', {
+        signal: AbortSignal.timeout(5000),
+        ignore: ignorePaths,
+        absolute: true,
     });
 
-    const rootPkgPath = path.resolve("package.json");
+    const rootPkgPath = path.resolve('package.json');
     const allPkgJsonContents = await Promise.all(
-      paths.map(async (pkgPath) => ({
-        pkgPath,
-        contents: await loadJson(pkgPath),
-      })),
+        paths.map(async (pkgPath) => ({
+            pkgPath,
+            contents: await loadJson(pkgPath),
+        }))
     );
 
     const scripts = pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
@@ -60,42 +63,53 @@ export const readAllPkgJsons =
     sortedScripts.unshift(rootScripts);
 
     return sortedScripts;
-  };
+};
+
+export const readAkioPkgJson = (): Package => {
+    // TODO (AJB) - this is duplication and should be merged with readAllPackageJsons somehow
+    const dir = dirname(__dirname ? __dirname : resolve('.'));
+    const path = join(dir, 'package.json');
+
+    const contents = JSON.parse(readFileSync(path, 'utf8'));
+
+    return {
+        name: contents.name,
+        version: contents.version,
+    };
+};
 
 const pkgJsonDataDTO = (
-  allPkgJsonContents: Array<{ pkgPath: string; contents: any }>,
-  rootPkgPath: string,
+    allPkgJsonContents: Array<{ pkgPath: string; contents: any }>,
+    rootPkgPath: string
 ): PackageScriptsAndDescriptions => {
-  const npmScriptsAndDescriptionsByPkg: PackageScriptsAndDescriptions = [];
+    const npmScriptsAndDescriptionsByPkg: PackageScriptsAndDescriptions = [];
 
-  for (const { pkgPath, contents } of allPkgJsonContents) {
-    const cmdMap: Record<string, string> = {};
-    const descriptionsMap: Record<string, string> = {};
-    const packageScripts = contents.default.scripts;
-    const packageScriptDescriptions = contents.default.scriptDescriptions;
+    for (const { pkgPath, contents } of allPkgJsonContents) {
+        const cmdMap: Record<string, string> = {};
+        const descriptionsMap: Record<string, string> = {};
+        const packageScripts = contents.default.scripts;
+        const packageScriptDescriptions = contents.default.scriptDescriptions;
 
-    if (packageScripts) {
-      for (const [name, cmd] of Object.entries(packageScripts)) {
-        cmdMap[name] = cmd as string;
-      }
+        if (packageScripts) {
+            for (const [name, cmd] of Object.entries(packageScripts)) {
+                cmdMap[name] = cmd as string;
+            }
+        }
+
+        if (packageScriptDescriptions) {
+            for (const [name, description] of Object.entries(packageScriptDescriptions)) {
+                descriptionsMap[name] = description as string;
+            }
+        }
+
+        npmScriptsAndDescriptionsByPkg.push({
+            name: contents.default.name,
+            version: contents.default.version,
+            scripts: cmdMap,
+            scriptDescriptions: descriptionsMap,
+            isRoot: pkgPath === rootPkgPath,
+        });
     }
 
-    if (packageScriptDescriptions) {
-      for (const [name, description] of Object.entries(
-        packageScriptDescriptions,
-      )) {
-        descriptionsMap[name] = description as string;
-      }
-    }
-
-    npmScriptsAndDescriptionsByPkg.push({
-      name: contents.default.name,
-      version: contents.default.version,
-      scripts: cmdMap,
-      scriptDescriptions: descriptionsMap,
-      isRoot: pkgPath === rootPkgPath,
-    });
-  }
-
-  return npmScriptsAndDescriptionsByPkg;
+    return npmScriptsAndDescriptionsByPkg;
 };

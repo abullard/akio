@@ -1,16 +1,17 @@
 import { spawn } from 'child_process';
-import { getPkgManager, readAllPkgJsons, ScriptsDescribed } from "./utils";
+import { getPkgManager, readAllPkgJsons } from './utils';
 import readline from 'readline';
-import { Colors } from "./formatting/colors";
-import { emojiWithSpace } from "./formatting/emoji";
+import { Colors } from './formatting/colors';
+import { emojiWithSpace } from './formatting/emoji';
 import { formatError } from './formatting/format-output';
+import { ScriptsDescribed } from './types';
 
 type CommandMap = Record<string, string>;
 
 export const processInput = (commandMap: CommandMap) => {
     const rl = readline.createInterface({
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
     });
 
     rl.question(`\n${Colors.blue}Run command number? >${Colors.reset} `, (input: string) => {
@@ -18,7 +19,7 @@ export const processInput = (commandMap: CommandMap) => {
         rl.close();
         executeCommand(commandMap, input);
     });
-}
+};
 
 export const mapAndOutputCommands = async (
     runner: string,
@@ -36,11 +37,13 @@ export const mapAndOutputCommands = async (
         commandMap = {
             ...commandMap,
             ...buildScriptMap(pkg, searchValue, skipDescriptions, counter),
-        }
+        };
     }
 
     if (Object.entries(commandMap).length === 0) {
-        console.log(`${emojiWithSpace('ERROR')}Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`);
+        console.log(
+            `${emojiWithSpace('ERROR')}Found no scripts matching: "${Colors.red}${searchValue}${Colors.reset}"\n`
+        );
         return undefined;
     }
 
@@ -68,7 +71,7 @@ const buildScriptMap = (
     }
 
     for (const [name, _] of Object.entries(packageScriptsAndDescriptions.scripts)) {
-        if (name === 'akio') continue;  // not a valid option
+        if (name === 'akio') continue; // not a valid option
         if (searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
 
         counter.value++;
@@ -98,7 +101,7 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
 
     const child = spawn(pkgManager, args, {
         stdio: 'inherit',
-        shell: true
+        shell: true,
     });
 
     child.on('exit', (code: number) => {
