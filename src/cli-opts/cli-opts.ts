@@ -1,12 +1,6 @@
 import commandLineArgs from 'command-line-args';
 import { printHelpMenuAndHalt, UsageOptionDefintions } from './cli-opts-help';
-
-type CliOptions = {
-    showInput: boolean;
-    showFormatting: boolean;
-    skipDescriptions: boolean;
-    searchValue?: string;
-};
+import { CliOptions } from 'src/types';
 
 export function processCliOpts(): CliOptions {
     const definedOpts: UsageOptionDefintions[] = [

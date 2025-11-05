@@ -1,11 +1,12 @@
 {
     "name": "@abullard/akio",
     "description": "Quickly retrieve forgotten package.json script commands",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "files": [
         "dist",
         "LICENSE",
-        "README.md"
+        "README.md",
+        "packge.json"
     ],
     "keywords": [
         "cli",

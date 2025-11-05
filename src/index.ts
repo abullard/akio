@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 
-import { disableColors } from './colors';
 import { mapAndOutputCommands, processInput } from './command';
 import { getPkgManager } from './utils';
-import { disableEmoji } from './emoji';
 import { processCliOpts } from './cli-opts/cli-opts';
+import { disableColors } from './formatting/colors';
+import { checkForUpdate } from './update-notification/update-notif';
+import { disableEmoji } from './formatting/emoji';
 
 // TODO AJB 05/26/2025:
 /*
@@ -22,6 +23,8 @@ const main = async () => {
     }
 
     const commandMap = await mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
+
+    await checkForUpdate();
 
     if (commandMap && showInput) processInput(commandMap);
 };

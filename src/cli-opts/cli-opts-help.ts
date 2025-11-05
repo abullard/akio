@@ -1,10 +1,7 @@
-import commandLineUsage, { OptionDefinition } from 'command-line-usage';
-import { Colors } from 'src/colors';
-import { emojiWithSpace } from 'src/emoji';
-
-export interface UsageOptionDefintions extends OptionDefinition {
-    description?: string;
-}
+import commandLineUsage from 'command-line-usage';
+import { Colors } from 'src/formatting/colors';
+import { emojiWithSpace } from 'src/formatting/emoji';
+import { UsageOptionDefintions } from 'src/types';
 
 export const printHelpMenuAndHalt = (definedOpts: UsageOptionDefintions[]) => {
     const usage = commandLineUsage([
