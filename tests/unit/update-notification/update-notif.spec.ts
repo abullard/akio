@@ -30,6 +30,7 @@ describe('update-notif.ts', () => {
         });
 
         it('should integration test the needs update path', async () => {
+            // arrange
             const successResponse = {
                 ok: true,
                 json: async () => ({
@@ -39,12 +40,15 @@ describe('update-notif.ts', () => {
             };
             fetchMock.mockResolvedValueOnce(successResponse as Response);
 
+            // act
             await checkForUpdate();
 
+            // assert
             expect(consoleMock).toHaveBeenCalled();
         });
 
         it('should integration test versions matching path)', async () => {
+            // arrange
             const successResponse = {
                 ok: true,
                 json: async () => ({
@@ -54,8 +58,26 @@ describe('update-notif.ts', () => {
             };
             fetchMock.mockResolvedValueOnce(successResponse as Response);
 
+            // act
             await checkForUpdate();
 
+            // assert
+            expect(consoleMock).not.toHaveBeenCalled();
+        });
+
+        it('should integration test network failure path)', async () => {
+            // arrange
+            vi.spyOn(console, 'warn').mockImplementation(() => {});
+            const errorResponse = {
+                ok: false,
+                json: async () => undefined,
+            };
+            fetchMock.mockRejectedValueOnce(errorResponse as Response);
+
+            // act
+            await checkForUpdate();
+
+            // assert
             expect(consoleMock).not.toHaveBeenCalled();
         });
     });
