@@ -1,6 +1,6 @@
 import commandLineUsage, { OptionDefinition } from 'command-line-usage';
-import { Colors } from 'src/colors';
-import { emojiWithSpace } from 'src/emoji';
+import { Colors } from 'src/formatting/colors';
+import { emojiWithSpace } from 'src/formatting/emoji';
 
 export interface UsageOptionDefintions extends OptionDefinition {
     description?: string;

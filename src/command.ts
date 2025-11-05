@@ -1,9 +1,9 @@
-import { Colors } from "./colors";
-import { formatError } from "./format-output";
 import { spawn } from 'child_process';
 import { getPkgManager, readAllPkgJsons, ScriptsDescribed } from "./utils";
 import readline from 'readline';
-import { emojiWithSpace } from "./emoji";
+import { Colors } from "./formatting/colors";
+import { emojiWithSpace } from "./formatting/emoji";
+import { formatError } from './formatting/format-output';
 
 type CommandMap = Record<string, string>;
 

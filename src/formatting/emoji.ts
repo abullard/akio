@@ -2,6 +2,7 @@ export const Emoji: Record<string, string> = {
     ERROR: '❌',
     MAINTENANCE: '🔧',
     PACKAGE: '📦',
+    STARS: '✨',
     WAND: '🪄',
     WARN: '⚠️',
 };

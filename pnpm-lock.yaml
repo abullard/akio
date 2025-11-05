@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@types/update-notifier':
-        specifier: ^6.0.8
-        version: 6.0.8
       command-line-args:
         specifier: ^6.0.1
         version: 6.0.1
@@ -20,6 +17,9 @@ importers:
       glob:
         specifier: ^11.0.3
         version: 11.0.3
+      latest-version:
+        specifier: ^9.0.0
+        version: 9.0.0
       update-notifier:
         specifier: ^7.3.1
         version: 7.3.1
@@ -33,6 +33,9 @@ importers:
       '@types/node':
         specifier: ^22.15.21
         version: 22.15.21
+      '@types/update-notifier':
+        specifier: ^6.0.8
+        version: 6.0.8
       esbuild:
         specifier: ^0.25.4
         version: 0.25.4
