@@ -22,15 +22,19 @@ const readAkioPkgJson = (): Package => {
     };
 };
 
+const logUpdateMessage = (pkg: Package, originVersion: string) => {
+    console.log(`${Colors.yellow}------------------------------${Colors.reset}`);
+    console.log(`${Colors.yellow}${emojiWithSpace('STARS')}New akio version available: ${Colors.reset}`);
+    console.log(`${Colors.gray}\t${pkg.version} -> ${Colors.green}${originVersion}${Colors.reset}`);
+    console.log(`${Colors.yellow}Run: npm i -g ${pkg.name}${Colors.reset}`);
+    console.log(`${Colors.yellow}------------------------------${Colors.reset}`);
+};
+
 export const checkForUpdate = async () => {
     const pkg = readAkioPkgJson();
-    const originVersion = await fetchLatestVersion(pkg.name);
+    const npmjsdotcomVersion = await fetchLatestVersion(pkg.name);
 
-    if (pkg.version !== originVersion) {
-        console.log(`${Colors.yellow}------------------------------${Colors.reset}`);
-        console.log(`${Colors.yellow}${emojiWithSpace('STARS')}New akio version available: ${Colors.reset}`);
-        console.log(`${Colors.gray}\t${pkg.version} -> ${Colors.green}${originVersion}${Colors.reset}`);
-        console.log(`${Colors.yellow}Run: npm i -g ${pkg.name}${Colors.reset}`);
-        console.log(`${Colors.yellow}------------------------------${Colors.reset}`);
+    if (pkg.version !== npmjsdotcomVersion) {
+        logUpdateMessage(pkg, npmjsdotcomVersion);
     }
 };
