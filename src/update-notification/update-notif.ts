@@ -30,6 +30,17 @@ const logUpdateMessage = (pkg: Package, originVersion: string) => {
     console.log(`${Colors.yellow}------------------------------${Colors.reset}`);
 };
 
+const needsUpdate = (currentVer: string, npmjsVer: string) => {
+    const curr = currentVer.split('.');
+    const npmjs = npmjsVer.split('.');
+
+    if (curr[0] < npmjs[0]) return true;
+    if (curr[1] < npmjs[1]) return true;
+    if (curr[2] < npmjs[2]) return true;
+
+    return false;
+};
+
 export const checkForUpdate = async () => {
     const pkg = readAkioPkgJson();
     const npmjsdotcomVersion = await fetchLatestVersion(pkg.name);
@@ -38,7 +49,7 @@ export const checkForUpdate = async () => {
         return;
     }
 
-    if (pkg.version !== npmjsdotcomVersion) {
+    if (needsUpdate(pkg.version, npmjsdotcomVersion)) {
         logUpdateMessage(pkg, npmjsdotcomVersion);
     }
 };
