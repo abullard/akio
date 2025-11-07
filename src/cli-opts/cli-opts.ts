@@ -1,8 +1,19 @@
 import commandLineArgs from 'command-line-args';
-import { printHelpMenuAndHalt, UsageOptionDefintions } from './cli-opts-help';
-import { CliOptions } from 'src/types';
+import { printHelpMenuAndHalt } from './cli-opts-help';
+import { Options, UsageOptionDefintions } from 'src/types';
 
-export function processCliOpts(): CliOptions {
+const handleUnknowns = (others: string[]): { searchValue: string; targetPackage: string } => {
+    const packageIndex = others.findIndex((x) => x.startsWith('@'));
+    const targetPackage = others[packageIndex].split('@')[1];
+    const searchValue = others[1 - packageIndex];
+
+    return {
+        searchValue,
+        targetPackage,
+    };
+};
+
+const buildOptions = (): Options => {
     const definedOpts: UsageOptionDefintions[] = [
         {
             name: 'input',
@@ -36,14 +47,29 @@ export function processCliOpts(): CliOptions {
         // },
     ];
 
-    const { help, input, format, descriptions, _unknown } = commandLineArgs(definedOpts, { partial: true });
+    const { help, input, format, descriptions, _unknown: others } = commandLineArgs(definedOpts, { partial: true });
+
+    console.log(others);
 
     if (help) printHelpMenuAndHalt(definedOpts);
 
     return {
-        showInput: !input,
-        showFormatting: !format,
-        skipDescriptions: !descriptions,
-        searchValue: _unknown?.[0],
+        input,
+        format,
+        descriptions,
+        ...(others ? handleUnknowns(others) : {}),
     };
-}
+};
+
+export const processCliOpts = () => {
+    return {
+        showInput: !options.input,
+        showFormatting: !options.format,
+        skipDescriptions: !options.descriptions,
+        searchValue: options.searchValue,
+    };
+};
+
+export const options: Options = {
+    ...buildOptions(),
+};

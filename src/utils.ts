@@ -51,6 +51,8 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         absolute: true,
     });
 
+    // const filteredPaths = filterToTargetedPackge();
+
     const rootPkgPath = path.resolve('package.json');
     const allPkgJsonContents = await Promise.all(
         paths.map(async (pkgPath) => ({

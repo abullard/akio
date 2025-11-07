@@ -18,5 +18,7 @@ export const disableEmoji = () => {
 export const emojiWithSpace = (key: EmojiKeys): string => {
     const emoji = Emoji[key];
 
-    return emoji === '' ? '' : `${emoji} `;
+    const emojiAndSpace = `${emoji} `;
+
+    return emoji === '' ? '' : emojiAndSpace;
 };
