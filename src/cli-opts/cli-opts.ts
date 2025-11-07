@@ -49,8 +49,6 @@ const buildOptions = (): Options => {
 
     const { help, input, format, descriptions, _unknown: others } = commandLineArgs(definedOpts, { partial: true });
 
-    console.log(others);
-
     if (help) printHelpMenuAndHalt(definedOpts);
 
     return {
