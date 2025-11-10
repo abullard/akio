@@ -4,7 +4,8 @@ import { glob } from 'glob';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
 import { Package, PackageScriptsAndDescriptions } from './types';
-// import { options } from './cli-opts/cli-opts';
+import { options } from './cli-opts/cli-opts';
+import { formatError } from './formatting/format-output';
 
 export const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
@@ -27,9 +28,23 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
     return false;
 };
 
-// const filterToTargetedPackge = (paths: string[]) => {
-//     return paths.filter((x) => x === options.targetPackage);
-// };
+const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
+    if (options.targetPackage === 'root') {
+        return [rootPkgPath];
+    }
+
+    const filteredPaths = paths.filter((path) => {
+        const pathList = path.split('/');
+        const curPackage = pathList[pathList.length - 2];
+        return curPackage === options.targetPackage;
+    });
+
+    if (!filteredPaths.length) {
+        formatError('Invalid package specified.');
+    }
+
+    return filteredPaths;
+};
 
 const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type: 'json' } });
 
@@ -56,11 +71,11 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         absolute: true,
     });
 
-    // const filteredPaths = filterToTargetedPackge(paths);
-
     const rootPkgPath = path.resolve('package.json');
+    const filteredPaths = filterToTargetedPackge(paths, rootPkgPath);
+
     const allPkgJsonContents = await Promise.all(
-        paths.map(async (pkgPath) => ({
+        filteredPaths.map(async (pkgPath) => ({
             pkgPath,
             contents: await loadJson(pkgPath),
         }))
