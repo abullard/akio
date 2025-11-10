@@ -73,7 +73,7 @@ export const processCliOpts = () => {
     return {
         showInput: !options.input,
         showFormatting: !options.format,
-        skipDescriptions: !options.descriptions,
+        skipDescriptions: options.descriptions,
         searchValue: options.searchValue,
     };
 };
