@@ -1,8 +1,29 @@
 import commandLineArgs from 'command-line-args';
-import { printHelpMenuAndHalt, UsageOptionDefintions } from './cli-opts-help';
-import { CliOptions } from 'src/types';
+import { printHelpMenuAndHalt } from './cli-opts-help';
+import { Options, UsageOptionDefintions } from 'src/types';
 
-export function processCliOpts(): CliOptions {
+export const handleUnknowns = (
+    others: string[]
+): { searchValue: string | undefined; targetPackage: string | undefined } => {
+    let targetPackage: string | undefined;
+    let searchValue: string | undefined;
+    const packageIndex = others.findIndex((x) => x.startsWith('@'));
+
+    if (packageIndex > -1) {
+        targetPackage = others[packageIndex].split('@')[1];
+        const searchValueIndex = packageIndex === 0 ? 1 : 0;
+        searchValue = others[searchValueIndex];
+    } else {
+        searchValue = others.length ? others[0] : undefined;
+    }
+
+    return {
+        searchValue,
+        targetPackage,
+    };
+};
+
+const buildOptions = (): Options => {
     const definedOpts: UsageOptionDefintions[] = [
         {
             name: 'input',
@@ -36,14 +57,27 @@ export function processCliOpts(): CliOptions {
         // },
     ];
 
-    const { help, input, format, descriptions, _unknown } = commandLineArgs(definedOpts, { partial: true });
+    const { help, input, format, descriptions, _unknown: others } = commandLineArgs(definedOpts, { partial: true });
 
     if (help) printHelpMenuAndHalt(definedOpts);
 
     return {
-        showInput: !input,
-        showFormatting: !format,
-        skipDescriptions: !descriptions,
-        searchValue: _unknown?.[0],
+        input,
+        format,
+        descriptions,
+        ...(others ? handleUnknowns(others) : {}),
     };
-}
+};
+
+export const processCliOpts = () => {
+    return {
+        showInput: !options.input,
+        showFormatting: !options.format,
+        skipDescriptions: !options.descriptions,
+        searchValue: options.searchValue,
+    };
+};
+
+export const options: Options = {
+    ...buildOptions(),
+};

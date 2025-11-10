@@ -1,8 +1,16 @@
-import { OptionDefinition } from "command-line-args";
+import { OptionDefinition } from 'command-line-args';
 
 export type Package = {
     name: string;
     version: string;
+};
+
+export type Options = {
+    input: boolean;
+    format: boolean;
+    descriptions: boolean;
+    searchValue?: string;
+    targetPackage?: string;
 };
 
 export interface ScriptsDescribed {
@@ -14,13 +22,6 @@ export interface ScriptsDescribed {
 }
 
 export type PackageScriptsAndDescriptions = ScriptsDescribed[];
-
-export type CliOptions = {
-    showInput: boolean;
-    showFormatting: boolean;
-    skipDescriptions: boolean;
-    searchValue?: string;
-};
 
 export interface UsageOptionDefintions extends OptionDefinition {
     description?: string;
