@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`search2.spec.ts > should support monorepo archeology and script execution 1`] = `
+exports[`target-package1.spec.ts > should target the ui package 1`] = `
 "
 > node ./dist/index.cjs @ui test:stub -i
 

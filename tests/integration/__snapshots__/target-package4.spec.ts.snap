@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`target-package3.spec.ts > should target the root package 1`] = `
+exports[`target-package4.spec.ts > should target no package and provide an error 1`] = `
 "
 > node ./dist/index.cjs @root -i
 

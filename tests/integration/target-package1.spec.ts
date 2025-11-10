@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { spawnWrapper } from '../utils/test-utils';
 
-describe('search2.spec.ts', () => {
-    it('should support monorepo archeology and script execution', async () => {
+describe('target-package1.spec.ts', () => {
+    it('should target the ui package', async () => {
         const cmd = 'pnpm';
         const args = ['akio', '@ui', 'test:stub', '-i'];
 
