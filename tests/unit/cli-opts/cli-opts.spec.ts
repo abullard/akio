@@ -9,6 +9,8 @@ describe('cli-opts.ts', () => {
             [['build', '@ui'], { searchValue: 'build', targetPackage: 'ui' }],
             [['@ui'], { searchValue: undefined, targetPackage: 'ui' }],
             [['cert'], { searchValue: 'cert', targetPackage: undefined }],
+            [['water', 'temple'], { searchValue: 'water', targetPackage: undefined }],
+            [['fire temple'], { searchValue: 'fire temple', targetPackage: undefined }],
             [[], { searchValue: undefined, targetPackage: undefined }],
         ])('should parse the correct unknown options', (input: string[], expected: Partial<Options>) => {
             const actual = handleUnknowns(input);
