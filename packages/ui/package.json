@@ -15,6 +15,16 @@
         "ui:test:stubSeven": "node -e \"console.log('ui seven')\"",
         "ui:test:stubEight": "node -e \"console.log('ui eight')\""
     },
+    "scriptDescriptions": {
+        "ui:test:stubOne": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubTwo": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubThree": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubFour": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubFive": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubSix": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubSeven": "DO NOT REMOVE - stubbed npm script for monorepo testing",
+        "ui:test:stubEight": "DO NOT REMOVE - stubbed npm script for monorepo testing"
+    },
     "author": "abullard",
     "license": "MIT"
 }
