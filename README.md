@@ -16,7 +16,7 @@ You’ve asked:
 
 - _What does this script actually do?_
 - _Is it safe to run?_
-- _Did I write this or inherit it?_
+- _What package has the `types:check` script?_
 
 Akio gives you answers — defined in natural language, by your team.
 
@@ -39,21 +39,24 @@ Add a `scriptDescriptions` section to your `package.json`:
 }
 ```
 
-No more guessing what `test:integration` does. A warning will print if you don't have these. See CLI Opts to suppress.
-
-_Opinion_: Descriptions in `package.json` is clutter.
-
-_Answer_: Don't include them. You don't need them to run the tool.
+No more guessing what `test:integration` does.
 
 ## 🚀 Install
 
 ```bash
 npm install -g @abullard/akio
+
 # or use it directly
 npx @abullard/akio
 ```
 
 ## 💪 Suggested Usage Methods
+
+As an alias in your `.zshrc` so you can fetch with `akio test`:
+
+```bash
+alias akio="npx @abullard/akio -fid"
+```
 
 Example in `package.json`:
 
@@ -63,16 +66,17 @@ Example in `package.json`:
 }
 ```
 
-As an alias in your `.zshrc` so you can fetch with `accio test`:
+## 🎯 Target a Package
+
+Akio can target a package with the sytnax
 
 ```bash
-alias accio="npx @abullard/akio -fid"
-```
+# This assumes your package.json lives just below the ui folder.
+# e.g. ...apps/ui/package.json
+akio @ui
 
-Or just from the npm registry:
-
-```bash
-npx @abullard/akio test
+# to access root
+akio @root
 ```
 
 ## 🔍 Search Without Flags
@@ -80,7 +84,7 @@ npx @abullard/akio test
 Akio treats the first unnamed CLI argument as a search term:
 
 ```bash
-npx akio build
+akio build
 ```
 
 ## ⚙️ CLI Options
@@ -107,3 +111,7 @@ npx akio build
 ## 🪪 License
 
 MIT
+
+## Extra Information
+
+- Akio works best with `pnpm` right now. Please setup [Workspaces](https://pnpm.io/workspaces) for proper functionality.

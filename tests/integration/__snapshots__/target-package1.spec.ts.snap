@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`target-package1.spec.ts > should target the ui package 1`] = `
+"
+> node ./dist/index.cjs @ui test:stub -i
+
+[33mpnpm akio[0m
+	-----
+📦 [34mui[0m
+1. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+2. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+3. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+4. [35mui:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+5. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+6. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+7. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+8. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+"
+`;
