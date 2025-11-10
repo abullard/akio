@@ -2,7 +2,9 @@ import commandLineArgs from 'command-line-args';
 import { printHelpMenuAndHalt } from './cli-opts-help';
 import { Options, UsageOptionDefintions } from 'src/types';
 
-const handleUnknowns = (others: string[]): { searchValue: string | undefined; targetPackage: string | undefined } => {
+export const handleUnknowns = (
+    others: string[]
+): { searchValue: string | undefined; targetPackage: string | undefined } => {
     let targetPackage: string | undefined;
     let searchValue: string | undefined;
     const packageIndex = others.findIndex((x) => x.startsWith('@'));

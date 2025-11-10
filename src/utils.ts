@@ -4,7 +4,7 @@ import { glob } from 'glob';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
 import { Package, PackageScriptsAndDescriptions } from './types';
-import { options } from './cli-opts/cli-opts';
+// import { options } from './cli-opts/cli-opts';
 
 export const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
@@ -27,9 +27,9 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
     return false;
 };
 
-const filterToTargetedPackge = (paths: string[]) => {
-    return paths.filter((x) => x === options.targetPackage);
-};
+// const filterToTargetedPackge = (paths: string[]) => {
+//     return paths.filter((x) => x === options.targetPackage);
+// };
 
 const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type: 'json' } });
 
