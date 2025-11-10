@@ -1,0 +1,19 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`search2.spec.ts > should support monorepo archeology and script execution 1`] = `
+"
+> node ./dist/index.cjs test:stub @api -i
+
+[33mpnpm akio[0m
+	-----
+📦 [34mapi[0m
+1. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+2. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+3. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+4. [35mapi:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+5. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+6. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+7. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+8. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+"
+`;

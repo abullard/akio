@@ -29,6 +29,8 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
 };
 
 const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
+    if (!options.targetPackage) return paths;
+
     if (options.targetPackage === 'root') {
         return [rootPkgPath];
     }
