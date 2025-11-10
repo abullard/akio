@@ -2,10 +2,18 @@ import commandLineArgs from 'command-line-args';
 import { printHelpMenuAndHalt } from './cli-opts-help';
 import { Options, UsageOptionDefintions } from 'src/types';
 
-const handleUnknowns = (others: string[]): { searchValue: string; targetPackage: string } => {
+const handleUnknowns = (others: string[]): { searchValue: string | undefined; targetPackage: string | undefined } => {
+    let targetPackage: string | undefined;
+    let searchValue: string | undefined;
     const packageIndex = others.findIndex((x) => x.startsWith('@'));
-    const targetPackage = others[packageIndex].split('@')[1];
-    const searchValue = others[1 - packageIndex];
+
+    if (packageIndex > -1) {
+        targetPackage = others[packageIndex].split('@')[1];
+        const searchValueIndex = packageIndex === 0 ? 1 : 0;
+        searchValue = others[searchValueIndex];
+    } else {
+        searchValue = others.length ? others[0] : undefined;
+    }
 
     return {
         searchValue,
