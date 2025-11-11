@@ -45,15 +45,6 @@ const buildOptions = (): Options => {
     };
 };
 
-export const processCliOpts = () => {
-    return {
-        showInput: !options.input,
-        showFormatting: !options.format,
-        skipDescriptions: options.descriptions,
-        searchValue: options.searchValue,
-    };
-};
-
 export const options: Options = {
     ...buildOptions(),
 };

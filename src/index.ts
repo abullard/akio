@@ -2,7 +2,7 @@
 
 import { mapAndOutputCommands, processInput } from './command';
 import { getPkgManager } from './utils';
-import { processCliOpts } from './cli-opts/cli-opts';
+import { options } from './cli-opts/cli-opts';
 import { disableColors } from './formatting/colors';
 import { checkForUpdate } from './update-notification/update-notif';
 import { disableEmoji } from './formatting/emoji';
@@ -12,19 +12,15 @@ import { disableEmoji } from './formatting/emoji';
     1. ignore commands that are just pnpm package command passthroughs?
 */
 const main = async () => {
-    const { showInput, showFormatting, searchValue, skipDescriptions } = processCliOpts();
-    const pkgManager = getPkgManager();
-
-    if (!showFormatting) {
+    if (options.format) {
         disableColors();
         disableEmoji();
     }
 
-    const commandMap = await mapAndOutputCommands(pkgManager, searchValue, skipDescriptions);
-
+    const pkgManager = getPkgManager();
+    const commandMap = await mapAndOutputCommands(pkgManager);
     await checkForUpdate();
-
-    if (commandMap && showInput) processInput(commandMap);
+    if (commandMap && !options.input) processInput(commandMap);
 };
 
 main();

@@ -5,6 +5,7 @@ import { Colors } from './formatting/colors';
 import { emojiWithSpace } from './formatting/emoji';
 import { formatError } from './formatting/format-output';
 import { ScriptsDescribed } from './types';
+import { options } from './cli-opts/cli-opts';
 
 type CommandMap = Record<string, string>;
 
@@ -21,13 +22,10 @@ export const processInput = (commandMap: CommandMap) => {
     });
 };
 
-export const mapAndOutputCommands = async (
-    runner: string,
-    searchValue: string | undefined,
-    skipDescriptions: boolean
-): Promise<CommandMap | undefined> => {
+export const mapAndOutputCommands = async (runner: string): Promise<CommandMap | undefined> => {
     let commandMap = {};
     let counter = { value: 0 };
+    const searchValue = options.searchValue;
     const scriptsAndDescriptionsByPkg = await readAllPkgJsons();
 
     console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
@@ -36,7 +34,7 @@ export const mapAndOutputCommands = async (
     for (const pkg of scriptsAndDescriptionsByPkg) {
         commandMap = {
             ...commandMap,
-            ...buildScriptMap(pkg, searchValue, skipDescriptions, counter),
+            ...buildScriptMap(pkg, counter),
         };
     }
 
@@ -52,17 +50,16 @@ export const mapAndOutputCommands = async (
 
 const buildScriptMap = (
     packageScriptsAndDescriptions: ScriptsDescribed,
-    searchValue: string | undefined,
-    skipDescriptions: boolean,
     counter: { value: number }
 ): CommandMap | undefined => {
     const commandMap: CommandMap = {};
+    const searchValue = options.searchValue;
     const { name: monorepoPkgName, scriptDescriptions, isRoot } = packageScriptsAndDescriptions;
 
     console.log(`${emojiWithSpace('PACKAGE')}${Colors.blue}${monorepoPkgName}${Colors.reset}`);
 
     if (!Object.entries(scriptDescriptions).length) {
-        if (!skipDescriptions) {
+        if (!options.descriptions) {
             const noDescriptionsFound = `${emojiWithSpace('WARN')}No descriptions found for your commands, you can add them via \"scriptDescriptions\", in your package.json`;
             const suppressMessage = `${emojiWithSpace('MAINTANENCE')}You can suppress this message with -d\n`;
             console.log(noDescriptionsFound);
