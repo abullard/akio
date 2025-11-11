@@ -6,28 +6,34 @@
 
 ---
 
-## Quick setup
+# Quick setup
 
-I recommend starting by using `akio` directly from the npm registery to get familiar with its monorepo functionaltiy. See [Documenting Scripts](#documenting-scripts) below to populate out your script descriptions.
+I recommend using `akio` directly from the npm registery to get familiar with its monorepo functionality. See _Documenting Scripts_ below to populate your `scriptDescriptions`.
 
 ```bash
+# using this DevX tool is as easy as running:
 npx @abullard/akio
 ```
 
-### 🎯 Target a Package
+## 🎯 Target a Package
 
-Akio can target a package with the `@pkg` sytnax
+Akio can target a package with the `@pkg` syntax:
 
 ```bash
-# This assumes your package.json lives just below the ui folder.
-# e.g. ...apps/ui/package.json
+# find commands from the ui package
 akio @ui
 
 # to target root package.json
 akio @root
 ```
 
-### 🔍 Search Without Flags
+Targeting requires your `package.json` files live at the root of your _package_. e.g.
+
+- `../packages/ui/package.json`
+- `../packages/api/package.json`
+- `../packages/smoke/package.json`
+
+## 🔍 Search Without Flags
 
 Akio treats the first unnamed CLI argument as a search term:
 
@@ -42,24 +48,29 @@ akio @api test
 akio coverage @ui
 ```
 
-### ⚙️ CLI Options
+## ⚙️ CLI Options
 
-- `-i`, `--input`: Don't request command execution number
-- `-f`, `--format`: Strip colors & emojis from output
-- `-d`, `--descriptions`: Don’t warn about missing script descriptions
-- `-h`, `--help`: Print a help menu
+| Long Name        | Short Name | Description                                   |
+| ---------------- | ---------- | --------------------------------------------- |
+| `--input`        | `-i`       | Don't prompt user to run a command            |
+| `--format`       | `-f`       | Strip colors & emojis from output             |
+| `--descriptions` | `-d`       | Hide missing script descriptions warning      |
+| `--help`         | `-h`       | Print a help menu                             |
+| `--pin`          | `-p`       | Pin your version, this skips the update check |
+
+That's the basics usage. See _More Details_ if you run into trouble.
 
 ---
 
-## More Details
+# More Details
 
-### 🚀 Global Install
+## 🚀 Global Install
 
 ```bash
 npm install -g @abullard/akio
 ```
 
-### 📝 Documenting Scripts
+## 📝 Documenting Scripts
 
 Add a `scriptDescriptions` section to your `package.json`:
 
@@ -80,7 +91,7 @@ Add a `scriptDescriptions` section to your `package.json`:
 
 No more guessing what `test:integration` does.
 
-### 💪 Suggested Usage Methods
+## 💪 Suggested Usage Methods
 
 For the best UX, use it as an alias in your `.zshrc` so you can fetch with just `akio`:
 
@@ -100,16 +111,25 @@ Example in `package.json`:
 }
 ```
 
-### 🧠 Best Used For
+## 🎬 Inferred Package Manager
+
+- Akio works best with `pnpm`, but supports `npm` and `yarn`. Please setup [pnpm-workspace.yml](https://pnpm.io/workspaces) for proper _Target a Package_ functionality.
+    - `akio` infers which package manager to use based on your lockfile.
+      |akio uses | file present in repo|
+      | --- | --- |
+      |`pnpm`|`pnpm-lock.yaml`|
+      |`yarn`|`yarn.lock`|
+      |`npm run`| `package-lock.json`|
+
+## 🧠 Best Used For
 
 - Dev teams with lots of internal scripts
 - Open source projects that skimp on docs
 - Onboarding new teammates
 - Old projects you forgot how to run
 
-### 🛣️ On the Roadmap
+## 🛣️ On the Roadmap
 
-- Paginate Monorepo output
 - CI/CD and README badges
 - Optional auto-publish to NPM
 - JSONC-style inline comments
@@ -117,7 +137,3 @@ Example in `package.json`:
 ## 🪪 License
 
 MIT
-
-## Extra Information
-
-- Akio works best with `pnpm` right now. Please setup [Workspaces](https://pnpm.io/workspaces) for proper functionality.
