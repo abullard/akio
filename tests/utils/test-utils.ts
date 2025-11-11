@@ -1,16 +1,15 @@
-import { execa } from "execa";
+import { execa } from 'execa';
 import { readAllPkgJsons } from '../../src/utils';
 
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
-        stdin: 'pipe'
+        stdin: 'pipe',
     };
 
-    const subprocess = execa(
-        cmd,
-        args,
-        input ? { ...userPromptedInputOpt } : {},
-    );
+    // pin this NPM package version. This'll keep the snapshot tests from checking for version updates.
+    args.push('--pin');
+
+    const subprocess = execa(cmd, args, input ? { ...userPromptedInputOpt } : {});
 
     if (input) {
         subprocess.stdin!.write(`${input}\n`);
@@ -21,9 +20,9 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
 
     return {
         ...response,
-        stdout: await removeHeaderText(response)
+        stdout: await removeHeaderText(response),
     };
-}
+};
 
 const removeHeaderText = async (response: any) => {
     const { stdout } = response;
@@ -41,4 +40,4 @@ const removeHeaderText = async (response: any) => {
     }
 
     return lines.join('\n');
-}
+};

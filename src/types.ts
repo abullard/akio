@@ -5,14 +5,6 @@ export type Package = {
     version: string;
 };
 
-export type Options = {
-    input: boolean;
-    format: boolean;
-    descriptions: boolean;
-    searchValue?: string;
-    targetPackage?: string;
-};
-
 export interface ScriptsDescribed {
     name: string;
     version: string;
@@ -26,3 +18,12 @@ export type PackageScriptsAndDescriptions = ScriptsDescribed[];
 export interface UsageOptionDefintions extends OptionDefinition {
     description?: string;
 }
+
+export type Options = {
+    input: boolean;
+    format: boolean;
+    descriptions: boolean;
+    pin: boolean;
+    searchValue?: string;
+    targetPackage?: string;
+};

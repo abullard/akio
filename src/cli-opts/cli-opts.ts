@@ -1,6 +1,7 @@
 import commandLineArgs from 'command-line-args';
 import { printHelpMenuAndHalt } from './cli-opts-help';
-import { Options, UsageOptionDefintions } from 'src/types';
+import { Options } from 'src/types';
+import { definedOpts } from './defined-options';
 
 export const handleUnknowns = (
     others: string[]
@@ -24,40 +25,14 @@ export const handleUnknowns = (
 };
 
 const buildOptions = (): Options => {
-    const definedOpts: UsageOptionDefintions[] = [
-        {
-            name: 'input',
-            alias: 'i',
-            type: Boolean,
-            description: 'Do not prompt for an input comand.',
-        },
-        {
-            name: 'format',
-            alias: 'f',
-            type: Boolean,
-            description: 'Do not include emoji or color formatting.',
-        },
-        {
-            name: 'descriptions',
-            alias: 'd',
-            type: Boolean,
-            description: 'Do not warn if package.json "scriptDescriptions" are missing.',
-        },
-        {
-            name: 'help',
-            alias: 'h',
-            type: Boolean,
-            description: 'Display this usage guide.',
-        },
-        // {
-        //     name: 'verbose',
-        //     alias: 'v',
-        //     type: Boolean,
-        //     description: 'Print warning logs.',
-        // },
-    ];
-
-    const { help, input, format, descriptions, _unknown: others } = commandLineArgs(definedOpts, { partial: true });
+    const {
+        help,
+        input,
+        format,
+        descriptions,
+        pin,
+        _unknown: others,
+    } = commandLineArgs(definedOpts, { partial: true });
 
     if (help) printHelpMenuAndHalt(definedOpts);
 
@@ -65,6 +40,7 @@ const buildOptions = (): Options => {
         input,
         format,
         descriptions,
+        pin,
         ...(others ? handleUnknowns(others) : {}),
     };
 };
