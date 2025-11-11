@@ -29,9 +29,9 @@ akio @root
 
 Targeting requires your `package.json` files live at the root of your _package_. e.g.
 
-- `../packages/ui/package.json`
-- `../packages/api/package.json`
-- `../packages/smoke/package.json`
+- `../ui/package.json`
+- `../api/package.json`
+- `../smoke/package.json`
 
 ## 🔍 Search Without Flags
 
@@ -52,17 +52,13 @@ akio coverage @ui
 
 | Long Name        | Short Name | Description                                   |
 | ---------------- | ---------- | --------------------------------------------- |
-| `--input`        | `-i`       | Don't prompt user to run a command            |
-| `--format`       | `-f`       | Strip colors & emojis from output             |
 | `--descriptions` | `-d`       | Hide missing script descriptions warning      |
+| `--format`       | `-f`       | Strip colors & emojis from output             |
 | `--help`         | `-h`       | Print a help menu                             |
+| `--input`        | `-i`       | Don't prompt user to run a command            |
 | `--pin`          | `-p`       | Pin your version, this skips the update check |
 
-That's the basics usage. See _More Details_ if you run into trouble.
-
 ---
-
-# More Details
 
 ## 🚀 Global Install
 
@@ -114,12 +110,13 @@ Example in `package.json`:
 ## 🎬 Inferred Package Manager
 
 - Akio works best with `pnpm`, but supports `npm` and `yarn`. Please setup [pnpm-workspace.yml](https://pnpm.io/workspaces) for proper _Target a Package_ functionality.
-    - `akio` infers which package manager to use based on your lockfile.
-      |akio uses | file present in repo|
-      | --- | --- |
-      |`pnpm`|`pnpm-lock.yaml`|
-      |`yarn`|`yarn.lock`|
-      |`npm run`| `package-lock.json`|
+- `akio` infers which package manager to use based on your lockfile:
+
+| akio uses | file present in repo |
+| --------- | -------------------- |
+| `pnpm`    | `pnpm-lock.yaml`     |
+| `yarn`    | `yarn.lock`          |
+| `npm run` | `package-lock.json`  |
 
 ## 🧠 Best Used For
 
@@ -130,8 +127,7 @@ Example in `package.json`:
 
 ## 🛣️ On the Roadmap
 
-- CI/CD and README badges
-- Optional auto-publish to NPM
+- Auto deploy GHA & README badges
 - JSONC-style inline comments
 
 ## 🪪 License
