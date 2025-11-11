@@ -2,7 +2,7 @@
 
 exports[`invalid-opts.spec.ts > should swallow invalid cli opts and no-op 1`] = `
 "
-> node ./dist/index.cjs -a
+> node ./dist/index.cjs -a --pin
 
 [33mpnpm akio[0m
 	-----

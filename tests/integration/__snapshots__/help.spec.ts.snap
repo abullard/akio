@@ -2,21 +2,24 @@
 
 exports[`search2.spec.ts > should output help menu 1`] = `
 "
-> node ./dist/index.cjs --help
+> node ./dist/index.cjs --help --pin
 
 
 🪄 [33makio[0m
 
-  Surface your [32mpackage.json[0m scripts from the depths of your [35mmonorepo[0m. 
+  Free your brain from npm script chaos–Akio helps you search, understand, and  
+  run your project scripts fast.                                                
 
 CLI Opts
 
-  -i, --input           Do not prompt for an input comand.                      
+  -i, --input           Do not prompt for an input command.                     
   -f, --format          Do not include emoji or color formatting.               
   -d, --descriptions    Do not warn if package.json "scriptDescriptions" are    
                         missing.                                                
   -h, --help            Display this usage guide.                               
+  -p, --pin             Pin the version of this package (skips update available 
+                        check).                                                 
 
-  https://npmjs.com/@abullard/akio 
+  https://npmjs.com/package/@abullard/akio 
 "
 `;

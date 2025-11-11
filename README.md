@@ -1,26 +1,65 @@
 # Akio
 
-**Search, understand, and run your project scripts — fast.**
-
-Your `package.json` is full of mystery meat scripts. `dev:db:reset`? `build:analyze`? Larger teams often have newer devs that don't know where to begin.
-
-Monorepos add confusion & complexity. Introducing duplicated commands, cmd name mismatches, and the footgun of incorrect CWDs to the mix.
-
-🪄 _Akio's here to surface your Monorepo's scripts & their descriptions in a clean, numbered list — right in your terminal._ 🔮
+**Free your brain from npm script chaos–Akio helps you search, understand, and run your project scripts fast.**
 
 ![Example](./docs/screenshots/cli_screenshot.png 'Example CLI screenshot')
 
-## 🧭 Why Akio?
+---
 
-You’ve asked:
+## Quick setup
 
-- _What does this script actually do?_
-- _Is it safe to run?_
-- _What package has the `types:check` script?_
+I recommend starting by using `akio` directly from the npm registery to get familiar with its monorepo functionaltiy. See [Documenting Scripts](#documenting-scripts) below to populate out your script descriptions.
 
-Akio gives you answers — defined in natural language, by your team.
+```bash
+npx @abullard/akio
+```
 
-## 📝 Documenting Scripts
+### 🎯 Target a Package
+
+Akio can target a package with the `@pkg` sytnax
+
+```bash
+# This assumes your package.json lives just below the ui folder.
+# e.g. ...apps/ui/package.json
+akio @ui
+
+# to target root package.json
+akio @root
+```
+
+### 🔍 Search Without Flags
+
+Akio treats the first unnamed CLI argument as a search term:
+
+```bash
+# search for scripts containing the text "build":
+akio build
+
+# search the api package for scripts containing the text "test":
+akio @api test
+
+# order doesn't matter
+akio coverage @ui
+```
+
+### ⚙️ CLI Options
+
+- `-i`, `--input`: Don't request command execution number
+- `-f`, `--format`: Strip colors & emojis from output
+- `-d`, `--descriptions`: Don’t warn about missing script descriptions
+- `-h`, `--help`: Print a help menu
+
+---
+
+## More Details
+
+### 🚀 Global Install
+
+```bash
+npm install -g @abullard/akio
+```
+
+### 📝 Documenting Scripts
 
 Add a `scriptDescriptions` section to your `package.json`:
 
@@ -41,67 +80,34 @@ Add a `scriptDescriptions` section to your `package.json`:
 
 No more guessing what `test:integration` does.
 
-## 🚀 Install
+### 💪 Suggested Usage Methods
+
+For the best UX, use it as an alias in your `.zshrc` so you can fetch with just `akio`:
 
 ```bash
-npm install -g @abullard/akio
+# $(npm prefix -g) will fetch your global install location, locking the app version
+alias akio="$(npm prefix -g)/bin/akio"
 
-# or use it directly
-npx @abullard/akio
-```
-
-## 💪 Suggested Usage Methods
-
-As an alias in your `.zshrc` so you can fetch with `akio test`:
-
-```bash
-alias akio="npx @abullard/akio -fid"
+# if you always want the latest version, and have a stable network connection
+alias akio="npx @abullard/akio"
 ```
 
 Example in `package.json`:
 
 ```json
 "scripts": {
-  "akio": "npx akio -fid dev"
+  "akio": "npx @abullard/akio"
 }
 ```
 
-## 🎯 Target a Package
-
-Akio can target a package with the sytnax
-
-```bash
-# This assumes your package.json lives just below the ui folder.
-# e.g. ...apps/ui/package.json
-akio @ui
-
-# to access root
-akio @root
-```
-
-## 🔍 Search Without Flags
-
-Akio treats the first unnamed CLI argument as a search term:
-
-```bash
-akio build
-```
-
-## ⚙️ CLI Options
-
-- `-i`, `--input`: Don't request command execution number
-- `-f`, `--format`: Strip colors & emojis from output
-- `-d`, `--descriptions`: Don’t warn about missing script descriptions
-- `-h`, `--help`: Print a help menu
-
-## 🧠 Best Used For
+### 🧠 Best Used For
 
 - Dev teams with lots of internal scripts
 - Open source projects that skimp on docs
 - Onboarding new teammates
 - Old projects you forgot how to run
 
-## 🛣️ On the Roadmap
+### 🛣️ On the Roadmap
 
 - Paginate Monorepo output
 - CI/CD and README badges

@@ -1,3 +1,4 @@
+import { options } from 'src/cli-opts/cli-opts';
 import { fetchLatestVersion } from './fetch-latest';
 import { Colors } from 'src/formatting/colors';
 import { emojiWithSpace } from 'src/formatting/emoji';
@@ -13,6 +14,10 @@ const logUpdateMessage = (pkg: Package, originVersion: string) => {
 };
 
 export const checkForUpdate = async () => {
+    if (options.pin) {
+        return;
+    }
+
     const pkg = readAkioPkgJson();
     const npmjsdotcomVersion = await fetchLatestVersion(pkg.name);
 

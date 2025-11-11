@@ -2,7 +2,7 @@
 
 exports[`target-package3.spec.ts > should target the root package 1`] = `
 "
-> node ./dist/index.cjs @root -i
+> node ./dist/index.cjs @root -i --pin
 
 [33mpnpm akio[0m
 	-----
