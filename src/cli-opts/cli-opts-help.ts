@@ -8,15 +8,14 @@ export const printHelpMenuAndHalt = (definedOpts: UsageOptionDefintions[]) => {
         {
             header: `${emojiWithSpace('WAND')}${Colors.yellow}akio${Colors.reset}`,
             content:
-                `Surface your ${Colors.green}package.json${Colors.reset} scripts` +
-                ` from the depths of your ${Colors.purple}monorepo${Colors.reset}.`,
+                'Free your brain from npm script chaos–Akio helps you search, understand, and run your project scripts fast.',
         },
         {
             header: 'CLI Opts',
             optionList: definedOpts,
         },
         {
-            content: '{underline https://npmjs.com/@abullard/akio}',
+            content: '{underline https://npmjs.com/package/@abullard/akio}',
         },
     ]);
 
