@@ -14,10 +14,11 @@ jobs:
       - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version: 22
-          token: ${{ secrets.NPM_TOKEN }}
           registry-url: 'https://registry.npmjs.org'
       - run: npm install -g pnpm
       - run: pnpm install
       - run: npm run build
       - run: npm run test -- --run
-      - run: npm publish
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

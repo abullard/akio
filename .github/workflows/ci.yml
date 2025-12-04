@@ -8,9 +8,9 @@ jobs:
   build-and-test:
     strategy:
       matrix:
-        version: [20, 22, 24]
-        os: [ubuntu-latest, windows-latest]
-    name: Build & Test: ${{ matrix.os }} - ${{ matrix.version }}
+        version: [ 20, 22, 24 ]
+        os: [ ubuntu-latest, windows-latest ]
+    name: Build & Test
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -20,6 +20,9 @@ jobs:
         uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
           node-version: ${{ matrix.version }}
+
+      - name: OS & Node Versions
+        run: echo "{os: ${{ matrix.os }}, version: ${{ matrix.version }}}"
 
       - name: Install pnpm
         run: npm install -g pnpm
