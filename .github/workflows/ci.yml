@@ -6,16 +6,20 @@ on:
 
 jobs:
   build-and-test:
-    name: build-and-test
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [20, 22, 24]
+        os: [ubuntu-latest, windows-latest]
+    name: Build & Test: ${{ matrix.os }} - ${{ matrix.version }}
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
         with:
-          node-version: '20'
+          node-version: ${{ matrix.version }}
 
       - name: Install pnpm
         run: npm install -g pnpm
