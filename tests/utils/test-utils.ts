@@ -1,5 +1,6 @@
 import { execa } from 'execa';
 import { readAllPkgJsons } from '../../src/utils';
+import { PackageScriptsAndDescriptions, ScriptsDescribed } from '../../src/types';
 
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
@@ -29,20 +30,21 @@ const removeHeaderText = async (response: any) => {
 
     if (!stdout) return;
 
+    const lineList = stdout.split(/\r?\n/);
     const pkgs = await readAllPkgJsons();
-    let lines = stdout.split(/\r?\n/);
-
-    for (const pkg of pkgs) {
+    const pkgAndVersions = pkgs.map(pkg => {
         const { name, version } = pkg;
-        const targetLineIdentifier = `${name}@${version}`;
+        return `${name}@${version}`;
+    });
 
-        lines = lines.filter((l: string) => !l.includes(targetLineIdentifier));
-    }
+    const normalizedLines = lineList.filter((line: string) => (shouldKeepLineInOutput(pkgAndVersions, line)));
 
-    console.log('AJB: lines[1]: ', lines[1]);
-    lines[1] = normalizeCliOpts(lines[1]);
-
-    return lines.join('\n');
+    return normalizedLines.join('\n');
 };
 
-const normalizeCliOpts = (line: string) => line.replace(/"/g, '');
+const shouldKeepLineInOutput = (pkgAndVersions: string[], line: string) => {
+    const pnpmOutputLine = line.startsWith('> pnpm') || line.startsWith('> node');
+    const hasPkgId = pkgAndVersions.some(targetLineIdentifier => line.includes(targetLineIdentifier));
+
+    return pnpmOutputLine === false && hasPkgId === false
+};

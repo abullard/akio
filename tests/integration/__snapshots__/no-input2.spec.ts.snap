@@ -2,7 +2,6 @@
 
 exports[`no-input2.spec.ts > should skip prompting user for input, --input 1`] = `
 "
-> node ./dist/index.cjs --input --pin
 
 [33mpnpm akio[0m
 	-----

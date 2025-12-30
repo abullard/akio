@@ -2,7 +2,6 @@
 
 exports[`search1.spec.ts > should run search for test npm scripts, skip input 1`] = `
 "
-> node ./dist/index.cjs build -i --pin
 
 [33mpnpm akio[0m
 	-----
