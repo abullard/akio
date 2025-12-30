@@ -3,10 +3,10 @@ import path from 'path';
 import { glob } from 'glob';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
-import { pathToFileURL } from 'url';
 import { Package, PackageScriptsAndDescriptions } from './types';
 import { options } from './cli-opts/cli-opts';
 import { formatError } from './formatting/format-output';
+import { pathToFileURL } from 'url';
 
 export const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
@@ -49,7 +49,10 @@ const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
     return filteredPaths;
 };
 
-const loadJson = async (pkgPath: string) => await import(pkgPath, { with: { type: 'json' } });
+const loadJson = async (pkgPath: string) => {
+    const fullPath = pathToFileURL(pkgPath).href;
+    return await import(fullPath, { with: { type: 'json' } })
+};
 
 export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> => {
     /*
@@ -74,7 +77,7 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         absolute: true,
     });
 
-    const rootPkgPath = pathToFileURL(path.resolve('package.json')).href;
+    const rootPkgPath = path.resolve('package.json');
     const filteredPaths = filterToTargetedPackge(paths, rootPkgPath);
 
     const allPkgJsonContents = await Promise.all(

@@ -28,7 +28,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: npm run build
+        run: npm run build:debug
 
       - name: Test
         run: npm run test -- --run
