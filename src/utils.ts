@@ -3,6 +3,7 @@ import path from 'path';
 import { glob } from 'glob';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
+import { pathToFileURL } from 'url';
 import { Package, PackageScriptsAndDescriptions } from './types';
 import { options } from './cli-opts/cli-opts';
 import { formatError } from './formatting/format-output';
@@ -73,7 +74,7 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         absolute: true,
     });
 
-    const rootPkgPath = path.resolve('package.json');
+    const rootPkgPath = pathToFileURL(path.resolve('package.json')).href;
     const filteredPaths = filterToTargetedPackge(paths, rootPkgPath);
 
     const allPkgJsonContents = await Promise.all(
