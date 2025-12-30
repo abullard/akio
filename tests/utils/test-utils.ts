@@ -39,5 +39,10 @@ const removeHeaderText = async (response: any) => {
         lines = lines.filter((l: string) => !l.includes(targetLineIdentifier));
     }
 
+    console.log('AJB: lines[1]: ', lines[1]);
+    lines[1] = normalizeCliOpts(lines[1]);
+
     return lines.join('\n');
 };
+
+const normalizeCliOpts = (line: string) => line.replace(/"/g, '');
