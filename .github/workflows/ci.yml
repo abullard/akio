@@ -21,9 +21,6 @@ jobs:
         with:
           node-version: ${{ matrix.version }}
 
-      - name: OS & Node Versions
-        run: echo "{os: ${{ matrix.os }}, version: ${{ matrix.version }}}"
-
       - name: Install pnpm
         run: npm install -g pnpm
 
