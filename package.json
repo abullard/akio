@@ -56,17 +56,23 @@
     "scripts": {
         "akio": "node ./dist/index.cjs",
         "test": "vitest run",
+        "test:update": "vitest run --update",
         "test:stub": "node -e \"console.log('text')\"",
-        "build": "npx esbuild ./src/index.ts --bundle --platform=node --minify --format=cjs --outfile=./dist/index.cjs",
+        "build:prod": "npx esbuild ./src/index.ts --bundle --platform=node --minify --format=cjs --outfile=./dist/index.cjs",
+        "build:debug": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
+        "clean": "rm -rf ./dist ./node_modules",
         "ui": "pnpm --filter ui",
         "api": "pnpm --filter api"
     },
     "scriptDescriptions": {
         "akio": "DO NOT REMOVE - used for snapshot tests to run local build",
         "run:local": "runs a local build of akio",
-        "test": "run vitest unit tests",
+        "test": "run vitest tests",
+        "test:update": "run vitest & update snapshot tests",
         "test:stub": "DO NOT REMOVE - stubbed npm script for snapshot tests",
-        "build": "This command builds Akio",
+        "build:prod": "This command builds akio",
+        "build:debug": "Builds akio w/o minification, provides stack traces in error output",
+        "clean": "Remove build & dependencies from local",
         "ui": "pnpm ui package script passthrough",
         "api": "pnpm api package script passthrough"
     }

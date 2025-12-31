@@ -2,7 +2,6 @@
 
 exports[`no-format1.spec.ts > should turn formatting off, -f 1`] = `
 "
-> node ./dist/index.cjs -f -i test:stub --pin
 
 pnpm akio
 	-----

@@ -2,7 +2,6 @@
 
 exports[`target-package2.spec.ts > should target the api package 1`] = `
 "
-> node ./dist/index.cjs test:stub @api -i --pin
 
 [33mpnpm akio[0m
 	-----

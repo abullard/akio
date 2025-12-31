@@ -2,12 +2,12 @@
 
 exports[`search1.spec.ts > should run search for test npm scripts, skip input 1`] = `
 "
-> node ./dist/index.cjs build -i --pin
 
 [33mpnpm akio[0m
 	-----
 📦 [34m@abullard/akio[0m
-1. [35mbuild     [0m — This command builds Akio
+1. [35mbuild:prod[0m — This command builds akio
+2. [35mbuild:debug[0m — Builds akio w/o minification, provides stack traces in error output
 
 📦 [34mapi[0m
 

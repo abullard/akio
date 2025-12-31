@@ -2,7 +2,6 @@
 
 exports[`search2.spec.ts > should support monorepo archeology and script execution 1`] = `
 "
-> node ./dist/index.cjs test:stub --pin
 
 [33mpnpm akio[0m
 	-----
@@ -33,10 +32,8 @@ exports[`search2.spec.ts > should support monorepo archeology and script executi
 [34mRun command number? >[0m 
 
 
-> pnpm --filter api api:test:stubFour
 
 
-> node -e "console.log('api four')"
 
 api four"
 `;

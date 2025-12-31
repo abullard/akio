@@ -2,7 +2,6 @@
 
 exports[`search2.spec.ts > should output help menu 1`] = `
 "
-> node ./dist/index.cjs --help --pin
 
 
 🪄 [33makio[0m
