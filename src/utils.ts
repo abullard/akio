@@ -36,9 +36,8 @@ const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
         return [rootPkgPath];
     }
 
-    // TODO AJB 12/30/2025: I don't think this is working in windows
-    const filteredPaths = paths.filter((path) => {
-        const pathList = path.split('/');
+    const filteredPaths = paths.filter((filePath) => {
+        const pathList = filePath.split(path.sep);
         const curPackage = pathList[pathList.length - 2];
         return curPackage === options.targetPackage;
     });
@@ -52,7 +51,7 @@ const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
 
 const loadJson = async (pkgPath: string) => {
     const fullPath = pathToFileURL(pkgPath).href;
-    return await import(fullPath, { with: { type: 'json' } })
+    return await import(fullPath, { with: { type: 'json' } });
 };
 
 export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> => {
