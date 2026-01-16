@@ -1,6 +1,5 @@
 import { execa } from 'execa';
 import { readAllPkgJsons } from '../../src/utils';
-import { PackageScriptsAndDescriptions, ScriptsDescribed } from '../../src/types';
 
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
@@ -32,19 +31,19 @@ const removeHeaderText = async (response: any) => {
 
     const lineList = stdout.split(/\r?\n/);
     const pkgs = await readAllPkgJsons();
-    const pkgAndVersions = pkgs.map(pkg => {
+    const pkgAndVersions = pkgs.map((pkg) => {
         const { name, version } = pkg;
         return `${name}@${version}`;
     });
 
-    const normalizedLines = lineList.filter((line: string) => (shouldKeepLineInOutput(pkgAndVersions, line)));
+    const normalizedLines = lineList.filter((line: string) => shouldKeepLineInOutput(pkgAndVersions, line));
 
     return normalizedLines.join('\n');
 };
 
 const shouldKeepLineInOutput = (pkgAndVersions: string[], line: string) => {
     const pnpmOutputLine = line.startsWith('> pnpm') || line.startsWith('> node');
-    const hasPkgId = pkgAndVersions.some(targetLineIdentifier => line.includes(targetLineIdentifier));
+    const hasPkgId = pkgAndVersions.some((targetLineIdentifier) => line.includes(targetLineIdentifier));
 
-    return pnpmOutputLine === false && hasPkgId === false
+    return pnpmOutputLine === false && hasPkgId === false;
 };

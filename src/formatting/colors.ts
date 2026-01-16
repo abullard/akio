@@ -9,7 +9,7 @@ export const Colors: Record<string, string> = {
 };
 
 export const disableColors = () => {
-    for (const [key, _] of Object.entries(Colors)) {
+    for (const [key] of Object.entries(Colors)) {
         Colors[key] = '';
     }
 };

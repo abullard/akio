@@ -1,11 +1,11 @@
-import { UsageOptionDefintions } from "src/types";
+import type { UsageOptionDefintions } from 'src/types';
 
 export const definedOpts: UsageOptionDefintions[] = [
     {
-        name: 'input',
-        alias: 'i',
+        name: 'descriptions',
+        alias: 'd',
         type: Boolean,
-        description: 'Do not prompt for an input command.',
+        description: 'Do not warn if package.json "scriptDescriptions" are missing.',
     },
     {
         name: 'format',
@@ -14,16 +14,16 @@ export const definedOpts: UsageOptionDefintions[] = [
         description: 'Do not include emoji or color formatting.',
     },
     {
-        name: 'descriptions',
-        alias: 'd',
-        type: Boolean,
-        description: 'Do not warn if package.json "scriptDescriptions" are missing.',
-    },
-    {
         name: 'help',
         alias: 'h',
         type: Boolean,
         description: 'Display this usage guide.',
+    },
+    {
+        name: 'input',
+        alias: 'i',
+        type: Boolean,
+        description: 'Do not prompt for an input command.',
     },
     {
         name: 'pin',

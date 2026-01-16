@@ -1,9 +1,9 @@
 import commandLineUsage from 'command-line-usage';
 import { Colors } from 'src/formatting/colors';
 import { emojiWithSpace } from 'src/formatting/emoji';
-import { UsageOptionDefintions } from 'src/types';
+import { definedOpts } from './defined-options';
 
-export const printHelpMenuAndHalt = (definedOpts: UsageOptionDefintions[]) => {
+export const printHelpMenuAndHalt = () => {
     const usage = commandLineUsage([
         {
             header: `${emojiWithSpace('WAND')}${Colors.yellow}akio${Colors.reset}`,

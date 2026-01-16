@@ -51,7 +51,11 @@
     "dependencies": {
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
-        "glob": "^11.0.3"
+        "eslint": "^9.39.2",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-unused-imports": "^4.3.0",
+        "glob": "^11.0.3",
+        "typescript-eslint": "^8.53.0"
     },
     "scripts": {
         "akio": "node ./dist/index.cjs",
@@ -61,6 +65,7 @@
         "build:prod": "npx esbuild ./src/index.ts --bundle --platform=node --minify --format=cjs --outfile=./dist/index.cjs",
         "build:debug": "npx esbuild ./src/index.ts --bundle --platform=node --format=cjs --outfile=./dist/index.cjs",
         "clean": "rm -rf ./dist ./node_modules",
+        "lint": "eslint .",
         "ui": "pnpm --filter ui",
         "api": "pnpm --filter api"
     },
@@ -73,6 +78,7 @@
         "build:prod": "This command builds akio",
         "build:debug": "Builds akio w/o minification, provides stack traces in error output",
         "clean": "Remove build & dependencies from local",
+        "lint": "Run eslint",
         "ui": "pnpm ui package script passthrough",
         "api": "pnpm api package script passthrough"
     }

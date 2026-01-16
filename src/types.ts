@@ -1,4 +1,4 @@
-import { OptionDefinition } from 'command-line-args';
+import type { OptionDefinition } from 'command-line-args';
 
 export type Package = {
     name: string;

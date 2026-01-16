@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Options } from '../../../src/types';
+import type { Options } from '../../../src/types';
 import { handleUnknowns } from '../../../src/cli-opts/cli-opts';
 
 describe('cli-opts.ts', () => {

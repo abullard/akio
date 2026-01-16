@@ -1,0 +1,5 @@
+name: 'TypeScript Lint'
+description: 'Run ESLint'
+runs:
+    using: 'node20'
+    main: 'index.js'
