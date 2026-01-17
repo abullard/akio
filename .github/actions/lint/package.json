@@ -1,0 +1,20 @@
+{
+    "name": "@action/lint",
+    "version": "1.0.0",
+    "description": "",
+    "license": "MIT",
+    "author": "",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "build": "npx esbuild ./index.js --bundle --platform=node --minify --format=cjs --outfile=./dist/index.cjs",
+        "clean": "rm -rf ./dist ./node_modules"
+    },
+    "dependencies": {
+        "@actions/core": "^2.0.2",
+        "@actions/exec": "^2.0.0",
+        "@actions/github": "^7.0.0",
+        "@actions/http-client": "^3.0.1",
+        "tunnel": "^0.0.6"
+    }
+}

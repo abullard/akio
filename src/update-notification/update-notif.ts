@@ -1,9 +1,9 @@
 import { options } from 'src/cli-opts/cli-opts';
-import { fetchLatestVersion } from './fetch-latest';
 import { Colors } from 'src/formatting/colors';
 import { emojiWithSpace } from 'src/formatting/emoji';
-import { Package } from 'src/types';
+import type { Package } from 'src/types';
 import { needsUpdate, readAkioPkgJson } from 'src/utils';
+import { fetchLatestVersion } from './fetch-latest';
 
 const logUpdateMessage = (pkg: Package, originVersion: string) => {
     console.log(`${Colors.yellow}------------------------------${Colors.reset}`);

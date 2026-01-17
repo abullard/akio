@@ -1,12 +1,12 @@
 import fs from 'fs';
 import path from 'path';
-import { glob } from 'glob';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
-import { Package, PackageScriptsAndDescriptions } from './types';
+import { pathToFileURL } from 'url';
+import { glob } from 'glob';
+import type { Package, PackageJsonContents, PackageScriptsAndDescriptions } from './types';
 import { options } from './cli-opts/cli-opts';
 import { formatError } from './formatting/format-output';
-import { pathToFileURL } from 'url';
 
 export const getPkgManager = () => {
     if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
@@ -110,7 +110,7 @@ export const readAkioPkgJson = (): Package => {
 };
 
 const pkgJsonDataDTO = (
-    allPkgJsonContents: Array<{ pkgPath: string; contents: any }>,
+    allPkgJsonContents: Array<{ pkgPath: string; contents: PackageJsonContents }>,
     rootPkgPath: string
 ): PackageScriptsAndDescriptions => {
     const npmScriptsAndDescriptionsByPkg: PackageScriptsAndDescriptions = [];

@@ -1,4 +1,5 @@
 /node_modules
 /dist
+/.github/actions/lint/node_modules
 
 *.tgz

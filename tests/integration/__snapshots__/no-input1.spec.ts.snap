@@ -12,27 +12,28 @@ exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
 4. [35mbuild:prod[0m — This command builds akio
 5. [35mbuild:debug[0m — Builds akio w/o minification, provides stack traces in error output
 6. [35mclean     [0m — Remove build & dependencies from local
-7. [35mui        [0m — pnpm ui package script passthrough
-8. [35mapi       [0m — pnpm api package script passthrough
+7. [35mlint      [0m — Run eslint
+8. [35mui        [0m — pnpm ui package script passthrough
+9. [35mapi       [0m — pnpm api package script passthrough
 
 📦 [34mapi[0m
-9. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-10. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-11. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-12. [35mapi:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-13. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-14. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-15. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-16. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+10. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+11. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+12. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+13. [35mapi:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+14. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+15. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+16. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+17. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 
 📦 [34mui[0m
-17. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-18. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-19. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-20. [35mui:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-21. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-22. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-23. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-24. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+18. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+19. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+20. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+21. [35mui:test:stubFour[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+22. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+23. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+24. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+25. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 "
 `;

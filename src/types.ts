@@ -1,4 +1,4 @@
-import { OptionDefinition } from 'command-line-args';
+import type { OptionDefinition } from 'command-line-args';
 
 export type Package = {
     name: string;
@@ -26,4 +26,13 @@ export type Options = {
     pin: boolean;
     searchValue?: string;
     targetPackage?: string;
+};
+
+export type PackageJsonContents = {
+    default: {
+        scriptDescriptions?: Record<string, string>;
+        scripts?: Record<string, string>;
+        name: string;
+        version: string;
+    };
 };

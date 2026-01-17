@@ -1,6 +1,6 @@
+import * as fs from 'fs';
 import { vi, describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { checkForUpdate } from '../../../src/update-notification/update-notif';
-import * as fs from 'fs';
 
 vi.mock('fs');
 const fetchMock = vi.fn();

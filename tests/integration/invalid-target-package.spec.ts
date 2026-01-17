@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { spawnWrapper } from '../utils/test-utils';
 
-describe('invalid-opts.spec.ts', () => {
+describe('invalid-target-package.spec.ts', () => {
     it('should swallow invalid cli opts and no-op', async () => {
         const invalidTargetPackage = async () => {
             const cmd = 'pnpm';

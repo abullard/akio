@@ -1,6 +1,6 @@
 import commandLineArgs from 'command-line-args';
+import type { Options } from 'src/types';
 import { printHelpMenuAndHalt } from './cli-opts-help';
-import { Options } from 'src/types';
 import { definedOpts } from './defined-options';
 
 export const handleUnknowns = (
@@ -34,7 +34,7 @@ const buildOptions = (): Options => {
         _unknown: others,
     } = commandLineArgs(definedOpts, { partial: true });
 
-    if (help) printHelpMenuAndHalt(definedOpts);
+    if (help) printHelpMenuAndHalt();
 
     return {
         input,

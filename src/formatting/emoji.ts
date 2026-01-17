@@ -10,7 +10,7 @@ export const Emoji: Record<string, string> = {
 export type EmojiKeys = keyof typeof Emoji;
 
 export const disableEmoji = () => {
-    for (const [key, _] of Object.entries(Emoji)) {
+    for (const [key,] of Object.entries(Emoji)) {
         Emoji[key] = '';
     }
 };

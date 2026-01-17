@@ -1,5 +1,5 @@
 import { it, describe, expect } from 'vitest';
-import { emojiWithSpace, EmojiKeys, Emoji, disableEmoji } from '../../src/formatting/emoji';
+import { emojiWithSpace, type EmojiKeys, Emoji, disableEmoji } from '../../src/formatting/emoji';
 
 describe('emoji.ts', () => {
     it.each([

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { spawnWrapper } from '../utils/test-utils';
 
-describe('search2.spec.ts', () => {
+describe('help.spec.ts', () => {
     it('should output help menu', async () => {
         const cmd = 'pnpm';
         const args = ['akio', '--help'];
