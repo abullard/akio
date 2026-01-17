@@ -4,4 +4,4 @@ updates:
       # Look for `package.json` and `package-lock.json` files in the `root` directory
       directory: '/'
       schedule:
-          interval: 'monthly'
+          interval: 'quarterly'
