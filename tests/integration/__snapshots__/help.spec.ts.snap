@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`search2.spec.ts > should output help menu 1`] = `
+exports[`help.spec.ts > should output help menu 1`] = `
 "
 
 
@@ -11,11 +11,11 @@ exports[`search2.spec.ts > should output help menu 1`] = `
 
 CLI Opts
 
-  -i, --input           Do not prompt for an input command.                     
-  -f, --format          Do not include emoji or color formatting.               
   -d, --descriptions    Do not warn if package.json "scriptDescriptions" are    
                         missing.                                                
+  -f, --format          Do not include emoji or color formatting.               
   -h, --help            Display this usage guide.                               
+  -i, --input           Do not prompt for an input command.                     
   -p, --pin             Pin the version of this package (skips update available 
                         check).                                                 
 
