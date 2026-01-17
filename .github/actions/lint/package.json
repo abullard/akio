@@ -7,7 +7,7 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "build": "npx esbuild ./index.js --bundle --platform=node --minify --format=esm --outfile=./dist/index.js",
+        "build": "npx esbuild ./index.js --bundle --platform=node --minify --format=cjs --outfile=./dist/index.cjs",
         "clean": "rm -rf ./dist ./node_modules"
     },
     "dependencies": {
