@@ -7,8 +7,7 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "vendor": "mkdir dist && cp index.js dist && cp -r node_modules dist",
-        "build": "npm run clean && npm ci && npm run vendor",
+        "build": "npx esbuild ./index.js --bundle --platform=node --minify --format=esm --outfile=./dist/index.js",
         "clean": "rm -rf ./dist ./node_modules"
     },
     "dependencies": {
