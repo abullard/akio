@@ -4,9 +4,10 @@ import * as core from '@actions/core';
 
 const run = () => {
     try {
-        execSync('pnpm lint', { stdio: 'inherit', cwd });
+        execSync('pnpm lint', { stdio: 'inherit', cwd: process.cwd() });
     } catch (e) {
-        core.setFailed('Linting Failed');
+        console.error(e);
+        core.setFailed(`Linting Failed`);
     }
 };
 
