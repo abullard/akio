@@ -1,5 +1,5 @@
 {
-    "name": "lint",
+    "name": "@action/lint",
     "version": "1.0.0",
     "description": "",
     "license": "MIT",
@@ -7,7 +7,9 @@
     "type": "module",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "vendor": "mkdir dist && cp index.js dist && cp -r node_modules dist",
+        "build": "npm run clean && npm ci && npm run vendor",
+        "clean": "rm -rf ./dist ./node_modules"
     },
     "dependencies": {
         "@actions/core": "^2.0.2",

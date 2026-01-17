@@ -6,7 +6,7 @@ const run = () => {
     try {
         execSync('pnpm lint', { stdio: 'inherit', cwd });
     } catch (e) {
-        core.setFailed('Linting Failed', e);
+        core.setFailed('Linting Failed');
     }
 };
 
