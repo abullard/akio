@@ -10,9 +10,19 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+              with:
+                  ref: ${{ github.event.pull_request.head.ref }}
+                  repository: ${{ github.event.pull_request.head.repo.full_name }}
+
             - uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+              with:
+                  cache: pnpm
+                  node-version-file: .nvmrc
+
             - run: npm install -g pnpm
+
             - run: pnpm install
+
             - uses: ./.github/actions/lint
 
     build-and-test:
