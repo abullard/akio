@@ -1,11 +1,11 @@
 import { spawn } from 'child_process';
-import { getPkgManager, readAllPkgJsons } from './utils';
 import readline from 'readline';
+import { options } from './cli-opts/cli-opts';
 import { Colors } from './formatting/colors';
 import { emojiWithSpace } from './formatting/emoji';
 import { formatError } from './formatting/format-output';
-import { ScriptsDescribed } from './types';
-import { options } from './cli-opts/cli-opts';
+import type { ScriptsDescribed } from './types';
+import { getPkgManager, readAllPkgJsons } from './utils';
 
 type CommandMap = Record<string, string>;
 
@@ -24,7 +24,7 @@ export const processInput = (commandMap: CommandMap) => {
 
 export const mapAndOutputCommands = async (runner: string): Promise<CommandMap | undefined> => {
     let commandMap = {};
-    let counter = { value: 0 };
+    const counter = { value: 0 };
     const searchValue = options.searchValue;
     const scriptsAndDescriptionsByPkg = await readAllPkgJsons();
 
@@ -67,7 +67,7 @@ const buildScriptMap = (
         }
     }
 
-    for (const [name, _] of Object.entries(packageScriptsAndDescriptions.scripts)) {
+    for (const [name] of Object.entries(packageScriptsAndDescriptions.scripts)) {
         if (name === 'akio') continue; // not a valid option
         if (searchValue && !name.includes(searchValue)) continue; // skip this step, not apart of our search
 

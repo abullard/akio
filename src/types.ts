@@ -27,3 +27,12 @@ export type Options = {
     searchValue?: string;
     targetPackage?: string;
 };
+
+export type PackageJsonContents = {
+    default: {
+        scriptDescriptions?: Record<string, string>;
+        scripts?: Record<string, string>;
+        name: string;
+        version: string;
+    };
+};

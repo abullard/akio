@@ -4,7 +4,7 @@ import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
 import { pathToFileURL } from 'url';
 import { glob } from 'glob';
-import type { Package, PackageScriptsAndDescriptions } from './types';
+import type { Package, PackageJsonContents, PackageScriptsAndDescriptions } from './types';
 import { options } from './cli-opts/cli-opts';
 import { formatError } from './formatting/format-output';
 
@@ -110,7 +110,7 @@ export const readAkioPkgJson = (): Package => {
 };
 
 const pkgJsonDataDTO = (
-    allPkgJsonContents: Array<{ pkgPath: string; contents: any }>,
+    allPkgJsonContents: Array<{ pkgPath: string; contents: PackageJsonContents }>,
     rootPkgPath: string
 ): PackageScriptsAndDescriptions => {
     const npmScriptsAndDescriptionsByPkg: PackageScriptsAndDescriptions = [];
