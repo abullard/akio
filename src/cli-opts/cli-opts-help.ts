@@ -1,6 +1,6 @@
 import commandLineUsage from 'command-line-usage';
-import { Colors } from 'src/formatting/colors';
 import { emojiWithSpace } from 'src/formatting/emoji';
+import { Colors } from 'src/formatting/colors';
 import { definedOpts } from './defined-options';
 
 export const printHelpMenuAndHalt = () => {
