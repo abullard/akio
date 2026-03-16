@@ -51,12 +51,17 @@
         "execa": "^9.6.0",
         "typescript-eslint": "^8.53.0",
         "vite-tsconfig-paths": "^6.0.4",
-        "vitest": "^4.0.17"
+        "vitest": "^4.1.0"
     },
     "dependencies": {
         "command-line-args": "^6.0.1",
         "command-line-usage": "^7.0.3",
         "glob": "^13.0.0"
+    },
+    "pnpm": {
+        "overrides": {
+            "rollup": "4.59.0"
+        }
     },
     "scripts": {
         "akio": "node ./dist/index.cjs",
