@@ -58,6 +58,11 @@
         "command-line-usage": "^7.0.3",
         "glob": "^13.0.0"
     },
+    "pnpm": {
+        "overrides": {
+            "rollup": "4.59.0"
+        }
+    },
     "scripts": {
         "akio": "node ./dist/index.cjs",
         "test": "vitest run",
