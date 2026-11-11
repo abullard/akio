@@ -2,8 +2,6 @@
 
 exports[`help.spec.ts > should output help menu 1`] = `
 "
-
-
 🪄 [33makio[0m
 
   Free your brain from npm script chaos–Akio helps you search, understand, and  

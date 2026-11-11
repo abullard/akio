@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`no-input2.spec.ts > should skip prompting user for input, --input 1`] = `
-"
-
-[33mpnpm akio[0m
+"[33mpnpm akio[0m
 	-----
 📦 [34m@abullard/akio[0m
 1. [35mtest      [0m — run vitest tests

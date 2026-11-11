@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`search2.spec.ts > should support monorepo archeology and script execution 1`] = `
-"
-
-[33mpnpm akio[0m
+"[33mpnpm akio[0m
 	-----
 📦 [34m@abullard/akio[0m
 1. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
@@ -30,10 +28,6 @@ exports[`search2.spec.ts > should support monorepo archeology and script executi
 
 
 [34mRun command number? >[0m 
-
-
-
-
 
 api four"
 `;

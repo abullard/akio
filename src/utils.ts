@@ -3,14 +3,45 @@ import path from 'path';
 import { readFileSync } from 'fs';
 import { dirname, resolve, join } from 'path';
 import { pathToFileURL } from 'url';
+import { execFileSync } from 'child_process';
 import { glob } from 'glob';
 import type { Package, PackageJsonContents, PackageScriptsAndDescriptions } from './types';
 import { options } from './cli-opts/cli-opts';
 import { formatError } from './formatting/format-output';
 
+const NOT_AN_NPM_DIRECTORY_MSG = 'No package.json found. akio must be run from within an npm project directory.';
+
+/*
+  Finds the directory akio treats as "the project": the enclosing git
+  repo's root, so akio works from any subdirectory without accidentally
+  sweeping in unrelated projects above/beside it. Falls back to requiring
+  cwd itself to have a package.json when there's no git repo (or no git
+  binary) to safely bound a search with.
+ */
+export const findProjectRoot = (): string => {
+    const cwd = process.cwd();
+
+    try {
+        return execFileSync('git', ['rev-parse', '--show-toplevel'], {
+            cwd,
+            stdio: ['ignore', 'pipe', 'ignore'],
+        })
+            .toString()
+            .trim();
+    } catch {
+        if (!fs.existsSync(path.join(cwd, 'package.json'))) {
+            formatError(NOT_AN_NPM_DIRECTORY_MSG);
+        }
+
+        return cwd;
+    }
+};
+
 export const getPkgManager = () => {
-    if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
-    if (fs.existsSync('yarn.lock')) return 'yarn';
+    const projectRoot = findProjectRoot();
+
+    if (fs.existsSync(path.join(projectRoot, 'pnpm-lock.yaml'))) return 'pnpm';
+    if (fs.existsSync(path.join(projectRoot, 'yarn.lock'))) return 'yarn';
 
     return 'npm';
 };
@@ -33,6 +64,10 @@ const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
     if (!options.targetPackage) return paths;
 
     if (options.targetPackage === 'root') {
+        if (!paths.includes(rootPkgPath)) {
+            formatError('No root package.json found in this repository.');
+        }
+
         return [rootPkgPath];
     }
 
@@ -71,13 +106,19 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         '**/.next/**',
         '**/.cache/**',
     ];
+    const projectRoot = findProjectRoot();
     const paths = await glob('**/package.json', {
+        cwd: projectRoot,
         signal: AbortSignal.timeout(5000),
         ignore: ignorePaths,
         absolute: true,
     });
 
-    const rootPkgPath = path.resolve('package.json');
+    if (paths.length === 0) {
+        formatError(NOT_AN_NPM_DIRECTORY_MSG);
+    }
+
+    const rootPkgPath = path.resolve(projectRoot, 'package.json');
     const filteredPaths = filterToTargetedPackge(paths, rootPkgPath);
 
     const allPkgJsonContents = await Promise.all(
@@ -88,7 +129,24 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
     );
 
     const scripts = pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
+
+    return pinRootFirst(scripts);
+};
+
+/*
+  Puts the root package's scripts first, matching the existing UX where
+  the root package is always shown before its workspace members. If no
+  discovered package.json actually lives at the project root (e.g. a
+  mixed-stack repo with no root-level package.json), there's no root to
+  pin — every package is just sorted normally instead.
+ */
+export const pinRootFirst = (scripts: PackageScriptsAndDescriptions): PackageScriptsAndDescriptions => {
     const indexOfRoot = scripts.findIndex((x) => x.isRoot);
+
+    if (indexOfRoot === -1) {
+        return scripts.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
     const rootScripts = scripts.splice(indexOfRoot, 1)[0];
     const sortedScripts = scripts.sort((a, b) => a.name.localeCompare(b.name));
     sortedScripts.unshift(rootScripts);

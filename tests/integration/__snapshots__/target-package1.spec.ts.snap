@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`target-package1.spec.ts > should target the ui package 1`] = `
-"
-
-[33mpnpm akio[0m
+"[33mpnpm akio[0m
 	-----
 📦 [34mui[0m
 1. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
