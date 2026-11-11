@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`no-format2.spec.ts > should turn formatting off, --format 1`] = `
-"
-
-pnpm akio
+"pnpm akio
 	-----
 @abullard/akio
 1. test:stub  — DO NOT REMOVE - stubbed npm script for snapshot tests

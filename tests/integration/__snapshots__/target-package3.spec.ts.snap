@@ -1,9 +1,7 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`target-package3.spec.ts > should target the root package 1`] = `
-"
-
-[33mpnpm akio[0m
+"[33mpnpm akio[0m
 	-----
 📦 [34m@abullard/akio[0m
 1. [35mtest      [0m — run vitest tests
