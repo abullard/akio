@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`invalid-target-package.spec.ts > should error on an unrecognized target package 1`] = `
+"❌ [31mERROR: Invalid package specified. Available packages:
+(@0 | root): @abullard/akio
+(@1): api
+(@2): fixture-pkg
+(@3): ui
+[0m"
+`;

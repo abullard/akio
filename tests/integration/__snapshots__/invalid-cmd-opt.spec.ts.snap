@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`invalid-cmd-opt.spec.ts > should error with wrong cli opts 1`] = `"❌ [31mERROR: Unknown command number: invalid input[0m"`;
