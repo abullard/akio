@@ -34,6 +34,5 @@ exports[`no-input1.spec.ts > should skip prompting user for input, -i 1`] = `
 22. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 23. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 24. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-25. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
+25. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing"
 `;

@@ -1,6 +1,8 @@
 import { execa } from 'execa';
 import { readAllPkgJsons } from '../../src/utils';
 
+const pkgs = await readAllPkgJsons();
+
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
         stdin: 'pipe',
@@ -21,8 +23,8 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
 
     return {
         ...response,
-        stdout: await removeHeaderText(response.stdout),
-        stderr: await removeHeaderText(response.stderr),
+        stdout: removeFooterText(await removeHeaderText(response.stdout)),
+        stderr: removeFooterText(await removeHeaderText(response.stderr)),
     };
 };
 
@@ -30,7 +32,6 @@ const removeHeaderText = async (output: string | undefined) => {
     if (!output) return;
 
     const lineList: string[] = output.split(/\r?\n/);
-    const pkgs = await readAllPkgJsons();
     const pkgAndVersions = pkgs.map((pkg) => {
         const { name, version } = pkg;
         return `${name}@${version}`;
@@ -74,6 +75,17 @@ const removeHeaderText = async (output: string | undefined) => {
 
     return normalizedLines.join('\n');
 };
+
+/*
+  console.error/console.log always append their own trailing newline on top of
+  whatever akio already wrote, so there's always one real trailing newline left
+  over after execa trims its own single one. On macOS this happens to get
+  absorbed as a "blank neighbor" of pnpm's own trailing echo/lifecycle lines
+  (see removeHeaderText) - but those lines aren't guaranteed across pnpm
+  versions/platforms (CI's ubuntu runners don't emit them), so that leftover
+  newline isn't reliably caught upstream. Trim it here instead, deterministically.
+ */
+const removeFooterText = (output: string | undefined) => output?.replace(/\n+$/, '');
 
 const shouldKeepLineInOutput = (pkgAndVersions: string[], line: string) => {
     const pnpmOutputLine =

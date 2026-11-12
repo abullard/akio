@@ -29,6 +29,5 @@ CLI Opts
   -p, --pin             Pin the version of this package (skips update available 
                         check).                                                 
 
-  https://npmjs.com/package/@abullard/akio 
-"
+  https://npmjs.com/package/@abullard/akio "
 `;

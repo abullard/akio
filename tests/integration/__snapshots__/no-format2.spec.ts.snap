@@ -27,6 +27,5 @@ ui (@3)
 15. ui:test:stubFive — DO NOT REMOVE - stubbed npm script for monorepo testing
 16. ui:test:stubSix — DO NOT REMOVE - stubbed npm script for monorepo testing
 17. ui:test:stubSeven — DO NOT REMOVE - stubbed npm script for monorepo testing
-18. ui:test:stubEight — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
+18. ui:test:stubEight — DO NOT REMOVE - stubbed npm script for monorepo testing"
 `;

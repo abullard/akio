@@ -71,7 +71,7 @@ const filterToTargetedPackage = (scripts: PackageScriptsAndDescriptions): Packag
         const targeted = scripts.find((pkg) => pkg.index === targetIndex);
 
         if (!targeted) {
-            formatError(`Invalid package index specified. Available packages: ${formatAvailablePackages(scripts)}`);
+            formatError(`Invalid package index specified. Available packages:\n${formatAvailablePackages(scripts)}`);
             return [];
         }
 

@@ -11,6 +11,5 @@ exports[`target-package2.spec.ts > should target the api package 1`] = `
 5. [35mapi:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 6. [35mapi:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 7. [35mapi:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-8. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
+8. [35mapi:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing"
 `;

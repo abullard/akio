@@ -4,6 +4,5 @@ exports[`target-package-by-index.spec.ts > targets a package by its numeric posi
 "[33mpnpm akio[0m
 	-----
 📦 [34mfixture-pkg (@2)[0m
-1. [35mfixture:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
+1. [35mfixture:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing"
 `;
