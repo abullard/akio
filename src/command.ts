@@ -89,12 +89,6 @@ const buildScriptMap = (
     return commandMap;
 };
 
-/*
-  Builds workspace-targeted scripts directly (pnpm --filter / yarn workspace /
-  npm --workspace) instead of relying on the target package also having a
-  root-level passthrough script (e.g. "ui": "pnpm --filter ui") - so akio works
-  without any extra per-package setup in the consuming repo.
- */
 const buildRunCommand = (pkgManager: string, pkgName: string, script: string, isRoot: boolean): string => {
     if (isRoot) return `${pkgManager} run ${script}`;
 
@@ -113,9 +107,6 @@ const executeCommand = (commandMap: CommandMap, input: string) => {
         formatError(`Unknown command number: ${input}`);
     }
 
-    // The full command already includes the package manager; passing it as a
-    // single string (rather than `args` alongside `shell: true`) avoids Node's
-    // DEP0190 deprecation warning around shell-escaping of spawn args.
     const child = spawn(commandMap[input], {
         stdio: 'inherit',
         shell: true,
