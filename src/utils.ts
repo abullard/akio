@@ -61,15 +61,8 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
 };
 
 const formatAvailablePackages = (scripts: PackageScriptsAndDescriptions): string =>
-    scripts.map((pkg) => `${pkg.name}${pkg.isRoot ? ' (root)' : ''} (@${pkg.index})`).join(', ');
+    scripts.map((pkg) => `${pkg.name} ${pkg.isRoot ? `(root)(@${pkg.index})` : ''}`).join(', ');
 
-/*
-  `@<name>` matches the package.json "name" field exactly (never the folder
-  name - those can differ). `@<N>` targets by position in the sorted list
-  instead, as an escape hatch for scoped or otherwise awkward names. `root`
-  stays a hardcoded alias, handled earlier in readAllPkgJsons before any
-  package.json contents are even loaded.
- */
 const filterToTargetedPackage = (scripts: PackageScriptsAndDescriptions): PackageScriptsAndDescriptions => {
     if (!options.targetPackage || options.targetPackage === 'root') return scripts;
 
@@ -152,13 +145,6 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
     return filterToTargetedPackage(sortedScripts);
 };
 
-/*
-  Puts the root package's scripts first, matching the existing UX where
-  the root package is always shown before its workspace members. If no
-  discovered package.json actually lives at the project root (e.g. a
-  mixed-stack repo with no root-level package.json), there's no root to
-  pin — every package is just sorted normally instead.
- */
 export const pinRootFirst = (scripts: PackageScriptsAndDescriptions): PackageScriptsAndDescriptions => {
     const indexOfRoot = scripts.findIndex((x) => x.isRoot);
 
