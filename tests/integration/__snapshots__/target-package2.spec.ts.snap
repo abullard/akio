@@ -3,7 +3,7 @@
 exports[`target-package2.spec.ts > should target the api package 1`] = `
 "[33mpnpm akio[0m
 	-----
-📦 [34mapi[0m
+📦 [34mapi (@1)[0m
 1. [35mapi:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 2. [35mapi:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 3. [35mapi:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing

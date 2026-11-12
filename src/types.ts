@@ -11,6 +11,8 @@ export interface ScriptsDescribed {
     scripts: Record<string, string>;
     scriptDescriptions: Record<string, string>;
     isRoot: boolean;
+    // Position in the sorted (root-first, then alphabetical) package list; what `@<N>` targets.
+    index: number;
 }
 
 export type PackageScriptsAndDescriptions = ScriptsDescribed[];

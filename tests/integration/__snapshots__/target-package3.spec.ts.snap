@@ -3,7 +3,7 @@
 exports[`target-package3.spec.ts > should target the root package 1`] = `
 "[33mpnpm akio[0m
 	-----
-📦 [34m@abullard/akio[0m
+📦 [34m@abullard/akio (root | @0)[0m
 1. [35mtest      [0m — run vitest tests
 2. [35mtest:update[0m — run vitest & update snapshot tests
 3. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests

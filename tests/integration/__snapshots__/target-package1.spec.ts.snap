@@ -3,7 +3,7 @@
 exports[`target-package1.spec.ts > should target the ui package 1`] = `
 "[33mpnpm akio[0m
 	-----
-📦 [34mui[0m
+📦 [34mui (@3)[0m
 1. [35mui:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 2. [35mui:test:stubTwo[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 3. [35mui:test:stubThree[0m — DO NOT REMOVE - stubbed npm script for monorepo testing

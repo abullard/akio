@@ -1,0 +1,16 @@
+{
+    "name": "fixture-pkg",
+    "version": "0.0.1",
+    "bin": "./dist/index.cjs",
+    "type": "module",
+    "description": "Fake package whose package.json \"name\" deliberately differs from its folder name (mismatch-fixture), used to prove targeting resolves by name, not folder.",
+    "main": "./packages/mismatch-fixture",
+    "scripts": {
+        "fixture:test:stubOne": "node -e \"console.log('fixture one')\""
+    },
+    "scriptDescriptions": {
+        "fixture:test:stubOne": "DO NOT REMOVE - stubbed npm script for monorepo testing"
+    },
+    "author": "abullard",
+    "license": "MIT"
+}

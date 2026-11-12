@@ -10,6 +10,20 @@ export const printHelpMenuAndHalt = () => {
             content:
                 'Free your brain from npm script chaos–Akio helps you search, understand, and run your project scripts fast.',
         },
+
+        {
+            header: 'Usage Examples:',
+            content:
+              `# search root package.json for scripts containing "test"
+              $ akio @root test
+
+              # search the second discovered package for scripts containing "build"
+              $ akio @1 build
+
+              # search exact package name for scripts containing "coverage"
+              $ akio @client coverage
+              `,
+        },
         {
             header: 'CLI Opts',
             optionList: definedOpts,

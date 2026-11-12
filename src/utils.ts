@@ -60,28 +60,39 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
     return false;
 };
 
-const filterToTargetedPackge = (paths: string[], rootPkgPath: string) => {
-    if (!options.targetPackage) return paths;
+const formatAvailablePackages = (scripts: PackageScriptsAndDescriptions): string =>
+    scripts.map((pkg) => `${pkg.name}${pkg.isRoot ? ' (root)' : ''} (@${pkg.index})`).join(', ');
 
-    if (options.targetPackage === 'root') {
-        if (!paths.includes(rootPkgPath)) {
-            formatError('No root package.json found in this repository.');
+/*
+  `@<name>` matches the package.json "name" field exactly (never the folder
+  name - those can differ). `@<N>` targets by position in the sorted list
+  instead, as an escape hatch for scoped or otherwise awkward names. `root`
+  stays a hardcoded alias, handled earlier in readAllPkgJsons before any
+  package.json contents are even loaded.
+ */
+const filterToTargetedPackage = (scripts: PackageScriptsAndDescriptions): PackageScriptsAndDescriptions => {
+    if (!options.targetPackage || options.targetPackage === 'root') return scripts;
+
+    if (/^\d+$/.test(options.targetPackage)) {
+        const targetIndex = Number(options.targetPackage);
+        const targeted = scripts.find((pkg) => pkg.index === targetIndex);
+
+        if (!targeted) {
+            formatError(`Invalid package index specified. Available packages: ${formatAvailablePackages(scripts)}`);
+            return [];
         }
 
-        return [rootPkgPath];
+        return [targeted];
     }
 
-    const filteredPaths = paths.filter((filePath) => {
-        const pathList = filePath.split(path.sep);
-        const curPackage = pathList[pathList.length - 2];
-        return curPackage === options.targetPackage;
-    });
+    const targeted = scripts.find((pkg) => pkg.name === options.targetPackage);
 
-    if (!filteredPaths.length) {
-        formatError('Invalid package specified.');
+    if (!targeted) {
+        formatError(`Invalid package specified. Available packages: ${formatAvailablePackages(scripts)}`);
+        return [];
     }
 
-    return filteredPaths;
+    return [targeted];
 };
 
 const loadJson = async (pkgPath: string) => {
@@ -107,7 +118,7 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
         '**/.cache/**',
     ];
     const projectRoot = findProjectRoot();
-    const paths = await glob('**/package.json', {
+    let paths = await glob('**/package.json', {
         cwd: projectRoot,
         signal: AbortSignal.timeout(5000),
         ignore: ignorePaths,
@@ -119,18 +130,26 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
     }
 
     const rootPkgPath = path.resolve(projectRoot, 'package.json');
-    const filteredPaths = filterToTargetedPackge(paths, rootPkgPath);
+
+    if (options.targetPackage === 'root') {
+        if (!paths.includes(rootPkgPath)) {
+            formatError('No root package.json found in this repository.');
+        }
+
+        paths = [rootPkgPath];
+    }
 
     const allPkgJsonContents = await Promise.all(
-        filteredPaths.map(async (pkgPath) => ({
+        paths.map(async (pkgPath) => ({
             pkgPath,
             contents: await loadJson(pkgPath),
         }))
     );
 
     const scripts = pkgJsonDataDTO(allPkgJsonContents, rootPkgPath);
+    const sortedScripts = pinRootFirst(scripts).map((pkg, index) => ({ ...pkg, index }));
 
-    return pinRootFirst(scripts);
+    return filterToTargetedPackage(sortedScripts);
 };
 
 /*
@@ -197,6 +216,7 @@ const pkgJsonDataDTO = (
             scripts: cmdMap,
             scriptDescriptions: descriptionsMap,
             isRoot: pkgPath === rootPkgPath,
+            index: 0, // overwritten once the final sort order is known, see readAllPkgJsons
         });
     }
 
