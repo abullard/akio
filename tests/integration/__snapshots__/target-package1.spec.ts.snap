@@ -11,6 +11,5 @@ exports[`target-package1.spec.ts > should target the ui package 1`] = `
 5. [35mui:test:stubFive[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 6. [35mui:test:stubSix[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
 7. [35mui:test:stubSeven[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-8. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
-"
+8. [35mui:test:stubEight[0m — DO NOT REMOVE - stubbed npm script for monorepo testing"
 `;

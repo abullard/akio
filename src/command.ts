@@ -27,6 +27,7 @@ export const mapAndOutputCommands = async (runner: string): Promise<CommandMap |
     const counter = { value: 0 };
     const searchValue = options.searchValue;
     const scriptsAndDescriptionsByPkg = await readAllPkgJsons();
+    const pkgManager = getPkgManager();
 
     console.log(`${Colors.yellow}${runner} akio${Colors.reset}`);
     console.log('\t-----');
@@ -34,7 +35,7 @@ export const mapAndOutputCommands = async (runner: string): Promise<CommandMap |
     for (const pkg of scriptsAndDescriptionsByPkg) {
         commandMap = {
             ...commandMap,
-            ...buildScriptMap(pkg, counter),
+            ...buildScriptMap(pkg, counter, pkgManager),
         };
     }
 
@@ -50,7 +51,8 @@ export const mapAndOutputCommands = async (runner: string): Promise<CommandMap |
 
 const buildScriptMap = (
     packageScriptsAndDescriptions: ScriptsDescribed,
-    counter: { value: number }
+    counter: { value: number },
+    pkgManager: string
 ): CommandMap | undefined => {
     const commandMap: CommandMap = {};
     const searchValue = options.searchValue;
@@ -77,8 +79,7 @@ const buildScriptMap = (
         const description = scriptDescriptions?.[name] ?? '';
         const formattedOutput = `${counter.value}. ${Colors.purple}${name.padEnd(10)}${Colors.reset} — ${description}`;
 
-        const command = isRoot ? name : `${monorepoPkgName} ${name}`;
-        commandMap[counter.value] = command;
+        commandMap[counter.value] = buildRunCommand(pkgManager, monorepoPkgName, name, isRoot);
 
         console.log(formattedOutput);
     }
@@ -88,16 +89,25 @@ const buildScriptMap = (
     return commandMap;
 };
 
+const buildRunCommand = (pkgManager: string, pkgName: string, script: string, isRoot: boolean): string => {
+    if (isRoot) return `${pkgManager} run ${script}`;
+
+    switch (pkgManager) {
+        case 'yarn':
+            return `yarn workspace ${pkgName} run ${script}`;
+        case 'npm':
+            return `npm run ${script} --workspace=${pkgName}`;
+        default:
+            return `pnpm --filter ${pkgName} run ${script}`;
+    }
+};
+
 const executeCommand = (commandMap: CommandMap, input: string) => {
     if (!commandMap[input]) {
         formatError(`Unknown command number: ${input}`);
     }
 
-    const pkgManager = getPkgManager();
-    const isNpm = pkgManager === 'npm' ? 'run' : '';
-    const args = [isNpm, commandMap[input]];
-
-    const child = spawn(pkgManager, args, {
+    const child = spawn(commandMap[input], {
         stdio: 'inherit',
         shell: true,
     });

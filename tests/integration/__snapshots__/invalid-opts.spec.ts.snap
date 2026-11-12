@@ -11,6 +11,5 @@ exports[`invalid-opts.spec.ts > should swallow invalid cli opts and no-op 1`] = 
 
 📦 [34mui (@3)[0m
 
-❌ Found no scripts matching: "[31m-a[0m"
-"
+❌ Found no scripts matching: "[31m-a[0m""
 `;

@@ -1,6 +1,8 @@
 import { execa } from 'execa';
 import { readAllPkgJsons } from '../../src/utils';
 
+const pkgs = await readAllPkgJsons();
+
 export const spawnWrapper = async (cmd: string, args: string[], input?: string) => {
     const userPromptedInputOpt = {
         stdin: 'pipe',
@@ -9,7 +11,8 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
     // pin this NPM package version. This'll keep the snapshot tests from checking for version updates.
     args.push('--pin');
 
-    const subprocess = execa(cmd, args, input ? { ...userPromptedInputOpt } : {});
+    // don't throw on a non-zero exit - error-path tests need the output, not just a rejection.
+    const subprocess = execa(cmd, args, { reject: false, ...(input ? userPromptedInputOpt : {}) });
 
     if (input) {
         subprocess.stdin!.write(`${input}\n`);
@@ -20,17 +23,15 @@ export const spawnWrapper = async (cmd: string, args: string[], input?: string) 
 
     return {
         ...response,
-        stdout: await removeHeaderText(response),
+        stdout: removeFooterText(await removeHeaderText(response.stdout)),
+        stderr: removeFooterText(await removeHeaderText(response.stderr)),
     };
 };
 
-const removeHeaderText = async (response: any) => {
-    const { stdout } = response;
+const removeHeaderText = async (output: string | undefined) => {
+    if (!output) return;
 
-    if (!stdout) return;
-
-    const lineList: string[] = stdout.split(/\r?\n/);
-    const pkgs = await readAllPkgJsons();
+    const lineList: string[] = output.split(/\r?\n/);
     const pkgAndVersions = pkgs.map((pkg) => {
         const { name, version } = pkg;
         return `${name}@${version}`;
@@ -75,8 +76,23 @@ const removeHeaderText = async (response: any) => {
     return normalizedLines.join('\n');
 };
 
+/*
+  console.error/console.log always append their own trailing newline on top of
+  whatever akio already wrote, so there's always one real trailing newline left
+  over after execa trims its own single one. On macOS this happens to get
+  absorbed as a "blank neighbor" of pnpm's own trailing echo/lifecycle lines
+  (see removeHeaderText) - but those lines aren't guaranteed across pnpm
+  versions/platforms (CI's ubuntu runners don't emit them), so that leftover
+  newline isn't reliably caught upstream. Trim it here instead, deterministically.
+ */
+const removeFooterText = (output: string | undefined) => output?.replace(/\n+$/, '');
+
 const shouldKeepLineInOutput = (pkgAndVersions: string[], line: string) => {
-    const pnpmOutputLine = line.startsWith('> pnpm') || line.startsWith('> node');
+    const pnpmOutputLine =
+        line.startsWith('> pnpm') ||
+        line.startsWith('> node') ||
+        line.startsWith('$ ') ||
+        line.startsWith('[ELIFECYCLE]');
     const hasPkgId = pkgAndVersions.some((targetLineIdentifier) => line.includes(targetLineIdentifier));
 
     return pnpmOutputLine === false && hasPkgId === false;
