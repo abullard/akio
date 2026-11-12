@@ -124,7 +124,7 @@ export const readAllPkgJsons = async (): Promise<PackageScriptsAndDescriptions> 
 
     const rootPkgPath = path.resolve(projectRoot, 'package.json');
 
-    if (options.targetPackage === 'root') {
+    if (options.targetPackage === 'root' || options.targetPackage === '0') {
         if (!paths.includes(rootPkgPath)) {
             formatError('No root package.json found in this repository.');
         }
