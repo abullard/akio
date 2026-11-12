@@ -3,12 +3,14 @@
 exports[`search1.spec.ts > should run search for test npm scripts, skip input 1`] = `
 "[33mpnpm akio[0m
 	-----
-📦 [34m@abullard/akio[0m
+📦 [34m@abullard/akio (root | @0)[0m
 1. [35mbuild:prod[0m — This command builds akio
 2. [35mbuild:debug[0m — Builds akio w/o minification, provides stack traces in error output
 
-📦 [34mapi[0m
+📦 [34mapi (@1)[0m
 
-📦 [34mui[0m
+📦 [34mfixture-pkg (@2)[0m
+
+📦 [34mui (@3)[0m
 "
 `;

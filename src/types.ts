@@ -10,7 +10,8 @@ export interface ScriptsDescribed {
     version: string;
     scripts: Record<string, string>;
     scriptDescriptions: Record<string, string>;
-    isRoot: boolean;
+    isRoot: boolean; // your npm projects root directory
+    index: number; // position in the output's sorted package list
 }
 
 export type PackageScriptsAndDescriptions = ScriptsDescribed[];

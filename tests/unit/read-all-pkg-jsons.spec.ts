@@ -95,6 +95,7 @@ describe('pinRootFirst', () => {
         scripts: {},
         scriptDescriptions: {},
         isRoot,
+        index: 0,
     });
 
     it('pins the root package first when one exists', () => {

@@ -3,15 +3,16 @@
 exports[`target-package3.spec.ts > should target the root package 1`] = `
 "[33mpnpm akio[0m
 	-----
-📦 [34m@abullard/akio[0m
+📦 [34m@abullard/akio (root | @0)[0m
 1. [35mtest      [0m — run vitest tests
-2. [35mtest:update[0m — run vitest & update snapshot tests
-3. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
-4. [35mbuild:prod[0m — This command builds akio
-5. [35mbuild:debug[0m — Builds akio w/o minification, provides stack traces in error output
-6. [35mclean     [0m — Remove build & dependencies from local
-7. [35mlint      [0m — Run eslint
-8. [35mui        [0m — pnpm ui package script passthrough
-9. [35mapi       [0m — pnpm api package script passthrough
+2. [35mtest:watch[0m — watch vitest tests, re-running when src updates
+3. [35mtest:update[0m — run vitest & update snapshot tests
+4. [35mtest:stub [0m — DO NOT REMOVE - stubbed npm script for snapshot tests
+5. [35mbuild:prod[0m — This command builds akio
+6. [35mbuild:debug[0m — Builds akio w/o minification, provides stack traces in error output
+7. [35mclean     [0m — Remove build & dependencies from local
+8. [35mlint      [0m — Run eslint
+9. [35mui        [0m — pnpm ui package script passthrough
+10. [35mapi       [0m — pnpm api package script passthrough
 "
 `;

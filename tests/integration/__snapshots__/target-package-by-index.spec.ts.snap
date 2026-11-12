@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`target-package-by-index.spec.ts > targets a package by its numeric position in the sorted package list 1`] = `
+"[33mpnpm akio[0m
+	-----
+📦 [34mfixture-pkg (@2)[0m
+1. [35mfixture:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+"
+`;

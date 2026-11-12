@@ -54,9 +54,10 @@ const buildScriptMap = (
 ): CommandMap | undefined => {
     const commandMap: CommandMap = {};
     const searchValue = options.searchValue;
-    const { name: monorepoPkgName, scriptDescriptions, isRoot } = packageScriptsAndDescriptions;
+    const { name: monorepoPkgName, scriptDescriptions, isRoot, index } = packageScriptsAndDescriptions;
+    const packageLabel = `${monorepoPkgName} ${isRoot ? `(root | @${index})` : `(@${index})`}`;
 
-    console.log(`${emojiWithSpace('PACKAGE')}${Colors.blue}${monorepoPkgName}${Colors.reset}`);
+    console.log(`${emojiWithSpace('PACKAGE')}${Colors.blue}${packageLabel}${Colors.reset}`);
 
     if (!Object.entries(scriptDescriptions).length) {
         if (!options.descriptions) {

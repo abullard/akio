@@ -7,6 +7,18 @@ exports[`help.spec.ts > should output help menu 1`] = `
   Free your brain from npm script chaos–Akio helps you search, understand, and  
   run your project scripts fast.                                                
 
+Usage Examples:
+
+  # search root package.json for scripts containing "test"                      
+  $ akio @root test                                                             
+                                                                                
+  # search the second discovered package for scripts containing "build"         
+  $ akio @1 build                                                               
+                                                                                
+  # search exact package name for scripts containing "coverage"                 
+  $ akio @client coverage                                                       
+                                                                                
+
 CLI Opts
 
   -d, --descriptions    Do not warn if package.json "scriptDescriptions" are    

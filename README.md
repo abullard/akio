@@ -17,10 +17,11 @@ npx @abullard/akio
 
 ## 🎯 Target a Package
 
-Akio can target a package with the `@pkg` syntax:
+Akio can target a package with the `@pkg` syntax. `@pkg` matches a package's `"name"` field in its `package.json` — **not** the name of the folder it lives in:
 
 ```bash
-# find commands from the ui package
+# find commands from the package whose package.json "name" is "ui"
+# (its folder can be named anything - apps/client, packages/ui, whatever)
 akio @ui
 
 # to target root package.json
@@ -32,6 +33,17 @@ Targeting requires your `package.json` files live at the root of your _package_.
 - `../ui/package.json`
 - `../api/package.json`
 - `../smoke/package.json`
+
+### Targeting by index
+
+If a package's name is scoped (e.g. `@myorg/ui`) or otherwise awkward to type, you can target it by its position in akio's package list instead, with `@<N>` (0-indexed):
+
+```bash
+# target the 3rd package in the list (root pinned first, then alphabetical by name)
+akio @2
+```
+
+Run `akio` with no target to see the list — every package's index is printed next to its name, e.g. `ui (@2)`, so you can read off the right number directly.
 
 ## 🔍 Search Without Flags
 

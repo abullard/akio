@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`target-package-mismatched-folder.spec.ts > targets a package by its package.json name even though it differs from the folder name (packages/mismatch-fixture, name "fixture-pkg") 1`] = `
+"[33mpnpm akio[0m
+	-----
+📦 [34mfixture-pkg (@2)[0m
+1. [35mfixture:test:stubOne[0m — DO NOT REMOVE - stubbed npm script for monorepo testing
+"
+`;
