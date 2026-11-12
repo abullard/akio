@@ -61,7 +61,7 @@ export const needsUpdate = (currentVer: string, npmjsVer: string) => {
 };
 
 const formatAvailablePackages = (scripts: PackageScriptsAndDescriptions): string =>
-    scripts.map((pkg) => `${pkg.name} ${pkg.isRoot ? `(root)(@${pkg.index})` : ''}`).join(', ');
+  scripts.map((pkg) => `(${pkg.isRoot ? `@${pkg.index} | root` : `@${pkg.index}`}): ${pkg.name}\n`).join('');
 
 const filterToTargetedPackage = (scripts: PackageScriptsAndDescriptions): PackageScriptsAndDescriptions => {
     if (!options.targetPackage || options.targetPackage === 'root') return scripts;
@@ -81,7 +81,7 @@ const filterToTargetedPackage = (scripts: PackageScriptsAndDescriptions): Packag
     const targeted = scripts.find((pkg) => pkg.name === options.targetPackage);
 
     if (!targeted) {
-        formatError(`Invalid package specified. Available packages: ${formatAvailablePackages(scripts)}`);
+        formatError(`Invalid package specified. Available packages:\n${formatAvailablePackages(scripts)}`);
         return [];
     }
 
